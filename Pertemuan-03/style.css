@@ -141,6 +141,17 @@ footer {
   margin: 0;
 }
 
+#canvasObj {
+  margin-left: auto;
+  background-color: azure;
+  border: 1px solid;
+  /* border-width: 1rem; */
+  border-color: black;
+  width: 80dvw;
+  min-height: 30dvh;
+  height: 100dvh;
+  /* position: absolute; */
+  
 .footer-box-item h2 {
   font-size: 10px;
   color: var(--text-gray);
