@@ -7,9 +7,44 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="root">
-      <canvas id="canvasObj"></canvas>
+    <header class="flex justify-between items-center">
+      <div class="flex gap-1 items-center">
+        <h1>parabola</h1>
+        <div class="vertical-line"></div>
+        <p>An interactive physics playground</p>
+      </div>
+      <p>Try it out</p>
+    </header>
+    <div class="heading">
+      <h2>THE BEAUTY OF EVERYDAY PHYSICS</h2>
+      <h1>A playground for <span class="text-accent">gravity.</span></h1>
+      <h3>Set it in motion. Follow the arc. See the science.</h3>
     </div>
-    <script src="script.js"></script>
   </body>
+  <div class="flex gap-2">
+    <div class="content-card-graph"></div>
+    <div class="content-card-form-landscape"></div>
+  </div>
+  <div class="content-card-form-potrait"></div>
+  <footer>
+    <div class="footer-box">
+      <div class="footer-box-item">
+        <h1>A curve with a little logic</h1>
+        <h2>Two directions. One elegant motion.</h2>
+      </div>
+      <div class="flex items-center">
+        <div class="vertical-line-tall"></div>
+        <div class="footer-box-item">
+          <h2>HORIZONTAL MOTION</h2>
+          <i>x = v₀ cos(θ) · t</i>
+        </div>
+        <div class="vertical-line-tall"></div>
+        <div class="footer-box-item">
+          <h2>VERTICAL MOTION</h2>
+          <i>y = v₀ sin(θ) · t - ½gt²</i>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; Kelompok 3</div>
+  </footer>
 </html>
