@@ -10,7 +10,7 @@ const __GridLineColor = "#44444430";
 const __DashedLine = [4, 4];
 const __XNumberGap = 4;
 const __YNumberGap = 4;
-const __FontSize = 16;
+const __FontSize = 8;
 
 class DrawObj {
   constructor(lwidth, color) {
