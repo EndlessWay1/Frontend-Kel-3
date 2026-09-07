@@ -8,6 +8,9 @@ const __VAxisOffset = 4;
 const __GridLineWidth = 1;
 const __GridLineColor = "#44444430";
 const __DashedLine = [4, 4];
+const __XNumberGap = 4;
+const __YNumberGap = 4;
+const __FontSize = 16;
 
 class DrawObj {
   constructor(lwidth, color) {
@@ -243,7 +246,6 @@ class DrawObj {
    * @param {number[]} y
    */
   drawPlot(x, y) {
-
     const convertX = x.map((num) => this.convertXNum(num));
     const convertY = y.map((num) => this.convertYNum(num));
 
@@ -253,6 +255,33 @@ class DrawObj {
       this.ctx.lineTo(convertX[i], convertY[i]);
     }
     this.ctx.stroke();
+  }
+
+  drawNumber() {
+    const width = this.canvas.width;
+    const height = this.canvas.height;
+
+    const endPointH =
+      (Math.floor(height / boxSize) - __VAxisOffset + 1) * boxSize;
+    const endPointW = (Math.floor(width / boxSize) - 2) * boxSize;
+
+    this.ctx.font = `${__FontSize}px serif`;
+    // draw x axis
+    for (
+      let i = (__HAxisOffset - 1) * boxSize, v = 0;
+      i < endPointW;
+      i += boxSize * __XNumberGap, v += __XNumberGap
+    ) {
+      this.ctx.fillText(v, i, endPointH - boxSize / 4, boxSize);
+    }
+    // draw y axis
+    for (
+      let i = endPointH - boxSize / 4, v = 0;
+      i >= 2 * boxSize;
+      i -= boxSize * __YNumberGap, v += __YNumberGap
+    ) {
+      this.ctx.fillText(v, (__VAxisOffset - 1) * boxSize, i, boxSize);
+    }
   }
 }
 
@@ -267,6 +296,7 @@ const redraw = () => {
   drawEngine.drawVect(10, 10, 10, -2);
   drawEngine.drawDashPlot([1, 2, 3, 4, 5, 6], [1, 4, 9, 16, 25, 36]);
   drawEngine.drawPlot([7, 8, 9, 10, 11, 12], [1, 4, 9, 16, 25, 36]);
+  drawEngine.drawNumber();
 };
 
 // adding EventListener to window changes in canvas
