@@ -21,6 +21,7 @@ body {
   /* border-width: 1rem; */
   border-color: black;
   width: 80dvw;
+  min-height: 30dvh;
   height: 100dvh;
   /* position: absolute; */
   right: 0%;
