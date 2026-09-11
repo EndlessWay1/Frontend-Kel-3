@@ -132,8 +132,8 @@ runButton.addEventListener("click", () => {
     return;
   }
 
-  runButton.disabled = true;
-  runButton.style.color = "#81867a";
+  // runButton.disabled = true;
+  // runButton.style.color = "#81867a";
   const xlist = [];
   const ylist = [];
 
@@ -154,8 +154,8 @@ runButton.addEventListener("click", () => {
         `Max height: ${maxHeightReached.toFixed(2)} m`;
       document.getElementById("maxDistanceDisplay").textContent =
         `Max distance: ${rangeReached.toFixed(2)} m`;
-      runButton.disabled = false;
-      runButton.style.color = "white";
+      // runButton.disabled = false;
+      // runButton.style.color = "white";
     },
   });
 });
