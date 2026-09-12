@@ -20,12 +20,12 @@
       <h1>A playground for <span class="text-accent">gravity.</span></h1>
       <h3>Set it in motion. Follow the arc. See the science.</h3>
     </div>
-    <div class="flex gap-2">
+    <div class="content-card">
       <div class="content-card-graph">
         <canvas id="canvasObj"></canvas>
       </div>
 
-      <div class="content-card-form-landscape">
+      <div class="content-card-form">
         <div class="simulation-form">
           <div class="form-header">
             <p class="form-label">SIMULATION</p>
@@ -38,12 +38,12 @@
               <span id="speedValue">20m/s</span>
             </div>
             <input
-            type="range"
-            id="speedInput"
-            min="1"
-            max="100"
-            value="20"
-            step="1"
+              type="range"
+              id="speedInput"
+              min="1"
+              max="100"
+              value="20"
+              step="1"
             />
           </div>
 
@@ -53,12 +53,12 @@
               <span id="angleValue">45°</span>
             </div>
             <input
-            type="range"
-            id="angleInput"
-            min="1"
-            max="89"
-            value="45"
-            step="1"
+              type="range"
+              id="angleInput"
+              min="1"
+              max="89"
+              value="45"
+              step="1"
             />
           </div>
 
@@ -68,17 +68,16 @@
               <span id="gravityValue">9.8 m/s²</span>
             </div>
             <input
-            type="range"
-            id="gravityInput"
-            min="1"
-            max="20"
-            value="9.8"
-            step="0.1"
+              type="range"
+              id="gravityInput"
+              min="1"
+              max="20"
+              value="9.8"
+              step="0.1"
             />
           </div>
 
           <button id="runBtn">RUN THE SIMULATION</button>
-
           <div class="stats">
             <div class="stat-item">
               <span>Position</span>
@@ -87,96 +86,20 @@
 
             <div class="stat-item">
               <span>Speed</span>
-              <strong id="speedDisplay">speed: 0.00</strong>
+              <strong id="speedDisplay">speed: 0.00 m/s</strong>
             </div>
 
             <div class="stat-item">
               <span>Max Height</span>
-              <strong id="maxHeightDisplay">max height: 0.00</strong>
+              <strong id="maxHeightDisplay">Max height: 0.00 m</strong>
             </div>
 
             <div class="stat-item">
               <span>Max Distance</span>
-              <strong id="maxDistanceDisplay">max distance display: 0.00</strong>
+              <strong id="maxDistanceDisplay"
+                >Max distance display: 0.00 m</strong
+              >
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="content-card-form-potrait">
-      <div class="simulation-form">
-        <div class="form-header">
-          <p class="form-label">SIMULATION</p>
-          <h2>Control The Motion</h2>
-        </div>
-
-        <div class="slider-group">
-          <div class="slider-info">
-            <label for="speedInput">Initial Spped</label>
-            <span id="speedValue">20 m/s</span>
-          </div>
-          <input
-          type="range"
-            id="speedInput"
-            min="1"
-            max="100"
-            value="20"
-            step="1"
-          />
-        </div>
-
-        <div class="slider-group">
-          <div class="slider-info">
-            <label for="angleInput">Launch Angle</label>
-            <span id="angleValue">45°</span>
-          </div>
-          <input
-          type="range"
-          id="angleInput"
-          min="1"
-          max="89"
-          value="45"
-          step="1"
-          />
-        </div>
-
-        <div class="slider-group">
-          <div class="slider-info">
-            <label for="gravityInput">Gravity</label>
-            <span id="gravityValue">9.8 m/s²</span>
-          </div>
-          <input
-          type="range"
-          id="gravityInput"
-          min="1"
-          max="20"
-          value="9.8"
-          step="0.1"
-          />
-        </div>
-
-        <button id="runBtn">RUN THE SIMULATION</button>
-
-        <div class="stats">
-          <div class="stat-item">
-            <span>Position</span>
-            <strong id="coordDisplay">x: 0.00, y: 0.00</strong>
-          </div>
-
-          <div class="stat-item">
-            <span>Speed</span>
-            <strong id="speedDisplay">speed: 0.00</strong>
-          </div>
-
-          <div class="stat-item">
-            <span>Max Height</span>
-            <strong id="maxHeightDisplay">max height: 0.00</strong>
-          </div>
-
-          <div class="stat-item">
-            <span>Max Distance</span>
-            <strong id="maxDistanceDisplay">max distance display: 0.00</strong>
           </div>
         </div>
       </div>
