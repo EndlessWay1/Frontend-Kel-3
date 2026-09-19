@@ -113,6 +113,13 @@ header > div {
   }
 }
 
+#canvasId {
+  width: 100dvw;
+  height: 100dvh;
+  position: fixed;
+  z-index: -1;
+}
+
 #hero {
   background-color: var(--background);
 }

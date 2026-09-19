@@ -5,7 +5,7 @@ const initColor = "#a36e49bb";
 
 class mouseCanvas {
   constructor(n = 10) {
-    this.canvas = document.getElementById("canvas");
+    this.canvas = document.getElementById("canvasId");
     this.ctx = this.canvas.getContext("2d");
     this.lwidth = initlWidth;
     this.color = initColor;
@@ -68,24 +68,43 @@ class mouseCanvas {
     this.Y2Arr[this.currIdx] = newCordY2 > 0 ? newCordY2 : 0;
   }
 
-  // sign of cross product (ax,ay)->(bx,by) x (ax,ay)->(cx,cy)
-  orient(ax, ay, bx, by, cx, cy) {
-    return (bx - ax) * (cy - ay) - (by - ay) * (cx - ax);
-  }
-
-  segmentsIntersect(ax, ay, bx, by, cx, cy, dx, dy) {
-    const d1 = orient(cx, cy, dx, dy, ax, ay);
-    const d2 = orient(cx, cy, dx, dy, bx, by);
-    const d3 = orient(ax, ay, bx, by, cx, cy);
-    const d4 = orient(ax, ay, bx, by, dx, dy);
-
-    return (
-      ((d1 > 0 && d2 < 0) || (d1 < 0 && d2 > 0)) &&
-      ((d3 > 0 && d4 < 0) || (d3 < 0 && d4 > 0))
-    );
-  }
-
   updateArray() {
+    if (this.alive > 0) this.alive--;
+    if (this.alive < 2) return;
+
+    const idx = this.currIdx;
+    const last = this.alive - 1; // k of the oldest live point
+
+    for (let k = 0; k <= last; k++) {
+      const i = (idx - k + this.length) % this.length;
+      const mx = (this.X1Arr[i] + this.X2Arr[i]) / 2;
+      const my = (this.Y1Arr[i] + this.Y2Arr[i]) / 2;
+      const t = k / last;
+
+      this.X1Arr[i] += (mx - this.X1Arr[i]) * t;
+      this.X2Arr[i] += (mx - this.X2Arr[i]) * t;
+      this.Y1Arr[i] += (my - this.Y1Arr[i]) * t;
+      this.Y2Arr[i] += (my - this.Y2Arr[i]) * t;
+    }
+
+    // collapse the oldest live point so the last box is a triangle
+    const tip = (idx - last + this.length) % this.length;
+    const tx = (this.X1Arr[tip] + this.X2Arr[tip]) / 2;
+    const ty = (this.Y1Arr[tip] + this.Y2Arr[tip]) / 2;
+    this.X1Arr[tip] = this.X2Arr[tip] = tx;
+    this.Y1Arr[tip] = this.Y2Arr[tip] = ty;
+  }
+
+  createBoxes(ax, ay, bx, by, cx, cy, dx, dy) {
+    this.ctx.beginPath();
+    this.ctx.moveTo(ax, ay);
+    this.ctx.lineTo(bx, by);
+    this.ctx.lineTo(cx, cy);
+    this.ctx.lineTo(dx, dy);
+    this.ctx.fill();
+  }
+
+  createAllBox() {
     let idx = this.currIdx;
     let prevCordX1 = this.X1Arr[idx];
     let prevCordX2 = this.X2Arr[idx];
@@ -98,42 +117,16 @@ class mouseCanvas {
       let Y1 = this.Y1Arr[i];
       let Y2 = this.Y2Arr[i];
 
-      const angle1 =
-        0.5 * Math.PI -
-        Math.atan2(
-          1 / this.length,
-          Math.sqrt((prevCordX2 - X2) ** 2 + (prevCordY2 - Y2) ** 2),
-        );
-
-      const newX2 = Math.cos(angle1) / this.length + X2;
-      const newY2 = -Math.sin(angle1) / this.length + Y2;
-
-      const angle2 =
-        0.5 * Math.PI -
-        Math.atan2(
-          1 / this.length,
-          Math.sqrt((prevCordX1 - X1) ** 2 + (prevCordY1 - Y1) ** 2),
-        );
-
-      const newX1 = Math.cos(angle2) / this.length - X1;
-      const newY1 = Math.sin(angle2) / this.length + Y1;
-
-      //   check if dead
-      const crossed = segmentsIntersect(
+      this.createBoxes(
         prevCordX1,
         prevCordY1,
-        newX1,
-        newY1, // rail 1 segment (A -> B)
+        X1,
+        Y1,
+        X2,
+        Y2,
         prevCordX2,
         prevCordY2,
-        newX2,
-        newY2, // rail 2 segment (D -> C)
       );
-
-      if (crossed) {
-        this.alive--;
-        break;
-      }
 
       prevCordX1 = X1;
       prevCordX2 = X2;

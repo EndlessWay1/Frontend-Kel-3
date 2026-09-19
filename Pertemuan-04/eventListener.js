@@ -4,7 +4,6 @@ const deltaUpdateMouseMoved = 10;
 
 // Element Constants
 const head = document.getElementById("header");
-const canv = document.getElementById("canvasId");
 
 head.addEventListener("animationend", () => {
   if (head.classList.contains("header-moved-top")) {
@@ -25,6 +24,14 @@ window.addEventListener("scroll", (event) => {
   }
 });
 
+const mouseCnvs = new mouseCanvas(20);
+
+const redraw = () => {
+  mouseCnvs.clear();
+  mouseCnvs.createAllBox();
+  requestAnimationFrame(redraw);
+};
+
 // When window is resized, the canvas size gets updated
 let prevW = window.innerWidth;
 let prevH = window.innerHeight;
@@ -36,6 +43,7 @@ window.addEventListener("resize", () => {
   ) {
     prevW = window.innerWidth;
     prevH = window.innerHeight;
+    mouseCnvs.resizeCanvas();
   }
 });
 
@@ -49,7 +57,14 @@ window.addEventListener("mousemove", (e) => {
     Math.abs(prevMouseX - x) >= deltaUpdateMouseMoved ||
     Math.abs(prevMouseY - y) >= deltaUpdateMouseMoved
   ) {
+    mouseCnvs.recordMouse(x, y, prevMouseX, prevMouseY);
     prevMouseX = x;
     prevMouseY = y;
   }
 });
+
+setInterval(() => {
+  mouseCnvs.updateArray();
+}, 100);
+
+redraw();
