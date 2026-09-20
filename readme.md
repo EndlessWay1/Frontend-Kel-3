@@ -35,12 +35,12 @@ Di dalam websitenya terdapat penggunaan CSS Flexbox, Grid, dan MediaQuery.
 - **[Link Website via Vercel](https://kopi-nusantara-sigma.vercel.app/)**
 - **[Link Tugas](./Pertemuan-04/)**
 - **[Link Zip](./A03_T2_TugasResponsiveUI.zip)**
+- **[Link Laporan Pdf](./Laporan%20Responsive%20UI%20Kel-3.pdf)**
 
 ### Tugas 3: Kopi Nusantara (JQuery)
 
 Website bertemakan "Kopi Nusantara" yang dibuat menggunakan JQuery sebagai pembantu untuk animasi dropdown dan FAQ. JQuery juga digunakan sebagai pengganti native javascript event listener.
 
-- **[Link Website via Vercel]()**
+- **[Link Website via Vercel](https://jquery-kopi-nusantara.vercel.app/)**
 - **[Link Tugas](./Pertemuan-05/)**
 - **[Link Zip](./A03_T3_TugasJQuery.zip)**
-
