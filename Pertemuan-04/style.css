@@ -2,10 +2,8 @@
   --espresso: #482e1d;
   --coffee: #6f4e37;
   --sage: #6b7d4a;
-
   --background: #f7f1e5;
   --surface: #fffdf8;
-
   --text: #211811;
   --text-muted: #6b625a;
   --border: #d8cdbb;
@@ -34,9 +32,14 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 0; /* Remove scrollbar space */
-  background: transparent; /* Optional: just make scrollbar invisible */
+  width: 0;
+  background: transparent;
 }
+
+
+/* =========================
+   SECTION
+   ========================= */
 
 section {
   height: 100dvh;
@@ -44,6 +47,11 @@ section {
   top: 0;
   z-index: 2;
 }
+
+
+/* =========================
+   HEADER
+   ========================= */
 
 header {
   position: fixed;
@@ -57,7 +65,6 @@ header {
   width: 100dvw;
   min-height: 7dvh;
   z-index: 50;
-  /* background:var(--espresso); */
 }
 
 header > div {
@@ -66,6 +73,11 @@ header > div {
   align-items: center;
   gap: 10px;
 }
+
+
+/* =========================
+   NAVBAR
+   ========================= */
 
 #navbar > ul {
   display: flex;
@@ -88,7 +100,11 @@ header > div {
   transform: translate(0, -3px);
 }
 
-/* create a shadow around the nav part */
+
+/* =========================
+   HEADER ANIMATION
+   ========================= */
+
 .header-moved-bottom {
   animation: header-moved-bottom 0.3s ease-in-out;
 }
@@ -101,6 +117,7 @@ header > div {
   from {
     background-color: var(--head-shadow-before);
   }
+
   to {
     background-color: var(--head-shadow-after);
   }
@@ -110,10 +127,16 @@ header > div {
   from {
     background-color: var(--head-shadow-after);
   }
+
   to {
     background-color: var(--head-shadow-before);
   }
 }
+
+
+/* =========================
+   DROPDOWN
+   ========================= */
 
 #dropdown {
   position: absolute;
@@ -153,6 +176,11 @@ header > div {
   transform: translate(0, -1px);
 }
 
+
+/* =========================
+   CANVAS
+   ========================= */
+
 #canvasId {
   width: 100dvw;
   height: 100dvh;
@@ -162,9 +190,108 @@ header > div {
 }
 
 
+/* =========================
+   HOME
+   ========================= */
+
 #hero {
   background-color: var(--background);
 }
+
+#hero .hero-content {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 90px 5vw 40px;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+#hero .hero-text {
+  flex: 1;
+  max-width: 600px;
+}
+
+#hero .hero-label {
+  color: var(--coffee);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+#hero .hero-text h2 {
+  color: var(--espresso);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+#hero .hero-text h2 span {
+  display: block;
+  color: var(--coffee);
+}
+
+#hero .hero-description {
+  max-width: 500px;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+#hero .hero-button {
+  display: inline-block;
+  padding: 13px 24px;
+  background-color: var(--espresso);
+  color: var(--surface);
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition:
+    transform 0.3s ease-in-out,
+    background-color 0.3s ease-in-out;
+}
+
+#hero .hero-button:hover {
+  background-color: var(--coffee);
+  transform: translateY(-3px);
+}
+
+#hero .hero-logo {
+  flex: 0 0 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#hero .logo-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-color: var(--surface);
+  border: 2px solid var(--border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px;
+  box-shadow: 0 15px 40px rgba(72, 46, 29, 0.12);
+}
+
+#hero .logo-circle img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* =========================
+   ABOUT
+   ========================= */
 
 #about {
   height: auto;
@@ -261,6 +388,11 @@ header > div {
   margin-bottom: 10px;
 }
 
+
+/* =========================
+   OUR PARTNERS
+   ========================= */
+
 #work {
   background-color: var(--surface);
   display: flex;
@@ -322,31 +454,95 @@ header > div {
   letter-spacing: 0.3px;
 }
 
+
+/* =========================
+   FOOTER
+   ========================= */
+
 footer {
   text-align: center;
   padding: 4px;
 }
 
+
+/* =========================
+   MOBILE
+   ========================= */
+
 @media (max-width: 576px) {
+
   .partners-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
+
   .partner-card {
     min-height: 70px;
     padding: 14px;
   }
+
   .partner-name {
     font-size: 0.85rem;
   }
+
   #work h2 {
     font-size: 1.5rem;
   }
+
   .partners-subtitle {
     font-size: 0.85rem;
     margin-bottom: 20px;
   }
 
+
+  /* Home mobile */
+
+  #hero .hero-content {
+    min-height: 100dvh;
+    padding: 100px 25px 50px;
+    flex-direction: column-reverse;
+    text-align: center;
+    justify-content: center;
+    gap: 35px;
+  }
+
+  #hero .hero-text {
+    max-width: 100%;
+  }
+
+  #hero .hero-label {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+
+  #hero .hero-text h2 {
+    font-size: 2.5rem;
+  }
+
+  #hero .hero-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #hero .hero-button {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  #hero .hero-logo {
+    flex: none;
+  }
+
+  #hero .logo-circle {
+    width: 190px;
+    height: 190px;
+    padding: 25px;
+  }
+
+
+  /* Mobile navbar */
   #product {
   min-height: 100dvh;
   height: auto;
@@ -397,15 +593,51 @@ footer {
   #navbar {
     display: none;
   }
+
   #dropdown {
     display: inline;
   }
 }
 
+
+/* =========================
+   TABLET
+   ========================= */
+
 @media (min-width: 577px) and (max-width: 992px) {
+
   .partners-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+
+  /* Home tablet */
+
+  #hero .hero-content {
+    padding: 90px 6vw 40px;
+    gap: 35px;
+  }
+
+  #hero .hero-text h2 {
+    font-size: 3.5rem;
+  }
+
+  #hero .hero-description {
+    font-size: 1rem;
+  }
+
+  #hero .hero-logo {
+    flex: 0 0 240px;
+  }
+
+  #hero .logo-circle {
+    width: 230px;
+    height: 230px;
+    padding: 30px;
+  }
+
+
+  /* Tablet navbar */
 
   .products-grid {
   grid-template-columns: repeat(3, 1fr);
@@ -437,6 +669,26 @@ footer {
   }
 }
 
+
+/* =========================
+   DESKTOP
+   ========================= */
+
+@media (min-width: 993px) {
+
+  #hero .hero-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #hero .hero-logo {
+    flex-basis: 350px;
+  }
+
+  #hero .logo-circle {
+    width: 320px;
+    height: 320px;
+  }
 #product{
   background-color: var(--background);
   display: flex;
