@@ -36,7 +36,6 @@ body {
   background: transparent;
 }
 
-
 /* =========================
    SECTION
    ========================= */
@@ -47,7 +46,6 @@ section {
   top: 0;
   z-index: 2;
 }
-
 
 /* =========================
    HEADER
@@ -74,7 +72,6 @@ header > div {
   gap: 10px;
 }
 
-
 /* =========================
    NAVBAR
    ========================= */
@@ -99,7 +96,6 @@ header > div {
   opacity: 0.8;
   transform: translate(0, -3px);
 }
-
 
 /* =========================
    HEADER ANIMATION
@@ -132,7 +128,6 @@ header > div {
     background-color: var(--head-shadow-before);
   }
 }
-
 
 /* =========================
    DROPDOWN
@@ -176,7 +171,6 @@ header > div {
   transform: translate(0, -1px);
 }
 
-
 /* =========================
    CANVAS
    ========================= */
@@ -188,7 +182,6 @@ header > div {
   z-index: 100;
   pointer-events: none;
 }
-
 
 /* =========================
    HOME
@@ -287,7 +280,6 @@ header > div {
   height: auto;
   object-fit: contain;
 }
-
 
 /* =========================
    ABOUT
@@ -388,7 +380,6 @@ header > div {
   margin-bottom: 10px;
 }
 
-
 /* =========================
    OUR PARTNERS
    ========================= */
@@ -455,6 +446,8 @@ header > div {
 }
 
 
+
+
 /* =========================
    FOOTER
    ========================= */
@@ -463,7 +456,6 @@ footer {
   text-align: center;
   padding: 4px;
 }
-
 
 /* =========================
    MOBILE
@@ -555,7 +547,6 @@ footer {
 }
 
 @media (max-width: 576px) {
-
   .partners-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
@@ -578,7 +569,6 @@ footer {
     font-size: 0.85rem;
     margin-bottom: 20px;
   }
-
 
   /* Home mobile */
 
@@ -626,49 +616,48 @@ footer {
     padding: 25px;
   }
 
-
   /* Mobile navbar */
   #product {
-  min-height: 100dvh;
-  height: auto;
-  padding: 10dvh 5dvw 15dvh;
+    min-height: 100dvh;
+    height: auto;
+    padding: 10dvh 5dvw 15dvh;
   }
 
   #product h2 {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 
   .products-subtitle {
-  font-size: 0.85rem;
-  margin-bottom: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
   }
 
   .products-grid {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .product-card img {
-  height: 100px;
+    height: 100px;
   }
 
   .product-info {
-  padding: 10px;
+    padding: 10px;
   }
 
   .product-info h3 {
-  font-size: 0.9rem;
-  margin-bottom: 5px;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
   }
 
   .product-info p {
-  font-size: 0.72rem;
-  line-height: 1.4;
-  margin-bottom: 8px;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    margin-bottom: 8px;
   }
 
   .product-price {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
   }
 
   header {
@@ -684,17 +673,14 @@ footer {
   }
 }
 
-
 /* =========================
    TABLET
    ========================= */
 
 @media (min-width: 577px) and (max-width: 992px) {
-
   .partners-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-
 
   /* Home tablet */
 
@@ -721,28 +707,27 @@ footer {
     padding: 30px;
   }
 
-
   /* Tablet navbar */
 
   .products-grid {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
 
   .product-card img {
-  height: 140px;
+    height: 140px;
   }
 
   .product-info {
-  padding: 14px;
+    padding: 14px;
   }
 
   .product-info h3 {
-  font-size: 1rem;
+    font-size: 1rem;
   }
 
   .product-info p {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
   }
 
   #navbar {
@@ -754,13 +739,11 @@ footer {
   }
 }
 
-
 /* =========================
    DESKTOP
    ========================= */
 
 @media (min-width: 993px) {
-
   #hero .hero-content {
     padding-left: 20px;
     padding-right: 20px;
@@ -774,41 +757,8 @@ footer {
     width: 320px;
     height: 320px;
   }
-#product{
-  background-color: var(--background);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100dvh;
-  height: auto;
-  position: relative;
-  padding: 20dvh 5dvw 5dvh;
-  text-align: center;
 }
 
-.products-inner {
-  width: 100%;
-  max-width: 1100px;
-  z-index: 1;
-}
-
-#product h2 {
-  color: var(--espresso);
-  font-size: 2rem;
-  margin-bottom: 8px;
-}
-
-.products-subtitle {
-  color: var(--text-muted);
-  margin-bottom: 32px;
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
 
 .product-card {
   overflow: hidden;
