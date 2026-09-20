@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <canvas id="canvasId"></canvas>
     <header id="header">
-        <div id="head-title">
-            <img src="./public/logo.png" alt="coffee">
-            <h1>Kopi Nusantara</h1>
-        </div>
+      <div id="head-title">
+        <img src="./public/logo.png" alt="coffee" />
+        <h1>Kopi Nusantara</h1>
+      </div>
       <nav id="navbar">
         <ul>
           <li>
@@ -30,63 +31,91 @@
           </li>
         </ul>
       </nav>
+      <div id="dropdown">
+        <img src="./public/3bar-black.png" alt="dropdown" id="3bar" />
+      </div>
+      <div id="dropContent">
+        <ul>
+          <li>
+            <a href="#hero">Home</a>
+          </li>
+          <li>
+            <a href="#product">Products</a>
+          </li>
+          <li>
+            <a href="#work">Our Partner</a>
+          </li>
+          <li>
+            <a href="#about">About Us</a>
+          </li>
+        </ul>
+      </div>
     </header>
 
     <main>
-      <section>General Kenobi</section>
-
-      <section>Hello There</section>
-
-      <section>Next section</section>
+      <section id="work">
+        <div class="partners-inner">
+          <h2>Our Partners</h2>
+          <p class="partners-subtitle">
+            Bridging farmers, roasters, and avid coffee enjoyers throughout
+            Indonesia.
+          </p>
+          <div class="partners-grid">
+            <div class="partner-card">
+              <span class="partner-name"> Peternak Kopi Gayo di Aceh </span>
+            </div>
+            <div class="partner-card">
+              <span class="partner-name">
+                Peternak Kopi Toraja di Sulawesi Selatan
+              </span>
+            </div>
+            <div class="partner-card">
+              <span class="partner-name">
+                Peternak Kopi Kintamani di Bali
+              </span>
+            </div>
+            <div class="partner-card">
+              <span class="partner-name">
+                Peternak Kopi Flores Bajawa di NTT
+              </span>
+            </div>
+            <div class="partner-card">
+              <span class="partner-name">
+                Peternak Kopi Liberika di Kalimantan Timur
+              </span>
+            </div>
+            <div class="partner-card">
+              <span class="partner-name">
+                Peternak Kopi Mandailing di Sumatera Utara
+              </span>
+            </div>
+            <div class="partner-card">
+              <span class="partner-name"> Amankila Roastery </span>
+            </div>
+            <div class="partner-card">
+              <span class="partner-name"> Do Son Cafe </span>
+            </div>
+            <div class="partner-card">
+              <span class="partner-name"> BDK Roastery </span>
+            </div>
+            <div class="partner-card">
+              <span class="partner-name"> Soneva Cafe </span>
+            </div>
+            <div class="partner-card">
+              <span class="partner-name"> Ladytano Coffee </span>
+            </div>
+            <div class="partner-card">
+              <span class="partner-name"> D'Orsay Coffee </span>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
-    <footer></footer>
+    <footer>
+      © 2026 Kel-3 Frontend <br />Vaibhav Nickson Denzel Catherine Putri. All
+      rights reserved
+    </footer>
+    <script src="canvasMouse.js"></script>
     <script src="eventListener.js"></script>
   </body>
 </html>
-
-<section id="work">
-  <div class="partners-inner">
-    <h2> Our Partners </h2>
-    <p class="partners-subtitle">
-      Bridging farmers, roasters, and avid coffee enjoyers throughout Indonesia.
-    </p>
-    <div class="partners-grid">
-      <div class="partner-card">
-        <span class="partner-name"> Peternak Kopi Gayo di Aceh </span>
-      </div>
-      <div class="partner-card">
-        <span class="partner-name"> Peternak Kopi Toraja di Sulawesi Selatan </span>
-      </div>
-      <div class="partner-card">
-        <span class="partner-name"> Peternak Kopi Kintamani di Bali </span>
-      </div>
-      <div class="partner-card">
-        <span class="partner-name"> Peternak Kopi Flores Bajawa di NTT </span>
-      </div>
-      <div class="partner-card">
-        <span class="partner-name"> Peternak Kopi Liberika di Kalimantan Timur </span>
-      </div>
-      <div class="partner-card">
-        <span class="partner-name"> Peternak Kopi Mandailing di Sumatera Utara </span>
-      </div>
-      <div class="partner-card">
-        <span class="partner-name"> Amankila Roastery </span>
-      </div>
-      <div class="partner-card">
-        <span class="partner-name"> Do Son Cafe </span>
-      </div>
-      <div class="partner-card">
-        <span class="partner-name"> BDK Roastery </span>
-      </div>
-      <div class="partner-card">
-        <span class="partner-name"> Soneva Cafe </span>
-      </div>
-      <div class="partner-card">
-        <span class="partner-name"> Ladytano Coffee </span>
-      </div>
-      <div class="partner-card">
-        <span class="partner-name"> D'Orsay Coffee </span>
-      </div>
-    </div>
-  </div>
-</section>
