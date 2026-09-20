@@ -4,6 +4,19 @@ const deltaUpdateMouseMoved = 10;
 
 // Element Constants
 const head = document.getElementById("header");
+const mediaQuery = window.matchMedia("(width >= 992px)");
+const dropdown = document.getElementById("dropdown");
+
+dropdown.addEventListener("click", () => {
+  const dropContentsStyle = getComputedStyle(
+    document.getElementById("dropContent"),
+  ).display;
+  if (dropContentsStyle !== "none") {
+    document.getElementById("dropContent").style.display = "none";
+  } else {
+    document.getElementById("dropContent").style.display = "inline";
+  }
+});
 
 head.addEventListener("animationend", () => {
   if (head.classList.contains("header-moved-top")) {
@@ -24,6 +37,13 @@ window.addEventListener("scroll", (event) => {
   }
 });
 
+mediaQuery.addEventListener("change", (e) => {
+  if (e.matches) {
+    document.getElementById("dropContent").style.display = "none";
+  }
+});
+
+// for the follow mouse effects
 const mouseCnvs = new mouseCanvas(20);
 
 const redraw = () => {
