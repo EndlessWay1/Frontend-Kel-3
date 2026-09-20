@@ -6,6 +6,9 @@ const deltaUpdateMouseMoved = 10;
 const head = document.getElementById("header");
 const mediaQuery = window.matchMedia("(width >= 992px)");
 const dropdown = document.getElementById("dropdown");
+const links = document.querySelectorAll(
+  'nav a[href^="#"], #dropContent a[href^="#"]',
+);
 
 dropdown.addEventListener("click", () => {
   const dropContentsStyle = getComputedStyle(
@@ -41,10 +44,35 @@ window.addEventListener("scroll", (event) => {
   }
 });
 
+// when resized, closed the dropdown
 mediaQuery.addEventListener("change", (e) => {
   if (e.matches) {
     document.getElementById("dropContent").style.display = "none";
   }
+});
+
+// calc the offset
+const naturalTop = (e) => {
+  let top = e.parentElement.offsetTop;
+  for (let s = e.previousElementSibling; s; s = s.previousElementSibling) {
+    top += s.offsetHeight;
+  }
+  return top;
+};
+
+// for going back to nav
+links.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute("href"));
+    const goingBack = active === link;
+    // go back to the prev sect
+    window.scrollTo({
+      top: goingBack ? 0 : naturalTop(target),
+      behavior: "smooth",
+    });
+    active = goingBack ? null : link;
+  });
 });
 
 // for the follow mouse effects
