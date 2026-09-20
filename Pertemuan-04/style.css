@@ -161,6 +161,7 @@ header > div {
   pointer-events: none;
 }
 
+
 #hero {
   background-color: var(--background);
 }
@@ -369,20 +370,5 @@ footer {
 
   #dropdown {
     display: inline;
-  }
-
-  .about-intro,
-  .about-values {
-    flex-direction: column;
-    gap: 25px;
-  }
-
-  .about-brand {
-    width: 100%;
-    padding: 35px 20px;
-  }
-
-  .about-story h2 {
-    font-size: 30px;
   }
 }
