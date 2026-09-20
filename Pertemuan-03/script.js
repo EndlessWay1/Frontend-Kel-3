@@ -11,6 +11,7 @@ const __DashedLine = [4, 4];
 const __XNumberGap = 4;
 const __YNumberGap = 4;
 const __FontSize = 8;
+const __CircRadius = 4;
 
 class DrawObj {
   constructor(lwidth, color) {
@@ -283,35 +284,43 @@ class DrawObj {
       this.ctx.fillText(v, (__VAxisOffset - 1) * boxSize, i, boxSize);
     }
   }
+
+  clear() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  drawCirc(x, y) {
+    const convertX = this.convertXNum(x);
+    const convertY = this.convertYNum(y);
+
+    this.ctx.beginPath();
+    this.ctx.ellipse(
+      convertX,
+      convertY,
+      __CircRadius,
+      __CircRadius,
+      0,
+      0,
+      2 * Math.PI,
+    );
+    this.ctx.fill();
+  }
 }
 
-const drawEngine = new DrawObj();
-drawEngine.setLineWidthnColor(3, "black");
-
-// function to add to event listener and called uppon
-const redraw = () => {
-  drawEngine.resizeCanvas();
-  drawEngine.drawGrid();
-  drawEngine.drawAxis();
-  drawEngine.drawVect(10, 10, 10, -2);
-  drawEngine.drawDashPlot([1, 2, 3, 4, 5, 6], [1, 4, 9, 16, 25, 36]);
-  drawEngine.drawPlot([7, 8, 9, 10, 11, 12], [1, 4, 9, 16, 25, 36]);
-  drawEngine.drawNumber();
-};
-
-// adding EventListener to window changes in canvas
-let prevW = window.innerWidth;
-let prevH = window.innerHeight;
-
-const listener = window.addEventListener("resize", () => {
-  if (
-    Math.abs(prevH - window.innerHeight) >= deltaUpdateCanvasToWindow ||
-    Math.abs(prevW - window.innerWidth) >= deltaUpdateCanvasToWindow
-  ) {
-    prevW = window.innerWidth;
-    prevH = window.innerHeight;
-    redraw();
-    // console.log(window.innerWidth, window.innerHeight);
-  }
+const sliderV = document.getElementById("speedInput");
+const spanV = document.getElementById("speedValue");
+sliderV.addEventListener("change", (e) => {
+  spanV.textContent = `${e.target.value} m/s`;
 });
-redraw();
+
+const sliderTheta = document.getElementById("angleInput");
+const spanTheta = document.getElementById("angleValue");
+sliderTheta.addEventListener("change", (e) => {
+  spanTheta.textContent = `${e.target.value}°`;
+});
+
+const sliderG = document.getElementById("gravityInput");
+const spanG = document.getElementById("gravityValue");
+sliderG.addEventListener("change", (e) => {
+  spanG.textContent = `${e.target.value} m/s²`;
+});
