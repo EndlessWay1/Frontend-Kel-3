@@ -27,7 +27,20 @@ Oleh karena itu, dibuat simulasi interaktif untuk membantu melihat perubahan ger
 - **[Link Website via Vercel](https://frontend-kel-3.vercel.app/)**
 - **[Link Tugas](./Pertemuan-03/)**
 
-### Tugas 2: Kopi Nusantara (Native Javascript)
+### Tugas 2: Kopi Nusantara (Responsive UI)
 
-"Kopi Nusantara" adalah sebuah usaha kedai kopi rumahan yang ingin memiliki halaman company profile sederhana di internet agar dapat diakses dan dilihat dengan nyaman oleh calon pelanggan, baik melalui laptop di rumah, tablet, maupun smartphone saat sedang di luar.
+Website bertemakan "Kopi Nusantara" yang dibuat menggunakan responsive UI.
+Di dalam websitenya terdapat penggunaan CSS Flexbox, Grid, dan MediaQuery.
+
+- **[Link Website via Vercel](https://kopi-nusantara-sigma.vercel.app/)**
+- **[Link Tugas](./Pertemuan-04/)**
+- **[Link Zip](./A03_T2_TugasResponsiveUI.zip)**
+
+### Tugas 3: Kopi Nusantara (JQuery)
+
+Website bertemakan "Kopi Nusantara" yang dibuat menggunakan JQuery sebagai pembantu untuk animasi dropdown dan FAQ. JQuery juga digunakan sebagai pengganti native javascript event listener.
+
+- **[Link Website via Vercel]()**
+- **[Link Tugas](./Pertemuan-05/)**
+- **[Link Zip](./A03_T3_TugasJQuery.zip)**
 
