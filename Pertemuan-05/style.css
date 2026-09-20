@@ -445,7 +445,6 @@ header > div {
   letter-spacing: 0.3px;
 }
 
-
 #product {
   background-color: var(--background);
   display: flex;
@@ -537,6 +536,66 @@ header > div {
   box-shadow: 0 6px 16px #482e1d;
 }
 
+/* =========================
+   FAQ
+   ========================= */
+
+#faq {
+  background-color: var(--background);
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  padding-top: 10dvh;
+  gap: 15dvh;
+}
+
+#faq-title {
+  text-align: center;
+  color: var(--espresso);
+}
+
+#faq-title h3 {
+  color: var(--text-muted);
+}
+
+#faq-content {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.round-container {
+  width: 50dvw;
+  border-radius: 10px;
+  padding: 16px 24px;
+  background-color: #e8dcd2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.accordion-content {
+  display: none;
+}
+
+.accordion-content p {
+  font-size: small;
+}
+
+.accordion {
+  cursor: pointer;
+  border-style: none;
+  background-color: transparent;
+  width: max-content;
+  transition: transform 0.3s ease-in-out;
+}
+
+.accordion:hover {
+  transform: translateY(-2px);
+  opacity: 0.85;
+}
 
 /* =========================
    FOOTER
@@ -676,6 +735,10 @@ footer {
   #dropdown {
     display: inline;
   }
+
+  .round-container {
+    width: 90dvw;
+  }
 }
 
 /* =========================
@@ -742,6 +805,10 @@ footer {
   #dropdown {
     display: inline;
   }
+
+  .round-container {
+    width: 70dvw;
+  }
 }
 
 /* =========================
@@ -763,5 +830,3 @@ footer {
     height: 320px;
   }
 }
-
-
