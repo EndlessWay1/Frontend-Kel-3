@@ -44,3 +44,4 @@ Website bertemakan "Kopi Nusantara" yang dibuat menggunakan JQuery sebagai pemba
 - **[Link Website via Vercel](https://jquery-kopi-nusantara.vercel.app/)**
 - **[Link Tugas](./Pertemuan-05/)**
 - **[Link Zip](./A03_T3_TugasJQuery.zip)**
+- **[Link Laporan Pdf](./Laporan%20jQuery%20Kel-3.pdf)**
