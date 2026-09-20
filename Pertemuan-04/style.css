@@ -350,7 +350,7 @@ footer {
   #product {
   min-height: 100dvh;
   height: auto;
-  padding: 10dvh 5dvw 5dvh;
+  padding: 10dvh 5dvw 15dvh;
   }
 
   #product h2 {
