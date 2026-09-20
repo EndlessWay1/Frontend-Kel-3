@@ -23,8 +23,8 @@
 }
 
 html {
-  overflow: scroll;
   overflow-x: hidden;
+  overflow-y: auto;
   scroll-behavior: smooth;
 }
 
@@ -161,11 +161,104 @@ header > div {
   pointer-events: none;
 }
 
+
 #hero {
   background-color: var(--background);
 }
-#hero {
+
+#about {
+  height: auto;
+  min-height: 100dvh;
+  position: relative;
+  padding: 100px 5vw 60px;
   background-color: var(--background);
+  scroll-margin-top: 70px;
+}
+
+.about-container {
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.about-intro {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.about-brand {
+  flex: 1;
+  padding: 70px 25px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  text-align: center;
+  color: var(--coffee);
+}
+
+.about-brand-name {
+  margin: 16px 0 10px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.about-story {
+  flex: 1.5;
+}
+
+.about-label {
+  color: var(--sage);
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.about-story h2 {
+  color: var(--espresso);
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.about-story p:not(.about-label),
+.about-values p {
+  color: var(--text-muted);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.about-story p + p {
+  margin-top: 14px;
+}
+
+.about-link {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 12px 20px;
+  background-color: var(--coffee);
+  color: var(--surface);
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.about-link:hover {
+  background-color: var(--espresso);
+}
+
+.about-values {
+  display: flex;
+  gap: 30px;
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+}
+
+.about-values > div {
+  flex: 1;
+}
+
+.about-values h3 {
+  color: var(--espresso);
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 #work {
