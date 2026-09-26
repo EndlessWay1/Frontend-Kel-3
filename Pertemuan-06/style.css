@@ -429,12 +429,6 @@ header > nav.navbar {
   margin-bottom: 32px;
 }
 
-.partners-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 20px;
-}
-
 .partner-card {
   display: flex;
   align-items: center;
@@ -629,11 +623,6 @@ footer {
    ========================= */
 
 @media (max-width: 576px) {
-  .partners-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
   .partner-card {
     min-height: 70px;
     padding: 14px;
@@ -760,10 +749,6 @@ footer {
    ========================= */
 
 @media (min-width: 577px) and (max-width: 992px) {
-  .partners-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   /* Home tablet */
 
   #hero .hero-content {
