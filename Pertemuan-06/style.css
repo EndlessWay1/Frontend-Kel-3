@@ -307,52 +307,44 @@ header > nav.navbar {
   height: auto;
   min-height: 100dvh;
   position: relative;
-  padding: 100px 5vw 60px;
+  padding: 100px 0 60px;
   background-color: var(--background);
   scroll-margin-top: 70px;
+  font-size: 16px;
 }
 
 .about-container {
+  --bs-gutter-x: 48px;
   max-width: 1050px;
-  margin: 0 auto;
 }
 
-.about-intro {
-  display: flex;
-  align-items: center;
-  gap: 50px;
+#about .row {
+  --bs-gutter-x: 24px;
+  --bs-gutter-y: 24px;
 }
 
 .about-brand {
-  flex: 1;
-  padding: 70px 25px;
+  padding: 48px 24px;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
-  text-align: center;
   color: var(--coffee);
 }
 
 .about-brand-name {
-  margin: 16px 0 10px;
+  margin: 16px 0 8px;
   font-size: 30px;
-  font-weight: bold;
-}
-
-.about-story {
-  flex: 1.5;
 }
 
 .about-label {
   color: var(--sage);
-  font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .about-story h2 {
   color: var(--espresso);
   font-size: 36px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .about-story p:not(.about-label),
@@ -362,40 +354,61 @@ header > nav.navbar {
   line-height: 1.7;
 }
 
-.about-story p + p {
-  margin-top: 14px;
+.about-story p:not(.about-label) {
+  margin-bottom: 16px;
 }
 
-.about-link {
-  display: inline-block;
-  margin-top: 24px;
+#about .about-link {
+  margin-top: 8px;
   padding: 12px 20px;
-  background-color: var(--coffee);
+  font-size: 16px;
   color: var(--surface);
-  text-decoration: none;
+  background-color: var(--coffee);
+  border: none;
   border-radius: 4px;
 }
 
-.about-link:hover {
+#about .about-link:hover,
+#about .about-link:focus-visible {
   background-color: var(--espresso);
 }
 
-.about-values {
-  display: flex;
-  gap: 30px;
-  margin-top: 50px;
-  padding-top: 30px;
-  border-top: 1px solid var(--border);
+#about .about-link:focus-visible {
+  outline: 2px solid var(--espresso);
+  outline-offset: 3px;
+  box-shadow: none;
 }
 
-.about-values > div {
-  flex: 1;
+.about-values {
+  --bs-border-color: var(--border);
+  margin-top: 48px;
+  padding-top: 24px;
 }
 
 .about-values h3 {
   color: var(--espresso);
   font-size: 20px;
   margin-bottom: 10px;
+}
+
+@media (max-width: 767.98px) {
+  .about-brand {
+    padding: 24px;
+  }
+
+  .about-brand-name {
+    font-size: 24px;
+  }
+
+  .about-story h2 {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 992px) {
+  #about .about-intro {
+    --bs-gutter-x: 48px;
+  }
 }
 
 /* =========================
