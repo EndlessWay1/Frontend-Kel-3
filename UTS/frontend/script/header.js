@@ -15,17 +15,22 @@ const linkNav = [
     target: "./login.html",
     name: "Log in",
   },
+  {
+    id: 4,
+    target: "./user.html",
+    name: "Profile",
+  },
 ];
 
 const header = $("#header");
 $(document).ready(function () {
   const curr = window.location.href;
 
-  const nav = $('<nav class="navbar navbar-expand-md container-fluid"></nav>');
+  const nav = $('<nav class="navbar navbar-expand-md"></nav>');
 
   nav.append(` <div id="head-title">
                 <img src="./assets/logo.png" alt="coffee" width="38" />
-                <a class="navbar-brand fw-bold" href="#hero">Kopi Nusantara</a>
+                <a class="navbar-brand fw-bold" href="#hero">Nasi Liwet</a>
                 </div>`);
 
   const navbarSupportedContent = $(
@@ -51,6 +56,10 @@ $(document).ready(function () {
       } else {
         alink.attr("href", target);
         alink.text(name);
+      }
+
+      if (id === 4 && !user) {
+        return undefined;
       }
       const li = $(`<li class="nav-item">
         </li>`);
