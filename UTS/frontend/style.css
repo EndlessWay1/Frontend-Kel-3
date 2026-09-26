@@ -1,0 +1,62 @@
+:root {
+  --kombu-dark: #364025;
+  --kombu-mid: #546832;
+  --kombu-light: #809e5c;
+  --moss-dark: #899064;
+  --moss-light: #b9c57d;
+  --moss-font: #4a3024;
+  --tan-font: black;
+  --tan-dark: #cfbb9a;
+  --tan-light: #f7f2e8;
+  --spiced-dark: #733216;
+  --spiced-mid: #bc5427;
+  --spiced-light: #b86f3c;
+}
+
+header {
+  margin: 16px 32px;
+  padding: 0 8px;
+  border-radius: 10px;
+  background-color: whitesmoke;
+}
+
+body {
+  color: var(--moss-font);
+  background-color: var(--moss-light);
+}
+
+#head-title img {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--kombu-dark);
+  background-color: var(--kombu-mid);
+  border-radius: 10px;
+}
+
+#head-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+nav.navbar {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center;
+}
+
+#navbarSupportedContent {
+    flex-grow: 0;
+    align-items: center;
+}
+
+#user-title {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+#user-title h2 {
+  margin: 0;
+}
