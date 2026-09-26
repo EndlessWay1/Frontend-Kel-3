@@ -89,7 +89,6 @@ nav.navbar {
   opacity: 0.8;
 }
 
-
 #profile {
   margin: 20dvh auto;
   width: 40dvw;
@@ -172,7 +171,7 @@ nav.navbar {
   gap: 16px;
   margin: auto;
   padding: 0 32px;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
   margin-top: 16px;
 }
@@ -213,14 +212,15 @@ nav.navbar {
   font-weight: 600;
 }
 
-#log-in-button,#sign-up-button {
+#log-in-button,
+#sign-up-button {
   text-decoration: underline;
 }
 
-#log-in-button:hover, #sign-up-button:hover {
+#log-in-button:hover,
+#sign-up-button:hover {
   font-weight: 600;
 }
-
 
 @media (max-width: 1024px) {
   #login-page {
@@ -681,7 +681,7 @@ nav.navbar {
 }
 
 .form-change-btn:hover {
-    color: white;
+  color: white;
 
   background-color: var(--kombu-mid);
 }
