@@ -202,28 +202,11 @@ header > nav.navbar {
 }
 
 /* =========================
-   HOME
+   HOME - BOOTSTRAP
    ========================= */
 
 #hero {
   background-color: var(--background);
-}
-
-#hero .hero-content {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 90px 5vw 40px;
-  min-height: 100dvh;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 50px;
-}
-
-#hero .hero-text {
-  flex: 1;
-  max-width: 600px;
 }
 
 #hero .hero-label {
@@ -270,13 +253,6 @@ header > nav.navbar {
 #hero .hero-button:hover {
   background-color: var(--coffee);
   transform: translateY(-3px);
-}
-
-#hero .hero-logo {
-  flex: 0 0 320px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 #hero .logo-circle {
@@ -470,6 +446,10 @@ header > nav.navbar {
   letter-spacing: 0.3px;
 }
 
+/* =========================
+   PRODUCTS
+   ========================= */
+
 #product {
   background-color: var(--background);
   display: flex;
@@ -486,7 +466,6 @@ header > nav.navbar {
 .products-inner {
   width: 100%;
   max-width: 1100px;
-  /* height: fit-content; */
   z-index: 1;
 }
 
@@ -506,10 +485,6 @@ header > nav.navbar {
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
-
-/* =========================
-   PRODUCTS
-   ========================= */
 
 .product-card {
   overflow: hidden;
@@ -654,52 +629,6 @@ footer {
     margin-bottom: 20px;
   }
 
-  /* Home mobile */
-
-  #hero .hero-content {
-    min-height: 100dvh;
-    padding: 100px 25px 50px;
-    flex-direction: column-reverse;
-    text-align: center;
-    justify-content: center;
-    gap: 35px;
-  }
-
-  #hero .hero-text {
-    max-width: 100%;
-  }
-
-  #hero .hero-label {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-  }
-
-  #hero .hero-text h2 {
-    font-size: 2.5rem;
-  }
-
-  #hero .hero-description {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #hero .hero-button {
-    padding: 12px 20px;
-    font-size: 0.9rem;
-  }
-
-  #hero .hero-logo {
-    flex: none;
-  }
-
-  #hero .logo-circle {
-    width: 190px;
-    height: 190px;
-    padding: 25px;
-  }
-
   /* Mobile navbar */
   #product {
     min-height: 100dvh;
@@ -755,6 +684,35 @@ footer {
   .round-container {
     width: 90dvw;
   }
+
+  /* Bootstrap Home */
+
+  #hero .hero-label {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+
+  #hero .hero-text h2 {
+    font-size: 2.5rem;
+  }
+
+  #hero .hero-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #hero .hero-button {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  #hero .logo-circle {
+    width: 190px;
+    height: 190px;
+    padding: 25px;
+  }
 }
 
 /* =========================
@@ -762,30 +720,6 @@ footer {
    ========================= */
 
 @media (min-width: 577px) and (max-width: 992px) {
-  /* Home tablet */
-
-  #hero .hero-content {
-    padding: 90px 6vw 40px;
-    gap: 35px;
-  }
-
-  #hero .hero-text h2 {
-    font-size: 3.5rem;
-  }
-
-  #hero .hero-description {
-    font-size: 1rem;
-  }
-
-  #hero .hero-logo {
-    flex: 0 0 240px;
-  }
-
-  #hero .logo-circle {
-    width: 230px;
-    height: 230px;
-    padding: 30px;
-  }
 
   /* Tablet navbar */
 
@@ -828,15 +762,6 @@ footer {
    ========================= */
 
 @media (min-width: 993px) {
-  #hero .hero-content {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  #hero .hero-logo {
-    flex-basis: 350px;
-  }
-
   #hero .logo-circle {
     width: 320px;
     height: 320px;
