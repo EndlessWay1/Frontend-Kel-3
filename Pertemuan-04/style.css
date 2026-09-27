@@ -7,10 +7,8 @@
   --text: #211811;
   --text-muted: #6b625a;
   --border: #d8cdbb;
-
   --head-shadow-before: #21181100;
   --head-shadow-after: #21181120;
-
   --navbar-dropdown: #f0c87759;
 }
 
@@ -36,7 +34,6 @@ body {
   background: transparent;
 }
 
-
 /* =========================
    SECTION
    ========================= */
@@ -47,7 +44,6 @@ section {
   top: 0;
   z-index: 2;
 }
-
 
 /* =========================
    HEADER
@@ -74,7 +70,6 @@ header > div {
   gap: 10px;
 }
 
-
 /* =========================
    NAVBAR
    ========================= */
@@ -99,7 +94,6 @@ header > div {
   opacity: 0.8;
   transform: translate(0, -3px);
 }
-
 
 /* =========================
    HEADER ANIMATION
@@ -132,7 +126,6 @@ header > div {
     background-color: var(--head-shadow-before);
   }
 }
-
 
 /* =========================
    DROPDOWN
@@ -175,7 +168,6 @@ header > div {
   opacity: 0.8;
   transform: translate(0, -1px);
 }
-
 
 /* =========================
    CANVAS
@@ -287,7 +279,6 @@ header > div {
   object-fit: contain;
 }
 
-
 /* =========================
    ABOUT
    ========================= */
@@ -296,52 +287,44 @@ header > div {
   height: auto;
   min-height: 100dvh;
   position: relative;
-  padding: 100px 5vw 60px;
+  padding: 100px 0 60px;
   background-color: var(--background);
   scroll-margin-top: 70px;
+  font-size: 16px;
 }
 
 .about-container {
+  --bs-gutter-x: 48px;
   max-width: 1050px;
-  margin: 0 auto;
 }
 
-.about-intro {
-  display: flex;
-  align-items: center;
-  gap: 50px;
+#about .row {
+  --bs-gutter-x: 24px;
+  --bs-gutter-y: 24px;
 }
 
 .about-brand {
-  flex: 1;
-  padding: 70px 25px;
+  padding: 48px 24px;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
-  text-align: center;
   color: var(--coffee);
 }
 
 .about-brand-name {
-  margin: 16px 0 10px;
+  margin: 16px 0 8px;
   font-size: 30px;
-  font-weight: bold;
-}
-
-.about-story {
-  flex: 1.5;
 }
 
 .about-label {
   color: var(--sage);
-  font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .about-story h2 {
   color: var(--espresso);
   font-size: 36px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .about-story p:not(.about-label),
@@ -351,34 +334,35 @@ header > div {
   line-height: 1.7;
 }
 
-.about-story p + p {
-  margin-top: 14px;
+.about-story p:not(.about-label) {
+  margin-bottom: 16px;
 }
 
-.about-link {
-  display: inline-block;
-  margin-top: 24px;
+#about .about-link {
+  margin-top: 8px;
   padding: 12px 20px;
-  background-color: var(--coffee);
+  font-size: 16px;
   color: var(--surface);
-  text-decoration: none;
+  background-color: var(--coffee);
+  border: none;
   border-radius: 4px;
 }
 
-.about-link:hover {
+#about .about-link:hover,
+#about .about-link:focus-visible {
   background-color: var(--espresso);
 }
 
-.about-values {
-  display: flex;
-  gap: 30px;
-  margin-top: 50px;
-  padding-top: 30px;
-  border-top: 1px solid var(--border);
+#about .about-link:focus-visible {
+  outline: 2px solid var(--espresso);
+  outline-offset: 3px;
+  box-shadow: none;
 }
 
-.about-values > div {
-  flex: 1;
+.about-values {
+  --bs-border-color: var(--border);
+  margin-top: 48px;
+  padding-top: 24px;
 }
 
 .about-values h3 {
@@ -387,6 +371,25 @@ header > div {
   margin-bottom: 10px;
 }
 
+@media (max-width: 767.98px) {
+  .about-brand {
+    padding: 24px;
+  }
+
+  .about-brand-name {
+    font-size: 24px;
+  }
+
+  .about-story h2 {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 992px) {
+  #about .about-intro {
+    --bs-gutter-x: 48px;
+  }
+}
 
 /* =========================
    OUR PARTNERS
@@ -405,6 +408,7 @@ header > div {
 .partners-inner {
   width: 100%;
   max-width: 1100px;
+  z-index: 1;
 }
 
 #work h2 {
@@ -433,7 +437,10 @@ header > div {
   background-color: var(--background);
   border: 1px solid var(--border);
   border-radius: 12px;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  transition:
+    transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
 }
 
 .partner-card:hover {
@@ -449,246 +456,11 @@ header > div {
   letter-spacing: 0.3px;
 }
 
-
 /* =========================
-   FOOTER
+   PRODUCTS
    ========================= */
 
-footer {
-  text-align: center;
-  padding: 4px;
-}
-
-
-/* =========================
-   MOBILE
-   ========================= */
-
-@media (max-width: 576px) {
-
-  .partners-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .partner-card {
-    min-height: 70px;
-    padding: 14px;
-  }
-
-  .partner-name {
-    font-size: 0.85rem;
-  }
-
-  #work h2 {
-    font-size: 1.5rem;
-  }
-
-  .partners-subtitle {
-    font-size: 0.85rem;
-    margin-bottom: 20px;
-  }
-
-
-  /* Home mobile */
-
-  #hero .hero-content {
-    min-height: 100dvh;
-    padding: 100px 25px 50px;
-    flex-direction: column-reverse;
-    text-align: center;
-    justify-content: center;
-    gap: 35px;
-  }
-
-  #hero .hero-text {
-    max-width: 100%;
-  }
-
-  #hero .hero-label {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-  }
-
-  #hero .hero-text h2 {
-    font-size: 2.5rem;
-  }
-
-  #hero .hero-description {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #hero .hero-button {
-    padding: 12px 20px;
-    font-size: 0.9rem;
-  }
-
-  #hero .hero-logo {
-    flex: none;
-  }
-
-  #hero .logo-circle {
-    width: 190px;
-    height: 190px;
-    padding: 25px;
-  }
-
-
-  /* Mobile navbar */
-  #product {
-  min-height: 100dvh;
-  height: auto;
-  padding: 10dvh 5dvw 15dvh;
-  }
-
-  #product h2 {
-  font-size: 1.5rem;
-  }
-
-  .products-subtitle {
-  font-size: 0.85rem;
-  margin-bottom: 20px;
-  }
-
-  .products-grid {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  }
-
-  .product-card img {
-  height: 100px;
-  }
-
-  .product-info {
-  padding: 10px;
-  }
-
-  .product-info h3 {
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-  }
-
-  .product-info p {
-  font-size: 0.72rem;
-  line-height: 1.4;
-  margin-bottom: 8px;
-  }
-
-  .product-price {
-  font-size: 0.8rem;
-  }
-
-  header {
-    justify-content: center;
-  }
-
-  #navbar {
-    display: none;
-  }
-
-  #dropdown {
-    display: inline;
-  }
-  .partner-card { min-height: 70px; padding: 14px; }
-  .partner-name { font-size: 0.85rem; }
-  #work h2 { font-size: 1.5rem; }
-  .partners-subtitle { font-size: 0.85rem; margin-bottom: 20px; }
-}
-
-
-/* =========================
-   TABLET
-   ========================= */
-
-@media (min-width: 577px) and (max-width: 992px) {
-
-  .partners-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-
-  /* Home tablet */
-
-  #hero .hero-content {
-    padding: 90px 6vw 40px;
-    gap: 35px;
-  }
-
-  #hero .hero-text h2 {
-    font-size: 3.5rem;
-  }
-
-  #hero .hero-description {
-    font-size: 1rem;
-  }
-
-  #hero .hero-logo {
-    flex: 0 0 240px;
-  }
-
-  #hero .logo-circle {
-    width: 230px;
-    height: 230px;
-    padding: 30px;
-  }
-
-
-  /* Tablet navbar */
-
-  .products-grid {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  }
-
-  .product-card img {
-  height: 140px;
-  }
-
-  .product-info {
-  padding: 14px;
-  }
-
-  .product-info h3 {
-  font-size: 1rem;
-  }
-
-  .product-info p {
-  font-size: 0.8rem;
-  }
-
-  #navbar {
-    display: none;
-  }
-
-  #dropdown {
-    display: inline;
-  }
-}
-
-
-/* =========================
-   DESKTOP
-   ========================= */
-
-@media (min-width: 993px) {
-
-  #hero .hero-content {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  #hero .hero-logo {
-    flex-basis: 350px;
-  }
-
-  #hero .logo-circle {
-    width: 320px;
-    height: 320px;
-  }
-#product{
+#product {
   background-color: var(--background);
   display: flex;
   flex-direction: column;
@@ -697,7 +469,7 @@ footer {
   min-height: 100dvh;
   height: auto;
   position: relative;
-  padding: 20dvh 5dvw 5dvh;
+  padding: 10dvh 5dvw 5dvh;
   text-align: center;
 }
 
@@ -729,11 +501,10 @@ footer {
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
-
-  transition: 
-  transform 0.3s ease-in-out,
-  box-shadow 0.3s ease-in-out,
-  border-color 0.3s ease-in-out;
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
 }
 
 .product-card img {
@@ -768,9 +539,194 @@ footer {
   font-size: 1rem;
 }
 
-.product-card {
-  transform:translateY(-4px);
-  border-color: var(--coffee);
-  box-shadow: 0 6px 16px #482e1d;
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+  text-align: center;
+  padding: 4px;
 }
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 576px) {
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .partner-card {
+    min-height: 70px;
+    padding: 14px;
+  }
+
+  .partner-name {
+    font-size: 0.85rem;
+  }
+
+  #work h2 {
+    font-size: 1.5rem;
+  }
+
+  .partners-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+
+  #product {
+    min-height: 100dvh;
+    height: auto;
+    padding: 10dvh 5dvw 15dvh;
+  }
+
+  #product h2 {
+    font-size: 1.5rem;
+  }
+
+  .products-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .product-card img {
+    height: 100px;
+  }
+
+  .product-info {
+    padding: 10px;
+  }
+
+  .product-info h3 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+
+  .product-info p {
+    font-size: 0.72rem;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .product-price {
+    font-size: 0.8rem;
+  }
+
+  header {
+    justify-content: center;
+  }
+
+  #navbar {
+    display: none;
+  }
+
+  #dropdown {
+    display: inline;
+  }
+
+  #hero .hero-content {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 30px;
+    padding-top: 100px;
+  }
+
+  #hero .hero-text {
+    max-width: 100%;
+  }
+
+  #hero .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #hero .hero-logo {
+    flex-basis: auto;
+  }
+
+  #hero .logo-circle {
+    width: 220px;
+    height: 220px;
+    padding: 25px;
+  }
+}
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (min-width: 577px) and (max-width: 992px) {
+  .partners-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .product-card img {
+    height: 140px;
+  }
+
+  .product-info {
+    padding: 14px;
+  }
+
+  .product-info h3 {
+    font-size: 1rem;
+  }
+
+  .product-info p {
+    font-size: 0.8rem;
+  }
+
+  #navbar {
+    display: none;
+  }
+
+  #dropdown {
+    display: inline;
+  }
+
+  #hero .hero-content {
+    gap: 30px;
+  }
+
+  #hero .hero-logo {
+    flex-basis: 260px;
+  }
+
+  #hero .logo-circle {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+/* =========================
+   DESKTOP
+   ========================= */
+
+@media (min-width: 993px) {
+  #hero .hero-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #hero .hero-logo {
+    flex-basis: 350px;
+  }
+
+  #hero .logo-circle {
+    width: 320px;
+    height: 320px;
+  }
 }
