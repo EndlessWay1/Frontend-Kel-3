@@ -63,6 +63,13 @@ header {
   z-index: 50;
 }
 
+header > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
 #head-title {
   display: flex;
   flex-direction: row;
@@ -412,7 +419,6 @@ header {
 .partners-inner {
   width: 100%;
   max-width: 1100px;
-  z-index: 1;
 }
 
 #work h2 {
@@ -784,6 +790,8 @@ footer {
     margin-top: 40px;
   }
 
+  /* Mobile navbar */
+
   /* Products mobile */
 
   #product {
@@ -974,10 +982,6 @@ footer {
   #product .card-text {
     font-size: 0.8rem;
   }
-
-  .round-container {
-    width: 70dvw;
-  }
 }
 
 /* =========================
@@ -1076,5 +1080,11 @@ footer {
     color: var(--coffee);
     font-weight: 700;
     font-size: 1rem;
+  }
+
+  .product-card {
+    transform: translateY(-4px);
+    border-color: var(--coffee);
+    box-shadow: 0 6px 16px rgba(72, 46, 29, 0.25);
   }
 }

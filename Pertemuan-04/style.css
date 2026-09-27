@@ -287,15 +287,15 @@ header > div {
   height: auto;
   min-height: 100dvh;
   position: relative;
-  padding: 100px 0 60px;
+  padding: 100px 5vw 60px;
   background-color: var(--background);
   scroll-margin-top: 70px;
   font-size: 16px;
 }
 
 .about-container {
-  --bs-gutter-x: 48px;
   max-width: 1050px;
+  margin: 0 auto;
 }
 
 #about .row {
@@ -303,28 +303,42 @@ header > div {
   --bs-gutter-y: 24px;
 }
 
+.about-intro {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
 .about-brand {
-  padding: 48px 24px;
+  flex: 1;
+  padding: 70px 25px;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
+  text-align: center;
   color: var(--coffee);
 }
 
 .about-brand-name {
-  margin: 16px 0 8px;
+  margin: 16px 0 10px;
   font-size: 30px;
+  font-weight: bold;
+}
+
+.about-story {
+  flex: 1.5;
 }
 
 .about-label {
   color: var(--sage);
-  margin-bottom: 8px;
+  font-weight: bold;
+  margin-bottom: 12px;
 }
 
 .about-story h2 {
   color: var(--espresso);
   font-size: 36px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .about-story p:not(.about-label),
@@ -334,61 +348,40 @@ header > div {
   line-height: 1.7;
 }
 
-.about-story p:not(.about-label) {
-  margin-bottom: 16px;
+.about-story p + p {
+  margin-top: 14px;
 }
 
-#about .about-link {
-  margin-top: 8px;
+.about-link {
+  display: inline-block;
+  margin-top: 24px;
   padding: 12px 20px;
-  font-size: 16px;
-  color: var(--surface);
   background-color: var(--coffee);
-  border: none;
+  color: var(--surface);
+  text-decoration: none;
   border-radius: 4px;
 }
 
-#about .about-link:hover,
-#about .about-link:focus-visible {
+.about-link:hover {
   background-color: var(--espresso);
 }
 
-#about .about-link:focus-visible {
-  outline: 2px solid var(--espresso);
-  outline-offset: 3px;
-  box-shadow: none;
+.about-values {
+  display: flex;
+  gap: 30px;
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
 }
 
-.about-values {
-  --bs-border-color: var(--border);
-  margin-top: 48px;
-  padding-top: 24px;
+.about-values > div {
+  flex: 1;
 }
 
 .about-values h3 {
   color: var(--espresso);
   font-size: 20px;
   margin-bottom: 10px;
-}
-
-@media (max-width: 767.98px) {
-  .about-brand {
-    padding: 24px;
-  }
-
-  .about-brand-name {
-    font-size: 24px;
-  }
-
-  .about-story h2 {
-    font-size: 28px;
-  }
-}
-
-@media (min-width: 992px) {
-  #about .about-intro {
-    --bs-gutter-x: 48px;
-  }
 }
 
 /* =========================
@@ -469,7 +462,7 @@ header > div {
   min-height: 100dvh;
   height: auto;
   position: relative;
-  padding: 10dvh 5dvw 5dvh;
+  padding: 20dvh 5dvw 5dvh;
   text-align: center;
 }
 
@@ -539,6 +532,12 @@ header > div {
   font-size: 1rem;
 }
 
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--coffee);
+  box-shadow: 0 6px 16px rgba(72, 46, 29, 0.2);
+}
+
 /* =========================
    FOOTER
    ========================= */
@@ -575,6 +574,54 @@ footer {
     font-size: 0.85rem;
     margin-bottom: 20px;
   }
+
+  /* Home mobile */
+
+  #hero .hero-content {
+    min-height: 100dvh;
+    padding: 100px 25px 50px;
+    flex-direction: column-reverse;
+    text-align: center;
+    justify-content: center;
+    gap: 35px;
+  }
+
+  #hero .hero-text {
+    max-width: 100%;
+  }
+
+  #hero .hero-label {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+
+  #hero .hero-text h2 {
+    font-size: 2.5rem;
+  }
+
+  #hero .hero-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #hero .hero-button {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+
+  #hero .hero-logo {
+    flex: none;
+  }
+
+  #hero .logo-circle {
+    width: 190px;
+    height: 190px;
+    padding: 25px;
+  }
+
+  /* Products mobile */
 
   #product {
     min-height: 100dvh;
@@ -631,31 +678,18 @@ footer {
     display: inline;
   }
 
-  #hero .hero-content {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    gap: 30px;
-    padding-top: 100px;
+  /* About mobile */
+
+  .about-brand {
+    padding: 24px;
   }
 
-  #hero .hero-text {
-    max-width: 100%;
+  .about-brand-name {
+    font-size: 24px;
   }
 
-  #hero .hero-description {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #hero .hero-logo {
-    flex-basis: auto;
-  }
-
-  #hero .logo-circle {
-    width: 220px;
-    height: 220px;
-    padding: 25px;
+  .about-story h2 {
+    font-size: 28px;
   }
 }
 
@@ -667,6 +701,33 @@ footer {
   .partners-grid {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  /* Home tablet */
+
+  #hero .hero-content {
+    padding: 90px 6vw 40px;
+    gap: 35px;
+  }
+
+  #hero .hero-text h2 {
+    font-size: 3.5rem;
+  }
+
+  #hero .hero-description {
+    font-size: 1rem;
+  }
+
+  #hero .hero-logo {
+    flex: 0 0 240px;
+  }
+
+  #hero .logo-circle {
+    width: 230px;
+    height: 230px;
+    padding: 30px;
+  }
+
+  /* Products tablet */
 
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -697,17 +758,14 @@ footer {
     display: inline;
   }
 
-  #hero .hero-content {
+  /* About tablet */
+
+  .about-intro {
     gap: 30px;
   }
 
-  #hero .hero-logo {
-    flex-basis: 260px;
-  }
-
-  #hero .logo-circle {
-    width: 240px;
-    height: 240px;
+  .about-brand {
+    padding: 40px 20px;
   }
 }
 
