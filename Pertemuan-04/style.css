@@ -7,10 +7,8 @@
   --text: #211811;
   --text-muted: #6b625a;
   --border: #d8cdbb;
-
   --head-shadow-before: #21181100;
   --head-shadow-after: #21181120;
-
   --navbar-dropdown: #f0c87759;
 }
 
@@ -36,7 +34,6 @@ body {
   background: transparent;
 }
 
-
 /* =========================
    SECTION
    ========================= */
@@ -47,7 +44,6 @@ section {
   top: 0;
   z-index: 2;
 }
-
 
 /* =========================
    HEADER
@@ -74,7 +70,6 @@ header > div {
   gap: 10px;
 }
 
-
 /* =========================
    NAVBAR
    ========================= */
@@ -99,7 +94,6 @@ header > div {
   opacity: 0.8;
   transform: translate(0, -3px);
 }
-
 
 /* =========================
    HEADER ANIMATION
@@ -132,7 +126,6 @@ header > div {
     background-color: var(--head-shadow-before);
   }
 }
-
 
 /* =========================
    DROPDOWN
@@ -175,7 +168,6 @@ header > div {
   opacity: 0.8;
   transform: translate(0, -1px);
 }
-
 
 /* =========================
    CANVAS
@@ -287,7 +279,6 @@ header > div {
   object-fit: contain;
 }
 
-
 /* =========================
    ABOUT
    ========================= */
@@ -299,11 +290,17 @@ header > div {
   padding: 100px 5vw 60px;
   background-color: var(--background);
   scroll-margin-top: 70px;
+  font-size: 16px;
 }
 
 .about-container {
   max-width: 1050px;
   margin: 0 auto;
+}
+
+#about .row {
+  --bs-gutter-x: 24px;
+  --bs-gutter-y: 24px;
 }
 
 .about-intro {
@@ -387,7 +384,6 @@ header > div {
   margin-bottom: 10px;
 }
 
-
 /* =========================
    OUR PARTNERS
    ========================= */
@@ -405,6 +401,7 @@ header > div {
 .partners-inner {
   width: 100%;
   max-width: 1100px;
+  z-index: 1;
 }
 
 #work h2 {
@@ -433,7 +430,10 @@ header > div {
   background-color: var(--background);
   border: 1px solid var(--border);
   border-radius: 12px;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, border-color 0.3s ease-in-out;
+  transition:
+    transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
 }
 
 .partner-card:hover {
@@ -449,6 +449,94 @@ header > div {
   letter-spacing: 0.3px;
 }
 
+/* =========================
+   PRODUCTS
+   ========================= */
+
+#product {
+  background-color: var(--background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  height: auto;
+  position: relative;
+  padding: 20dvh 5dvw 5dvh;
+  text-align: center;
+}
+
+.products-inner {
+  width: 100%;
+  max-width: 1100px;
+  z-index: 1;
+}
+
+#product h2 {
+  color: var(--espresso);
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.products-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.product-card {
+  overflow: hidden;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
+}
+
+.product-card img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 16px;
+  text-align: left;
+}
+
+.product-info h3 {
+  color: var(--espresso);
+  font-size: 1.15rem;
+  margin-bottom: 18px;
+}
+
+.product-info p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.product-price {
+  color: var(--coffee);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--coffee);
+  box-shadow: 0 6px 16px rgba(72, 46, 29, 0.2);
+}
 
 /* =========================
    FOOTER
@@ -459,13 +547,11 @@ footer {
   padding: 4px;
 }
 
-
 /* =========================
    MOBILE
    ========================= */
 
 @media (max-width: 576px) {
-
   .partners-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
@@ -488,7 +574,6 @@ footer {
     font-size: 0.85rem;
     margin-bottom: 20px;
   }
-
 
   /* Home mobile */
 
@@ -536,49 +621,49 @@ footer {
     padding: 25px;
   }
 
+  /* Products mobile */
 
-  /* Mobile navbar */
   #product {
-  min-height: 100dvh;
-  height: auto;
-  padding: 10dvh 5dvw 15dvh;
+    min-height: 100dvh;
+    height: auto;
+    padding: 10dvh 5dvw 15dvh;
   }
 
   #product h2 {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 
   .products-subtitle {
-  font-size: 0.85rem;
-  margin-bottom: 20px;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
   }
 
   .products-grid {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .product-card img {
-  height: 100px;
+    height: 100px;
   }
 
   .product-info {
-  padding: 10px;
+    padding: 10px;
   }
 
   .product-info h3 {
-  font-size: 0.9rem;
-  margin-bottom: 5px;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
   }
 
   .product-info p {
-  font-size: 0.72rem;
-  line-height: 1.4;
-  margin-bottom: 8px;
+    font-size: 0.72rem;
+    line-height: 1.4;
+    margin-bottom: 8px;
   }
 
   .product-price {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
   }
 
   header {
@@ -592,23 +677,30 @@ footer {
   #dropdown {
     display: inline;
   }
-  .partner-card { min-height: 70px; padding: 14px; }
-  .partner-name { font-size: 0.85rem; }
-  #work h2 { font-size: 1.5rem; }
-  .partners-subtitle { font-size: 0.85rem; margin-bottom: 20px; }
-}
 
+  /* About mobile */
+
+  .about-brand {
+    padding: 24px;
+  }
+
+  .about-brand-name {
+    font-size: 24px;
+  }
+
+  .about-story h2 {
+    font-size: 28px;
+  }
+}
 
 /* =========================
    TABLET
    ========================= */
 
 @media (min-width: 577px) and (max-width: 992px) {
-
   .partners-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-
 
   /* Home tablet */
 
@@ -635,28 +727,27 @@ footer {
     padding: 30px;
   }
 
-
-  /* Tablet navbar */
+  /* Products tablet */
 
   .products-grid {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
 
   .product-card img {
-  height: 140px;
+    height: 140px;
   }
 
   .product-info {
-  padding: 14px;
+    padding: 14px;
   }
 
   .product-info h3 {
-  font-size: 1rem;
+    font-size: 1rem;
   }
 
   .product-info p {
-  font-size: 0.8rem;
+    font-size: 0.8rem;
   }
 
   #navbar {
@@ -666,15 +757,23 @@ footer {
   #dropdown {
     display: inline;
   }
-}
 
+  /* About tablet */
+
+  .about-intro {
+    gap: 30px;
+  }
+
+  .about-brand {
+    padding: 40px 20px;
+  }
+}
 
 /* =========================
    DESKTOP
    ========================= */
 
 @media (min-width: 993px) {
-
   #hero .hero-content {
     padding-left: 20px;
     padding-right: 20px;
@@ -688,89 +787,4 @@ footer {
     width: 320px;
     height: 320px;
   }
-#product{
-  background-color: var(--background);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100dvh;
-  height: auto;
-  position: relative;
-  padding: 20dvh 5dvw 5dvh;
-  text-align: center;
-}
-
-.products-inner {
-  width: 100%;
-  max-width: 1100px;
-  z-index: 1;
-}
-
-#product h2 {
-  color: var(--espresso);
-  font-size: 2rem;
-  margin-bottom: 8px;
-}
-
-.products-subtitle {
-  color: var(--text-muted);
-  margin-bottom: 32px;
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.product-card {
-  overflow: hidden;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-
-  transition: 
-  transform 0.3s ease-in-out,
-  box-shadow 0.3s ease-in-out,
-  border-color 0.3s ease-in-out;
-}
-
-.product-card img {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: 170px;
-  object-fit: cover;
-}
-
-.product-info {
-  padding: 16px;
-  text-align: left;
-}
-
-.product-info h3 {
-  color: var(--espresso);
-  font-size: 1.15rem;
-  margin-bottom: 18px;
-}
-
-.product-info p {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin-bottom: 12px;
-}
-
-.product-price {
-  color: var(--coffee);
-  font-weight: 700;
-  font-size: 1rem;
-}
-
-.product-card {
-  transform:translateY(-4px);
-  border-color: var(--coffee);
-  box-shadow: 0 6px 16px #482e1d;
-}
 }
