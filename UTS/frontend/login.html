@@ -1,0 +1,95 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nasi Liwet:Login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header id="header"></header>
+    <div id="root">
+      <div class="login-container" id="login">
+        <div class="login-page">
+          <h1 class="fs-2 text-center">Log In Page</h1>
+          <form action="" method="post">
+            <div id="login-content">
+              <div class="input-container">
+                <label for="emails">Email:</label>
+                <input type="email" name="emails" />
+              </div>
+              <div class="input-container">
+                <label for="password">Password:</label>
+                <input type="password" name="password" />
+              </div>
+              <div class="form-buttons">
+                <button type="submit" class="form-button">Submit</button>
+                <button type="button" class="form-button" id="sign-up-button">
+                  Sign Up
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="login-container" id="signup">
+        <div class="login-page">
+          <h1 class="fs-2 text-center">Sign Up Page</h1>
+          <form action="" method="post">
+            <div class="login-content">
+              <div class="input-container">
+                <label for="emails">Email:</label>
+                <input type="email" name="emails" />
+              </div>
+              <div class="input-container">
+                <label for="password">Password:</label>
+                <input type="password" name="password" />
+              </div>
+              <div class="input-container">
+                <label for="c-password">Confirm Password:</label>
+                <input type="password" name="c-password" />
+              </div>
+              <div class="form-buttons">
+                <button type="submit" class="form-button">Submit</button>
+                <button type="button" class="form-button" id="log-in-button">
+                  Log in
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer></footer>
+
+    <script
+      src="https://code.jquery.com/jquery-4.0.0.js"
+      integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U="
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="./script/auth.js"></script>
+    <script src="./script/header.js"></script>
+    <script>
+      $("#sign-up-button").on('click', function() {
+        $("#login").slideToggle(0.2);
+        $("#signup").slideToggle(0.2);
+      });
+      $("#log-in-button").on('click', function() {
+        $("#login").slideToggle(0.2);
+        $("#signup").slideToggle(0.2);
+      });
+    </script>
+  </body>
+</html>
