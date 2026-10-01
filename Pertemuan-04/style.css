@@ -287,15 +287,15 @@ header > div {
   height: auto;
   min-height: 100dvh;
   position: relative;
-  padding: 100px 5vw 60px;
+  padding: 100px 0 60px;
   background-color: var(--background);
   scroll-margin-top: 70px;
   font-size: 16px;
 }
 
 .about-container {
+  --bs-gutter-x: 48px;
   max-width: 1050px;
-  margin: 0 auto;
 }
 
 #about .row {
@@ -310,35 +310,27 @@ header > div {
 }
 
 .about-brand {
-  flex: 1;
-  padding: 70px 25px;
+  padding: 48px 24px;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px;
-  text-align: center;
   color: var(--coffee);
 }
 
 .about-brand-name {
-  margin: 16px 0 10px;
+  margin: 16px 0 8px;
   font-size: 30px;
-  font-weight: bold;
-}
-
-.about-story {
-  flex: 1.5;
 }
 
 .about-label {
   color: var(--sage);
-  font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .about-story h2 {
   color: var(--espresso);
   font-size: 36px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .about-story p:not(.about-label),
@@ -348,40 +340,61 @@ header > div {
   line-height: 1.7;
 }
 
-.about-story p + p {
-  margin-top: 14px;
+.about-story p:not(.about-label) {
+  margin-bottom: 16px;
 }
 
-.about-link {
-  display: inline-block;
-  margin-top: 24px;
+#about .about-link {
+  margin-top: 8px;
   padding: 12px 20px;
-  background-color: var(--coffee);
+  font-size: 16px;
   color: var(--surface);
-  text-decoration: none;
+  background-color: var(--coffee);
+  border: none;
   border-radius: 4px;
 }
 
-.about-link:hover {
+#about .about-link:hover,
+#about .about-link:focus-visible {
   background-color: var(--espresso);
 }
 
-.about-values {
-  display: flex;
-  gap: 30px;
-  margin-top: 50px;
-  padding-top: 30px;
-  border-top: 1px solid var(--border);
+#about .about-link:focus-visible {
+  outline: 2px solid var(--espresso);
+  outline-offset: 3px;
+  box-shadow: none;
 }
 
-.about-values > div {
-  flex: 1;
+.about-values {
+  --bs-border-color: var(--border);
+  margin-top: 48px;
+  padding-top: 24px;
 }
 
 .about-values h3 {
   color: var(--espresso);
   font-size: 20px;
   margin-bottom: 10px;
+}
+
+@media (max-width: 767.98px) {
+  .about-brand {
+    padding: 24px;
+  }
+
+  .about-brand-name {
+    font-size: 24px;
+  }
+
+  .about-story h2 {
+    font-size: 28px;
+  }
+}
+
+@media (min-width: 992px) {
+  #about .about-intro {
+    --bs-gutter-x: 48px;
+  }
 }
 
 /* =========================
@@ -462,7 +475,7 @@ header > div {
   min-height: 100dvh;
   height: auto;
   position: relative;
-  padding: 20dvh 5dvw 5dvh;
+  padding: 10dvh 5dvw 5dvh;
   text-align: center;
 }
 
@@ -530,12 +543,6 @@ header > div {
   color: var(--coffee);
   font-weight: 700;
   font-size: 1rem;
-}
-
-.product-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--coffee);
-  box-shadow: 0 6px 16px rgba(72, 46, 29, 0.2);
 }
 
 /* =========================
@@ -678,6 +685,31 @@ footer {
     display: inline;
   }
 
+  #hero .hero-content {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 30px;
+    padding-top: 100px;
+  }
+
+  #hero .hero-text {
+    max-width: 100%;
+  }
+
+  #hero .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #hero .hero-logo {
+    flex-basis: auto;
+  }
+
+  #hero .logo-circle {
+    width: 220px;
+    height: 220px;
+    padding: 25px;
   /* About mobile */
 
   .about-brand {
@@ -758,6 +790,17 @@ footer {
     display: inline;
   }
 
+  #hero .hero-content {
+    gap: 30px;
+  }
+
+  #hero .hero-logo {
+    flex-basis: 260px;
+  }
+
+  #hero .logo-circle {
+    width: 240px;
+    height: 240px;
   /* About tablet */
 
   .about-intro {
