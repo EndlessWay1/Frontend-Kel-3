@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nasi Liwet:Create Recipe</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header id="header"></header>
+    <main id="root" class="cr-page" hidden>
+      <div class="container cr-container">
+        <h1 class="cr-title">Share your nasi liwet</h1>
+        <p class="cr-sub">Posting as <strong id="postingAs"></strong>. Every field is required except image and source.</p>
+
+        <form id="recipeForm" novalidate>
+          <div class="row g-4">
+            <div class="col-lg-7">
+              <section class="cr-card">
+                <h2>The basics</h2>
+                <div class="cr-field">
+                  <label class="cr-label" for="title">Title</label>
+                  <input class="cr-input" id="title" type="text" maxlength="80" placeholder="e.g. Nasi Liwet Sunda Teri" />
+                  <div class="cr-error" id="errTitle"></div>
+                </div>
+                <div class="row g-3">
+                  <div class="col-sm-6 cr-field">
+                    <label class="cr-label" for="category">Category</label>
+                    <select class="cr-input" id="category">
+                      <option value="sunda">Khas Sunda</option>
+                      <option value="solo">Khas Solo</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-6 cr-field">
+                    <label class="cr-label" for="method">Cooking method</label>
+                    <select class="cr-input" id="method">
+                      <option value="rice-cooker">Rice Cooker</option>
+                      <option value="tradisional">Tradisional</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-6 cr-field">
+                    <label class="cr-label" for="time">Cook time</label>
+                    <input class="cr-input" id="time" type="text" placeholder="e.g. 45 menit" />
+                    <div class="cr-error" id="errTime"></div>
+                  </div>
+                  <div class="col-sm-6 cr-field">
+                    <label class="cr-label" for="servings">Servings</label>
+                    <input class="cr-input" id="servings" type="text" placeholder="e.g. 4 porsi" />
+                    <div class="cr-error" id="errServings"></div>
+                  </div>
+                </div>
+                <div class="cr-field">
+                  <label class="cr-label" for="image">Image URL (optional)</label>
+                  <input class="cr-input" id="image" type="text" placeholder="https://..." />
+                </div>
+                <div class="cr-field">
+                  <label class="cr-label" for="source">Source (optional)</label>
+                  <input class="cr-input" id="source" type="text" placeholder="e.g. Resep keluarga" />
+                </div>
+                <div class="cr-field">
+                  <label class="cr-label" for="description">Description</label>
+                  <textarea class="cr-input" id="description" rows="3" maxlength="300" placeholder="What makes your version special?"></textarea>
+                  <div class="cr-error" id="errDesc"></div>
+                </div>
+              </section>
+
+              <section class="cr-card">
+                <h2>Tags</h2>
+                <p class="cr-hint">Main ingredients shown as chips on the recipe card. Type one and press Enter.</p>
+                <div class="cr-tagbox" id="tagBox">
+                  <input class="cr-tag-input" id="tagInput" type="text" placeholder="e.g. Ikan Teri" />
+                </div>
+                <div class="cr-error" id="errTags"></div>
+              </section>
+
+              <section class="cr-card">
+                <h2>Ingredients</h2>
+                <p class="cr-hint">Group them like a recipe card, e.g. "Bumbu Halus", "Bahan Utama".</p>
+                <div id="groupList"></div>
+                <div class="cr-error" id="errGroups"></div>
+                <button type="button" class="cr-pill cr-pill-add" id="addGroup">Add group</button>
+              </section>
+
+              <section class="cr-card">
+                <h2>Instructions</h2>
+                <div id="stepList"></div>
+                <div class="cr-error" id="errSteps"></div>
+                <button type="button" class="cr-pill cr-pill-add" id="addStep">Add step</button>
+              </section>
+            </div>
+
+            <div class="col-lg-5">
+              <aside class="cr-preview">
+                <p class="cr-hint">Preview, as it appears in the recipe list</p>
+                <article class="cr-pv-card">
+                  <div class="cr-pv-imgwrap">
+                    <img id="pvImage" class="cr-pv-img" alt="" hidden />
+                    <span class="cr-pv-noimg" id="pvNoImg">No image yet</span>
+                    <span class="cr-badge" id="pvCategory">Khas Sunda</span>
+                    <span class="cr-badge cr-badge-alt" id="pvMethod">Rice Cooker</span>
+                  </div>
+                  <div class="cr-pv-body">
+                    <div class="cr-meta">
+                      <span id="pvTime">Cook time</span>
+                      <span id="pvServings">Servings</span>
+                    </div>
+                    <h3 id="pvTitle">Your recipe title</h3>
+                    <p id="pvDesc">Your description will appear here.</p>
+                    <div class="cr-chips" id="pvTags"></div>
+                    <div class="cr-pv-foot">
+                      <span id="pvSource"></span>
+                    </div>
+                  </div>
+                </article>
+                <div class="cr-actions">
+                  <button type="submit" class="cr-pill cr-pill-dark">Publish recipe</button>
+                  <a href="./recipes.html" class="cr-pill cr-pill-light">Cancel</a>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+    <footer></footer>
+
+    <script
+      src="https://code.jquery.com/jquery-4.0.0.js"
+      integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./script/auth.js"></script>
+    <script src="./script/header.js"></script>
+    <script src="./script/create-recipe.js"></script>
+  </body>
+</html>
