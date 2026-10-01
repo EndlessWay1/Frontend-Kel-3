@@ -20,6 +20,11 @@ const linkNav = [
     target: "./user.html",
     name: "Profile",
   },
+  {
+  id: 5,
+  target: "./admin.html",
+  name: "Admin",
+  },
 ];
 
 const header = $("#header");
@@ -61,6 +66,7 @@ $(document).ready(function () {
       if (id === 4 && !user) {
         return undefined;
       }
+
       const li = $(`<li class="nav-item">
         </li>`);
       li.append(alink);
