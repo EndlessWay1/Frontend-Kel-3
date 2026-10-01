@@ -45,3 +45,14 @@ Website bertemakan "Kopi Nusantara" yang dibuat menggunakan JQuery sebagai pemba
 - **[Link Tugas](./Pertemuan-05/)**
 - **[Link Zip](./A03_T3_TugasJQuery.zip)**
 - **[Link Laporan Pdf](./Laporan%20jQuery%20Kel-3.pdf)**
+
+### Tugas 4: Kopi Nusantara (Bootstrap)
+
+Website bertemakan "Kopi Nusantara" yang dikembangkan menggunakan Bootstrap untuk membantu membuat layout dan komponen website menjadi lebih terstruktur dan responsif.
+
+Bootstrap diterapkan pada bagian layout, navigasi, card produk, serta komponen interaktif. CSS tambahan tetap digunakan untuk mempertahankan identitas visual dari website Kopi Nusantara.
+
+- **[Link Website via Vercel](https://pertemuan-06.vercel.app/)**
+- **[Link Tugas](./Pertemuan-06/)**
+- **[Link Zip](./A03_T4_TugasBootstrap.zip)**
+- **[Link Laporan Pdf](./Laporan%20Bootstrap%20Kel-3.pdf)**

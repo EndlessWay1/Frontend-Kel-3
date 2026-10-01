@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nasi Liwet:Recipes</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header id="header"></header>
+
+    <div id="root">
+      <main class="recipes-wrapper">
+        <section class="recipes-heading">
+          <span class="recipes-heading-tag">Koleksi Kuliner Nusantara</span>
+          <h1 class="recipes-heading-title">Katalog Resep Nasi Liwet</h1>
+          <p class="recipes-heading-desc">
+            Kumpulan resep nasi liwet khas Sunda dan Solo dengan beragam metode
+            memasak.
+          </p>
+
+          <div class="recipe-search-box">
+            <input
+              type="text"
+              id="recipe-search"
+              class="recipe-search-input"
+              placeholder="Cari resep, bahan, atau metode"
+              autocomplete="off"
+            />
+          </div>
+        </section>
+
+        <section class="recipes-filter-section">
+          <div class="recipes-filter-bar">
+            <button type="button" class="filter-btn active" data-filter="all">
+              Semua Resep
+            </button>
+            <button type="button" class="filter-btn" data-filter="sunda">
+              Khas Sunda
+            </button>
+            <button type="button" class="filter-btn" data-filter="solo">
+              Khas Solo
+            </button>
+            <button type="button" class="filter-btn" data-filter="rice-cooker">
+              Rice Cooker
+            </button>
+            <button type="button" class="filter-btn" data-filter="tradisional">
+              Tradisional
+            </button>
+          </div>
+
+          <div id="recipes-count" class="recipes-count"></div>
+        </section>
+
+        <section>
+          <div class="row g-4" id="recipes-grid">
+            <!-- daftar resep -->
+          </div>
+        </section>
+      </main>
+
+      <footer class="recipes-footer">
+        <p>
+          &copy; 2026 Nasi Liwet Nusantara 2026 &bull; Kel-3 Frontend Vaibhav
+          Nickson Denzel Catherine Putri.
+        </p>
+      </footer>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-4.0.0.js"
+      integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U="
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="./script/auth.js"></script>
+    <script src="./script/header.js"></script>
+    <script src="./script/recipes.js"></script>
+  </body>
+</html>
