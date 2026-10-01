@@ -8,11 +8,13 @@ function auth() {
     sessionStorage.setItem("name", "John Doe");
     sessionStorage.setItem("email", "john.untar@gmail.com");
     sessionStorage.setItem("joined", new Date(2024, 0, 1).toISOString());
+    sessionStorage.setItem("role", "admin");
     return {
       username: sessionStorage.getItem("username"),
       name: sessionStorage.getItem("name"),
       email: sessionStorage.getItem("email"),
       joined: new Date(sessionStorage.getItem("joined")),
+      role: sessionStorage.getItem("role"),
     };
   } else {
     return undefined;
@@ -26,4 +28,5 @@ function setAuth() {
   sessionStorage.setItem("name", "John Doe");
   sessionStorage.setItem("email", "john.untar@gmail.com");
   sessionStorage.setItem("joined", new Date(2024, 0, 1).toISOString());
+  sessionStorage.setItem("role", "admin");
 }
