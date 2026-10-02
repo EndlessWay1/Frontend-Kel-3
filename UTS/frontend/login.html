@@ -3,6 +3,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nasi Liwet:Login</title>
+    <link rel="icon" type="image/png" href="./assets/logo.png" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,26 +14,32 @@
   </head>
   <body>
     <header id="header"></header>
+
     <div id="root">
       <div class="login-container" id="login">
         <div class="login-page">
           <h1 class="fs-2 text-center">Log In Page</h1>
-          <form action="" method="post">
-            <div id="login-content">
+          <form id="form-login">
+            <div class="login-content">
               <div class="input-container">
                 <label for="emails">Email:</label>
-                <input type="email" name="emails" />
+                <input type="email" name="email" required />
+                <span class="user-error" id="login-error-email"></span>
               </div>
               <div class="input-container">
                 <label for="password">Password:</label>
                 <input type="password" name="password" />
+                <span class="user-error" id="login-error-password"></span>
               </div>
-              <div class="form-buttons">
-                <button type="submit" class="form-button">Submit</button>
-                <button type="button" class="form-button" id="sign-up-button">
-                  Sign Up
-                </button>
-              </div>
+              <span
+                class="user-error pt-3 text-center"
+                id="login-error-global"
+              ></span>
+              <p style="margin-left: 8px">
+                Don't have an account?
+                <a id="sign-up-button">Sign up</a>
+              </p>
+              <button type="submit" class="form-button">Log in</button>
             </div>
           </form>
         </div>
@@ -40,32 +47,49 @@
       <div class="login-container" id="signup">
         <div class="login-page">
           <h1 class="fs-2 text-center">Sign Up Page</h1>
-          <form action="" method="post">
+          <form id="form-signup">
             <div class="login-content">
               <div class="input-container">
+                <label for="Name">Name:</label>
+                <input type="text" name="name" required />
+                <span class="user-error" id="signup-error-name"></span>
+              </div>
+
+              <div class="input-container">
+                <label for="Name">Username:</label>
+                <input type="text" name="username" required />
+                <span class="user-error" id="signup-error-username"></span>
+              </div>
+
+              <div class="input-container">
                 <label for="emails">Email:</label>
-                <input type="email" name="emails" />
+                <input type="email" name="email" required />
+                <span class="user-error" id="signup-error-email"></span>
               </div>
               <div class="input-container">
                 <label for="password">Password:</label>
-                <input type="password" name="password" />
+                <input type="password" name="password" required />
+                <span class="user-error" id="signup-error-password"></span>
               </div>
               <div class="input-container">
                 <label for="c-password">Confirm Password:</label>
-                <input type="password" name="c-password" />
+                <input type="password" name="c-password" required />
+                <span class="user-error" id="signup-error-c-password"></span>
               </div>
-              <div class="form-buttons">
-                <button type="submit" class="form-button">Submit</button>
-                <button type="button" class="form-button" id="log-in-button">
-                  Log in
-                </button>
-              </div>
+              <span
+                class="user-error pt-3 text-center"
+                id="signup-error-global"
+              ></span>
+              <p style="margin-left: 8px">
+                Have an account? <a id="log-in-button">Log in</a>
+              </p>
+              <button type="submit" class="form-button">Sign up</button>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <footer></footer>
+    <footer id="footer"></footer>
 
     <script
       src="https://code.jquery.com/jquery-4.0.0.js"
@@ -79,14 +103,16 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="./script/auth.js"></script>
-    <script src="./script/header.js"></script>
+    <script src="./script/login.js" type="module"></script>
+    <script src="./script/footer.js"></script>
+    <script src="./script/auth.js" type="module"></script>
+    <script src="./script/header.js " type="module"></script>
     <script>
-      $("#sign-up-button").on('click', function() {
+      $("#sign-up-button").on("click", function () {
         $("#login").slideToggle(0.2);
         $("#signup").slideToggle(0.2);
       });
-      $("#log-in-button").on('click', function() {
+      $("#log-in-button").on("click", function () {
         $("#login").slideToggle(0.2);
         $("#signup").slideToggle(0.2);
       });
