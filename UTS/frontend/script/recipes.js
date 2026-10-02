@@ -1,578 +1,9 @@
-const recipesData = [
-  {
-    id: 1,
-    title: "Nasi Liwet Teri & Petai Rice Cooker",
-    category: "sunda",
-    method: "rice-cooker",
-    categoryLabel: "Khas Sunda",
-    methodLabel: "Rice Cooker",
-    image: "./recipes/pictures/Foto 1.jpg",
-    time: "35-45 menit",
-    servings: "3-4 porsi",
-    source: "BrilioFood",
-    description: "Nasi liwet khas Sunda dengan bumbu serai dan daun salam, serta taburan teri goreng dan petai.",
-    generalIngredients: [
-      "Beras",
-      "Ikan Teri",
-      "Petai",
-      "Bawang Merah & Putih",
-      "Cabai Keriting",
-      "Serai & Daun Salam"
-    ],
-    ingredients: [
-      {
-        group: "Bahan Utama",
-        items: [
-          "3 cup beras, cuci bersih",
-          "Air matang secukupnya (takaran masak nasi biasa)",
-          "Garam dan kaldu jamur secukupnya",
-          "Minyak secukupnya untuk menumis"
-        ]
-      },
-      {
-        group: "Bumbu Tumis Aromatik",
-        items: [
-          "8 butir bawang merah, iris tipis",
-          "4 siung bawang putih, iris tipis",
-          "2 buah cabai merah keriting, iris serong",
-          "2 batang serai, geprek",
-          "5 lembar daun salam",
-          "2 cm lengkuas, memarkan"
-        ]
-      },
-      {
-        group: "Taburan & Pelengkap",
-        items: [
-          "100 gram ikan teri medan, goreng garing",
-          "1 papan petai, kupas dan belah dua"
-        ]
-      }
-    ],
-    instructions: [
-      "Goreng ikan teri medan sampai kuning keemasan dan renyah garing, lalu angkat dan tiriskan. Goreng petai dan cabai rawit sebentar saja, lalu tiriskan.",
-      "Panaskan sedikit minyak, tumis irisan bawang merah dan bawang putih hingga harum. Masukkan serai, lengkuas, cabai merah keriting, dan daun salam sampai layu semerbak.",
-      "Tuang tumisan bumbu beserta minyaknya ke dalam wadah rice cooker yang sudah berisi beras dan air takaran normal.",
-      "Tambahkan garam, kaldu jamur, dan sebagian teri goreng, lalu aduk sampai bumbu tercampur rata.",
-      "Nyalakan rice cooker ke mode cook. Masak hingga tombol berpindah ke mode warm dan nasi matang tanak.",
-      "Buka tutup rice cooker, taburkan sisa teri goreng renyah, petai, dan cabai di atas nasi hangat, lalu siap disajikan."
-    ]
-  },
-  {
-    id: 2,
-    title: "Nasi Liwet Dandang Daun Jeruk",
-    category: "sunda",
-    method: "tradisional",
-    categoryLabel: "Khas Sunda",
-    methodLabel: "Tradisional",
-    image: "./recipes/pictures/Foto 2.jpg",
-    time: "45 menit",
-    servings: "3-4 porsi",
-    source: "Yummy App",
-    description: "Nasi liwet yang dikukus dengan dandang tradisional, harum daun jeruk dengan tekstur nasi yang pulen.",
-    generalIngredients: [
-      "Beras",
-      "Ikan Teri",
-      "Cabai Rawit Utuh",
-      "Bawang Merah & Putih",
-      "Daun Jeruk & Salam",
-      "Serai & Lengkuas"
-    ],
-    ingredients: [
-      {
-        group: "Bahan Pokok",
-        items: [
-          "3 gelas beras pulen, cuci bersih",
-          "Air secukupnya untuk mengaron",
-          "50 gram ikan teri asin",
-          "2 sdm minyak untuk menggoreng dan menumis"
-        ]
-      },
-      {
-        group: "Bumbu Tumis & Dedaunan",
-        items: [
-          "3 siung bawang merah, iris tipis",
-          "2 siung bawang putih, cincang halus",
-          "8 biji cabai rawit merah utuh",
-          "1 batang serai, geprek",
-          "1 ruas jari lengkuas, iris tipis",
-          "3 lembar daun salam",
-          "3 lembar daun jeruk purut",
-          "1 sdt garam dapur",
-          "1/2 sdt kaldu bubuk"
-        ]
-      }
-    ],
-    instructions: [
-      "Cuci teri asin hingga bersih, potong bila perlu, lalu goreng sampai kering dan renyah. Tiriskan.",
-      "Gunakan sisa minyak goreng teri untuk menumis bawang putih, bawang merah, cabai rawit utuh, serai, lengkuas, daun salam, dan daun jeruk hingga harum.",
-      "Didihkan air di panci, lalu masukkan beras yang sudah dicuci bersih.",
-      "Masukkan bumbu tumisan, garam, dan kaldu bubuk. Aduk perlahan hingga air menyusut dan beras menjadi setengah matang (diaron).",
-      "Panaskan panci dandang kukusan dengan air mendidih di bagian bawahnya.",
-      "Kukus beras aron di dalam dandang sekitar 20 menit hingga nasi matang tanak sempurna.",
-      "Angkat dan campurkan teri goreng garing, sajikan selagi hangat beralas daun pisang."
-    ]
-  },
-  {
-    id: 3,
-    title: "Nasi Liwet Sunda Original & Lauk Komplit",
-    category: "sunda",
-    method: "rice-cooker",
-    categoryLabel: "Khas Sunda",
-    methodLabel: "Rice Cooker",
-    image: "./recipes/pictures/Foto 3.jpg",
-    time: "40 menit",
-    servings: "4-5 porsi",
-    source: "Liputan6",
-    description: "Resep nasi liwet Sunda dengan lauk lengkap: ayam goreng, tahu, tempe, lalapan, dan cocolan sambal terasi.",
-    generalIngredients: [
-      "Beras Pulen",
-      "Teri Medan",
-      "Petai",
-      "Ayam Goreng & Tahu Tempe",
-      "Sambal Terasi & Lalapan",
-      "Serai & Lengkuas"
-    ],
-    ingredients: [
-      {
-        group: "Bahan Nasi",
-        items: [
-          "500 gram beras pulen, cuci bersih",
-          "700 ml air bersih (sesuaikan dengan jenis beras)",
-          "50 gram ikan teri medan, goreng hingga kering",
-          "1 papan petai, kupas dan belah dua"
-        ]
-      },
-      {
-        group: "Bumbu Rempah",
-        items: [
-          "5 siung bawang merah, iris tipis",
-          "3 siung bawang putih, iris tipis",
-          "3 lembar daun salam",
-          "2 batang serai, memarkan",
-          "2 cm lengkuas, memarkan",
-          "5 buah cabai rawit merah utuh",
-          "1 sdt garam",
-          "1/2 sdt kaldu jamur bubuk",
-          "2 sdm minyak goreng untuk menumis"
-        ]
-      },
-      {
-        group: "Lauk Pendamping Komplit",
-        items: [
-          "Ayam goreng kuning",
-          "Tahu dan tempe goreng renyah",
-          "Ikan asin jambal roti goreng",
-          "Sambal terasi ulek",
-          "Lalapan segar (timun, kemangi, selada air)"
-        ]
-      }
-    ],
-    instructions: [
-      "Tumis bawang merah dan bawang putih sampai harum, masukkan daun salam, serai, lengkuas, dan cabai rawit sampai layu.",
-      "Masukkan beras yang sudah dicuci, aduk rata sebentar, lalu pindahkan ke kastrol atau rice cooker.",
-      "Tambahkan air, garam, dan kaldu jamur, lalu aduk hingga bumbu rata.",
-      "Masak sampai air menyusut dan nasi setengah matang. Jika menggunakan kastrol, gunakan api kecil.",
-      "Masukkan teri goreng dan petai, aduk pelan, lalu tutup rapat dan masak sampai nasi matang pulen.",
-      "Diamkan 5-10 menit agar uap panas meresapkan bumbu ke seluruh nasi.",
-      "Sajikan hangat beralaskan daun pisang dengan ayam goreng, tahu tempe, ikan jambal, sambal, dan lalapan."
-    ]
-  },
-  {
-    id: 4,
-    title: "Nasi Liwet Teri Santan Gurih",
-    category: "sunda",
-    method: "tradisional",
-    categoryLabel: "Khas Sunda",
-    methodLabel: "Tradisional",
-    image: "./recipes/pictures/Foto 4.jpg",
-    time: "45 menit",
-    servings: "3-4 porsi",
-    source: "IDN Times",
-    description: "Nasi liwet gurih dengan santan kelapa dan rempah lengkuas, dilengkapi taburan teri medan goreng.",
-    generalIngredients: [
-      "Beras",
-      "Santan Kental",
-      "Teri Medan",
-      "Daun Salam & Serai",
-      "Lengkuas",
-      "Bawang Merah & Putih"
-    ],
-    ingredients: [
-      {
-        group: "Bahan Pokok",
-        items: [
-          "300 gram beras pulen",
-          "65 ml santan kental instan",
-          "500 ml air bersih",
-          "50 gram teri medan, goreng garing"
-        ]
-      },
-      {
-        group: "Bumbu Aromatik",
-        items: [
-          "3 siung bawang merah, iris tipis",
-          "2 siung bawang putih, iris tipis",
-          "2 lembar daun salam",
-          "2 batang serai, memarkan",
-          "1 ruas lengkuas, memarkan",
-          "1 sdt garam dapur",
-          "1 sdt kaldu bubuk ayam",
-          "Minyak secukupnya untuk menumis"
-        ]
-      }
-    ],
-    instructions: [
-      "Cuci beras sampai air bilasan jernih, lalu tiriskan dengan saringan.",
-      "Tumis bawang merah dan bawang putih dengan minyak sampai harum dan mulai kecokelatan.",
-      "Masukkan daun salam, serai, dan lengkuas, lalu aduk perlahan sampai wangi rempahnya keluar.",
-      "Masukkan beras dan aduk lembut sampai seluruh butiran beras terlapisi minyak bumbu.",
-      "Tuang santan dan air secara perlahan, tambahkan garam dan kaldu bubuk, lalu kecilkan api.",
-      "Tutup rapat panci dan masak dengan api kecil. Buka sesekali dan aduk pelan.",
-      "Saat nasi setengah matang, masukkan sebagian teri goreng dan aduk rata.",
-      "Tutup lagi sampai tanak, matikan api, dan diamkan 10 menit sebelum disajikan."
-    ]
-  },
-  {
-    id: 5,
-    title: "Nasi Liwet Teri Daun Pandan Rice Cooker",
-    category: "sunda",
-    method: "rice-cooker",
-    categoryLabel: "Khas Sunda",
-    methodLabel: "Rice Cooker",
-    image: "./recipes/pictures/Foto 5.jpg",
-    time: "35 menit",
-    servings: "3-4 porsi",
-    source: "Halodoc",
-    description: "Resep praktis masak nasi liwet di rice cooker dengan wangi daun pandan dan daun jeruk.",
-    generalIngredients: [
-      "Beras",
-      "Ikan Teri",
-      "Daun Pandan",
-      "Daun Salam & Daun Jeruk",
-      "Bawang Merah & Putih",
-      "Cabai Rawit"
-    ],
-    ingredients: [
-      {
-        group: "Bahan Utama",
-        items: [
-          "3 cup beras putih, cuci bersih",
-          "Air secukupnya (takaran memasak nasi biasa)",
-          "50 gram ikan teri asin, cuci dan goreng kering"
-        ]
-      },
-      {
-        group: "Bumbu & Daun Aromatik",
-        items: [
-          "2 lembar daun pandan, simpulkan",
-          "3 lembar daun salam",
-          "3 lembar daun jeruk purut",
-          "2 batang serai, memarkan",
-          "4 butir bawang merah & 3 siung bawang putih, iris tipis",
-          "5 buah cabai rawit merah utuh",
-          "1 sdt garam dan 1/2 sdt kaldu bubuk"
-        ]
-      }
-    ],
-    instructions: [
-      "Cuci beras bersama daun pandan, salam, daun jeruk, dan serai, lalu masukkan ke rice cooker bersama air takaran biasa.",
-      "Iris bawang putih, bawang merah, dan cabai rawit, lalu tumis dengan sedikit minyak sampai harum wangi.",
-      "Masukkan tumisan bumbu, garam, dan kaldu bubuk ke dalam rice cooker, aduk rata dengan beras.",
-      "Nyalakan rice cooker dan biarkan memasak sampai tombol otomatis berganti ke mode warm.",
-      "Setelah matang, buka penutup, masukkan teri goreng garing, lalu aduk perlahan agar tercampur rata.",
-      "Tutup kembali rice cooker selama 5 menit agar uap merata sebelum disajikan bersama lauk pauk."
-    ]
-  },
-  {
-    id: 6,
-    title: "Nasi Liwet Teri Santan Mang Gundul",
-    category: "sunda",
-    method: "rice-cooker",
-    categoryLabel: "Khas Sunda",
-    methodLabel: "Rice Cooker",
-    image: "./recipes/pictures/Foto 6.jpg",
-    time: "60 menit",
-    servings: "4 porsi",
-    source: "Cookpad",
-    description: "Nasi liwet gurih bersantan dengan serai dan daun salam, disajikan dengan emping dan telur orak-arik.",
-    generalIngredients: [
-      "Beras",
-      "Santan Kelapa",
-      "Teri Medan Goreng",
-      "Serai & Bawang Merah",
-      "Pelengkap Sambal & Emping"
-    ],
-    ingredients: [
-      {
-        group: "Bahan Pokok",
-        items: [
-          "2 cup beras pulen",
-          "1 bungkus santan instan kecil (65 ml)",
-          "1 mangkuk kecil teri Medan goreng garing",
-          "Air bersih sesuai takaran rice cooker",
-          "Garam dan penyedap rasa secukupnya"
-        ]
-      },
-      {
-        group: "Bumbu Kasar",
-        items: [
-          "1 batang serai, memarkan",
-          "2 lembar daun salam atau daun sereh",
-          "4 siung bawang merah, iris tipis"
-        ]
-      },
-      {
-        group: "Pelengkap Sajian",
-        items: [
-          "Sambal terasi pedas",
-          "Emping melinjo goreng gurih",
-          "Telur orak-arik atau dadar iris",
-          "Acar timun wortel"
-        ]
-      }
-    ],
-    instructions: [
-      "Cuci beras sampai bersih, lalu masukkan ke wadah rice cooker bersama air dan santan instan. Aduk hingga larut.",
-      "Masukkan bumbu kasar (serai, daun salam, bawang merah iris), garam, dan penyedap rasa. Aduk rata.",
-      "Tekan tombol memasak pada rice cooker sampai nasi matang, lalu diamkan 10 menit dalam kondisi warm.",
-      "Masukkan sebagian besar teri medan goreng, aduk perlahan hingga menyatu dengan nasi liwet.",
-      "Hidangkan nasi liwet selagi hangat dengan taburan sisa teri garing, sambal, emping renyah, telur orak-arik, dan acar."
-    ]
-  },
-  {
-    id: 7,
-    title: "Nasi Liwet Teri Bumbu Tumis Harum",
-    category: "sunda",
-    method: "rice-cooker",
-    categoryLabel: "Khas Sunda",
-    methodLabel: "Rice Cooker",
-    image: "./recipes/pictures/Foto 7.jpg",
-    time: "35 menit",
-    servings: "4 porsi",
-    source: "Cookpad",
-    description: "Nasi liwet rice cooker dengan bumbu tumis bawang, cabai merah, dan teri medan yang dimasak bersamaan.",
-    generalIngredients: [
-      "Beras",
-      "Teri Medan",
-      "Cabai Merah",
-      "Bawang Merah & Bawang Putih",
-      "Daun Jeruk & Serai",
-      "Daun Salam"
-    ],
-    ingredients: [
-      {
-        group: "Bahan Nasi",
-        items: [
-          "2 cup beras (kurang lebih 400 gram), cuci bersih",
-          "Air secukupnya (seperti takaran masak nasi harian)",
-          "3 sdm teri medan, cuci dan tiriskan",
-          "Minyak goreng secukupnya untuk menumis"
-        ]
-      },
-      {
-        group: "Bumbu Tumis & Dedaunan",
-        items: [
-          "8 siung bawang merah, iris tipis",
-          "3 siung bawang putih, cincang halus",
-          "2 buah cabai merah besar, iris serong",
-          "2 batang serai, digeprek",
-          "2 lembar daun salam",
-          "2 lembar daun jeruk",
-          "Garam dan kaldu jamur secukupnya"
-        ]
-      }
-    ],
-    instructions: [
-      "Cuci beras bersih, masukkan ke panci rice cooker, beri air seperti biasa, tambahkan garam dan kaldu jamur, lalu aduk dan cicipi.",
-      "Panaskan sedikit minyak, tumis bawang putih, bawang merah, irisan cabai merah, dan teri medan sampai wangi harum.",
-      "Tuangkan seluruh tumisan bumbu beserta minyaknya ke panci rice cooker bersama serai, daun salam, dan daun jeruk.",
-      "Tutup rice cooker dan tekan tombol cook sampai nasi matang.",
-      "Setelah matang, aduk perlahan sebentar agar bumbu tercampur rata ke setiap butir nasi.",
-      "Sajikan hangat bersama lauk, lalapan, sambal, serta tahu dan tempe goreng."
-    ]
-  },
-  {
-    id: 8,
-    title: "Nasi Liwet Solo Ayam Areh & Labu Siam",
-    category: "solo",
-    method: "rice-cooker",
-    categoryLabel: "Khas Solo",
-    methodLabel: "Rice Cooker",
-    image: "./recipes/pictures/Foto 8.jpg",
-    time: "60 menit",
-    servings: "4-5 porsi",
-    source: "IDN Times",
-    description: "Nasi liwet khas Solo dengan nasi gurih bersantan, disajikan bersama suwiran ayam areh dan sayur labu siam.",
-    generalIngredients: [
-      "Beras & Santan",
-      "Ayam Suwir Areh",
-      "Sayur Labu Siam",
-      "Air Kelapa & Gula Merah",
-      "Kemiri & Lengkuas"
-    ],
-    ingredients: [
-      {
-        group: "Bahan Nasi Liwet Gurih",
-        items: [
-          "400 gram beras, cuci bersih lalu tiriskan",
-          "700 ml santan kelapa sedang",
-          "2 lembar daun pandan wangi",
-          "2 lembar daun salam",
-          "1 batang serai, memarkan",
-          "1/2 sdt garam dapur"
-        ]
-      },
-      {
-        group: "Bahan Ayam Areh",
-        items: [
-          "1 ekor ayam kampung, potong 4 bagian",
-          "2 gelas air kelapa murni",
-          "2 sdm gula merah & 1 sdt garam",
-          "1 sdt ketumbar bubuk & 2 lembar daun salam",
-          "Bumbu halus: 6 bawang merah, 4 bawang putih, 3 kemiri sangrai, 3 cm lengkuas, 1/4 sdt terasi"
-        ]
-      },
-      {
-        group: "Bahan Areh Santan & Sayur Labu",
-        items: [
-          "1 gelas santan kelapa kental",
-          "3 lembar daun salam & 3 cm lengkuas memar",
-          "2 buah labu siam, potong korek api halus",
-          "Bumbu tumis labu: 6 bawang merah, 2 bawang putih, 2 cabai merah"
-        ]
-      }
-    ],
-    instructions: [
-      "Masak beras dengan santan, daun salam, serai, daun pandan, dan garam di rice cooker hingga tanak. Aduk sesekali agar santan tidak pecah.",
-      "Areh Santan: Rebus santan kental dengan daun pandan dan lengkuas pada api kecil sambil diaduk perlahan sampai mengental berminyak dan gurih.",
-      "Ayam Areh: Tumis bumbu halus ayam sampai harum, lumuri ayam, lalu tambahkan ketumbar, daun salam, garam, gula merah, dan air kelapa. Ungkep sampai matang empuk, lalu suwir-suwir dagingnya.",
-      "Sayur Labu Siam: Tumis bumbu halus sampai wangi, masukkan labu siam, lengkuas, daun salam, santan, garam, dan gula. Masak sampai labu matang lembut.",
-      "Penyajian: Sendokkan nasi liwet ke piring saji, tata suwiran ayam areh dan sayur labu siam, lalu siramkan kuah areh santan kental di atasnya."
-    ]
-  },
-  {
-    id: 9,
-    title: "Nasi Liwet Solo Komplit Pincuk Daun",
-    category: "solo",
-    method: "tradisional",
-    categoryLabel: "Khas Solo",
-    methodLabel: "Tradisional",
-    image: "./recipes/pictures/Foto 9.jpeg",
-    time: "75 menit",
-    servings: "5 porsi",
-    source: "Diah Didi's Kitchen",
-    description: "Nasi liwet komplit khas Solo di pincuk daun pisang, lengkap dengan suwiran opor ayam, telur pindang, sayur labu siam, dan kuah areh.",
-    generalIngredients: [
-      "Beras Gurih Santan",
-      "Ayam Opor Ingkung",
-      "Telur Pindang",
-      "Sayur Labu Siam & Ebi",
-      "Areh Santan Kuning & Putih"
-    ],
-    ingredients: [
-      {
-        group: "Bahan Nasi Liwet Gurih",
-        items: [
-          "250 gram beras pulen",
-          "600 ml santan segar dari 1/2 butir kelapa",
-          "2 lembar daun salam",
-          "1 batang serai, ambil putihnya lalu memarkan",
-          "Garam dapur secukupnya"
-        ]
-      },
-      {
-        group: "Sayur Labu Siam Gurih",
-        items: [
-          "2 buah labu siam, potong bentuk korek api",
-          "800 ml santan kelapa sedang",
-          "1/2 sdm ebi kering, rendam air hangat lalu haluskan",
-          "10 buah cabai rawit merah utuh",
-          "Bumbu iris: 8 butir bawang merah, 4 siung bawang putih, 2 cm lengkuas, gula merah & garam"
-        ]
-      },
-      {
-        group: "Ayam Opor Ingkung & Telur Pindang",
-        items: [
-          "1 ekor ayam kampung muda",
-          "1000 ml santan dari 1 butir kelapa",
-          "Bumbu opor lengkap (bawang merah, putih, kemiri, ketumbar, kunyit, daun jeruk, salam, serai)",
-          "4 butir telur rebus, direbus bersama daun salam dan kulit bawang merah hingga cokelat"
-        ]
-      },
-      {
-        group: "Areh Santan",
-        items: [
-          "Areh Kuning: 2 butir telur kocok lepas dengan sisa kuah opor ayam, kukus hingga set",
-          "Areh Putih: 1 butir putih telur kocok kaku dimasak bersama santan kental dan sedikit garam"
-        ]
-      }
-    ],
-    instructions: [
-      "Nasi: Rebus beras, daun salam, serai, garam, dan santan sampai mendidih. Tutup panci, kecilkan api paling kecil, dan masak perlahan sampai matang tanak.",
-      "Sayur Labu Siam: Tumis bawang merah, bawang putih, dan cabai halus hingga harum, masukkan ebi halus. Tuang santan, tunggu mendidih, lalu masukkan labu siam dan cabai rawit. Masak sampai labu matang meresap.",
-      "Ayam Ingkung Opor: Ungkep ayam bersama santan dan semua bumbu opor dengan api kecil sampai kuah menyusut kental dan ayam empuk, lalu suwir-suwir dagingnya.",
-      "Telur Pindang: Rebus telur rebus yang sudah dikupas bersama air, garam, dan kulit bawang merah hingga berwarna cokelat merata.",
-      "Areh: Buat areh kuning dengan mengukus kocokan telur dan kuah santan opor selama 15 menit. Masak areh putih dari santan kental dengan putih telur kocok hingga menggumpal lembut.",
-      "Penyajian: Alasi piring dengan pincuk daun pisang, letakkan nasi liwet hangat, beri sayur labu siam, suwiran ayam opor, telur pindang belah dua, dan sendokkan areh santan di atasnya."
-    ]
-  },
-  {
-    id: 10,
-    title: "Nasi Liwet Solo Rice Cooker & Lodeh Labu",
-    category: "solo",
-    method: "rice-cooker",
-    categoryLabel: "Khas Solo",
-    methodLabel: "Rice Cooker",
-    image: "./recipes/pictures/Foto 10.jpeg",
-    time: "45 menit",
-    servings: "4 porsi",
-    source: "BrilioFood",
-    description: "Nasi liwet Solo versi rice cooker beraroma jahe dan pandan, disajikan bersama sayur lodeh labu siam udang rebon.",
-    generalIngredients: [
-      "Beras & Santan",
-      "Sayur Lodeh Labu Siam",
-      "Udang Rebon",
-      "Jahe & Pandan",
-      "Bumbu Bawang & Kemiri"
-    ],
-    ingredients: [
-      {
-        group: "Bahan Nasi Gurih Jahe Pandan",
-        items: [
-          "3,5 cup beras putih, cuci bersih",
-          "Santan kelapa sedang sesuai takaran air masak nasi biasa",
-          "2 lembar daun salam & 2 lembar daun pandan",
-          "2 cm jahe segar, dimemarkan",
-          "3 butir bawang merah, iris tipis",
-          "1 sdt garam dapur"
-        ]
-      },
-      {
-        group: "Bahan Sayur Lodeh Labu Siam",
-        items: [
-          "3 buah labu siam, potong bentuk korek api",
-          "250 ml santan kelapa sedang",
-          "1 sdm udang rebon kering, cuci bersih",
-          "2 lembar daun salam & 2 iris lengkuas",
-          "Bumbu halus putih: 5 butir bawang merah, 3 siung bawang putih, 2 butir kemiri sangrai",
-          "Gula, garam, lada bubuk, dan kaldu secukupnya"
-        ]
-      }
-    ],
-    instructions: [
-      "Cuci beras sampai bersih, masukkan ke dalam wadah rice cooker lalu gunakan santan sedang sebagai pengganti air biasa.",
-      "Masukkan seluruh bahan nasi (daun salam, daun pandan simpul, jahe geprek, irisan bawang merah, dan garam). Aduk rata.",
-      "Tekan tombol memasak (cook) pada rice cooker dan tunggu sampai nasi matang tanak.",
-      "Sayur Lodeh: Tumis bumbu halus putih dan udang rebon sampai harum, lalu masukkan daun salam dan lengkuas iris.",
-      "Tambahkan sedikit air bersih, masukkan potongan labu siam, dan masak sampai labu setengah layu.",
-      "Tuangkan santan, bumbui dengan garam, gula pasir, dan lada bubuk. Aduk rata agar santan tidak pecah, masak sampai mendidih dan koreksi rasa.",
-      "Sajikan nasi liwet Solo hangat harum jahe pandan bersama siraman sayur lodeh labu siam udang rebon yang lezat."
-    ]
-  }
-];
+import { loadRecipes } from "./recipe-board.js";
 
 let currentFilter = "all";
 let searchQuery = "";
+
+const recipesData = loadRecipes();
 
 function renderRecipes() {
   const container = $("#recipes-grid");
@@ -589,7 +20,10 @@ function renderRecipes() {
 
     if (currentFilter === "all") {
       matchCat = true;
-    } else if (item.category === currentFilter || item.method === currentFilter) {
+    } else if (
+      item.category === currentFilter ||
+      item.method === currentFilter
+    ) {
       matchCat = true;
     }
 
@@ -610,7 +44,9 @@ function renderRecipes() {
   }
 
   if (filteredRecipes.length > 0) {
-    $("#recipes-count").text("Menampilkan " + filteredRecipes.length + " resep");
+    $("#recipes-count").text(
+      "Menampilkan " + filteredRecipes.length + " resep",
+    );
   } else {
     $("#recipes-count").text("");
   }
@@ -634,7 +70,10 @@ function renderRecipes() {
     // susun tag bahan utama pakai string biasa
     let ingredientTags = "";
     for (let j = 0; j < recipe.generalIngredients.length; j++) {
-      ingredientTags += '<span class="ingredient-tag">' + recipe.generalIngredients[j] + '</span>';
+      ingredientTags +=
+        '<span class="ingredient-tag">' +
+        recipe.generalIngredients[j] +
+        "</span>";
     }
 
     let cardHtml = `
@@ -687,7 +126,7 @@ function renderRecipeDetail() {
 
   let recipe = null;
   for (let i = 0; i < recipesData.length; i++) {
-    if (recipesData[i].id == recipeId) {
+    if (recipesData[i].id === recipeId) {
       recipe = recipesData[i];
       break;
     }
@@ -710,12 +149,14 @@ function renderRecipeDetail() {
   if (recipe.ingredients && recipe.ingredients.length > 0) {
     for (let i = 0; i < recipe.ingredients.length; i++) {
       let groupObj = recipe.ingredients[i];
-      ingredientsHtml += '<div class="ingredient-group-title">' + groupObj.group + '</div>';
+      ingredientsHtml +=
+        '<div class="ingredient-group-title">' + groupObj.group + "</div>";
       ingredientsHtml += '<ul class="ingredient-list">';
       for (let j = 0; j < groupObj.items.length; j++) {
-        ingredientsHtml += '<li class="ingredient-item">' + groupObj.items[j] + '</li>';
+        ingredientsHtml +=
+          '<li class="ingredient-item">' + groupObj.items[j] + "</li>";
       }
-      ingredientsHtml += '</ul>';
+      ingredientsHtml += "</ul>";
     }
   }
 

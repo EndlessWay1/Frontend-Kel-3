@@ -710,18 +710,19 @@ footer {
     width: 220px;
     height: 220px;
     padding: 25px;
-  /* About mobile */
+    /* About mobile */
 
-  .about-brand {
-    padding: 24px;
-  }
+    .about-brand {
+      padding: 24px;
+    }
 
-  .about-brand-name {
-    font-size: 24px;
-  }
+    .about-brand-name {
+      font-size: 24px;
+    }
 
-  .about-story h2 {
-    font-size: 28px;
+    .about-story h2 {
+      font-size: 28px;
+    }
   }
 }
 
@@ -801,17 +802,17 @@ footer {
   #hero .logo-circle {
     width: 240px;
     height: 240px;
-  /* About tablet */
+    /* About tablet */
 
-  .about-intro {
-    gap: 30px;
-  }
+    .about-intro {
+      gap: 30px;
+    }
 
-  .about-brand {
-    padding: 40px 20px;
+    .about-brand {
+      padding: 40px 20px;
+    }
   }
 }
-
 /* =========================
    DESKTOP
    ========================= */

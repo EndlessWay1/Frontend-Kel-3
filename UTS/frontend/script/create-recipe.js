@@ -1,14 +1,8 @@
 // ---------- storage layer ----------
+import { auth } from "./auth.js";
+import { saveRecipe } from "./recipe-board.js";
 // Only these two functions touch localStorage.
 // When the database is ready, replace their bodies with fetch() calls.
-function loadRecipes() {
-  return JSON.parse(localStorage.getItem("recipesData") || "[]");
-}
-function saveRecipe(recipe) {
-  const all = loadRecipes();
-  all.push(recipe);
-  localStorage.setItem("recipesData", JSON.stringify(all));
-}
 
 $(function () {
   const user = auth();
@@ -42,10 +36,16 @@ $(function () {
     $tagBox.find(".cr-chip").remove();
     tags.forEach((t, i) => {
       const $chip = $('<span class="cr-chip"></span>').text(t);
-      $chip.append($('<button type="button" aria-label="Remove tag">&times;</button>').attr("data-i", i));
+      $chip.append(
+        $(
+          '<button type="button" aria-label="Remove tag">&times;</button>',
+        ).attr("data-i", i),
+      );
       $chip.insertBefore($tagInput);
     });
-    $("#pvTags").empty().append(tags.map((t) => $('<span class="cr-chip"></span>').text(t)));
+    $("#pvTags")
+      .empty()
+      .append(tags.map((t) => $('<span class="cr-chip"></span>').text(t)));
   }
 
   function addTag(raw) {
@@ -81,7 +81,9 @@ $(function () {
     $("#pvMethod").text(LABELS.method[$method.val()]);
     $("#pvTime").text($time.val().trim() || "Cook time");
     $("#pvServings").text($servings.val().trim() || "Servings");
-    $("#pvDesc").text($desc.val().trim() || "Your description will appear here.");
+    $("#pvDesc").text(
+      $desc.val().trim() || "Your description will appear here.",
+    );
     $("#pvSource").text("Sumber: " + ($source.val().trim() || user.name));
     const url = $image.val().trim();
     $("#pvImage").prop("hidden", !url).attr("src", url);
@@ -91,15 +93,29 @@ $(function () {
     $(this).prop("hidden", true);
     $("#pvNoImg").prop("hidden", false);
   });
-  $title.add($category).add($method).add($time).add($servings).add($image).add($source).add($desc).on("input change", preview);
+  $title
+    .add($category)
+    .add($method)
+    .add($time)
+    .add($servings)
+    .add($image)
+    .add($source)
+    .add($desc)
+    .on("input change", preview);
   preview();
   renderTags();
 
   // ---------- instruction steps ----------
   function addStep(value = "") {
     const $row = $('<div class="cr-row"></div>')
-      .append($('<textarea class="cr-input cr-item" rows="2" placeholder="e.g. Cuci beras hingga bersih"></textarea>').val(value))
-      .append('<button type="button" class="cr-x" aria-label="Remove step">&times;</button>');
+      .append(
+        $(
+          '<textarea class="cr-input cr-item" rows="2" placeholder="e.g. Cuci beras hingga bersih"></textarea>',
+        ).val(value),
+      )
+      .append(
+        '<button type="button" class="cr-x" aria-label="Remove step">&times;</button>',
+      );
     $("#stepList").append($row);
   }
   $("#addStep").on("click", () => addStep());
@@ -112,8 +128,14 @@ $(function () {
   // ---------- ingredient groups: { group, items[] } ----------
   function addGroupItem($group, value = "") {
     const $row = $('<div class="cr-row"></div>')
-      .append($('<input class="cr-input cr-item" type="text" placeholder="e.g. 5 siung bawang merah" />').val(value))
-      .append('<button type="button" class="cr-x" aria-label="Remove item">&times;</button>');
+      .append(
+        $(
+          '<input class="cr-input cr-item" type="text" placeholder="e.g. 5 siung bawang merah" />',
+        ).val(value),
+      )
+      .append(
+        '<button type="button" class="cr-x" aria-label="Remove item">&times;</button>',
+      );
     $group.find(".cr-group-items").append($row);
   }
   function addGroup(groupName = "") {
@@ -145,7 +167,11 @@ $(function () {
   addGroup("Bahan Utama");
 
   // ---------- collect + validate + save ----------
-  const textOf = (els) => els.map((_, el) => $(el).val().trim()).get().filter(Boolean);
+  const textOf = (els) =>
+    els
+      .map((_, el) => $(el).val().trim())
+      .get()
+      .filter(Boolean);
 
   function collectGroups() {
     const groups = [];
@@ -172,15 +198,24 @@ $(function () {
       ok = false;
     };
     if (!$title.val().trim()) bad("errTitle", "Add a title for your recipe.");
-    if (!$time.val().trim()) bad("errTime", "Enter a cook time, e.g. 45 menit.");
-    if (!$servings.val().trim()) bad("errServings", "Enter how many servings this makes.");
-    if ($desc.val().trim().length < 10) bad("errDesc", "Write a description of at least 10 characters.");
+    if (!$time.val().trim())
+      bad("errTime", "Enter a cook time, e.g. 45 menit.");
+    if (!$servings.val().trim())
+      bad("errServings", "Enter how many servings this makes.");
+    if ($desc.val().trim().length < 10)
+      bad("errDesc", "Write a description of at least 10 characters.");
     if (!tags.length) bad("errTags", "Add at least one tag.");
-    if (!ingredients.length) bad("errGroups", "Add at least one ingredient group with a name and items.");
+    if (!ingredients.length)
+      bad(
+        "errGroups",
+        "Add at least one ingredient group with a name and items.",
+      );
     if (!instructions.length) bad("errSteps", "Add at least one step.");
 
     if (!ok) {
-      $(".cr-error:not(:empty)").first()[0].scrollIntoView({ behavior: "smooth", block: "center" });
+      $(".cr-error:not(:empty)")
+        .first()[0]
+        .scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
 
@@ -189,7 +224,7 @@ $(function () {
 
     // same shape as the objects in recipes.js, plus `author`
     saveRecipe({
-      id: Date.now(),
+      id: crypto.randomUUID(),
       title: $title.val().trim(),
       category,
       method,
@@ -199,6 +234,7 @@ $(function () {
       time: $time.val().trim(),
       servings: $servings.val().trim(),
       source: $source.val().trim() || user.name,
+      user_id: user.id,
       author: user.username,
       description: $desc.val().trim(),
       generalIngredients: tags,

@@ -1,5 +1,6 @@
 // check auth
 import { formatDistanceToNow } from "https://cdn.jsdelivr.net/npm/date-fns@4.4.0/+esm";
+import { auth } from "./auth.js";
 
 function Profile() {
   const user = auth();
@@ -16,7 +17,7 @@ function Profile() {
   >
     <div class="card-body">
         <h4 class="card-title text-center fs-2">User Profile</h4>
-        <p class='text-center'><span>Joined since ${formatDistanceToNow(user.joined, { addSuffix: true })}</span></p>
+        <p class='text-center'><span>Joined since ${formatDistanceToNow(new Date(user.joined), { addSuffix: true })}</span></p>
         <div class='profile-content'>
             <h5>Username</h5>
             <div class="container-fluid">

@@ -1,74 +1,48 @@
 // check auth
 
-// const user = auth();
+import {
+  isAdmin,
+  addUsers,
+  getUsers,
+  removeUser,
+  seedUser,
+  editUser,
+} from "./auth.js";
+import {
+  loadRecipes,
+  removeRecipe,
+  editRecipe,
+  seedRecipes,
+  getRecipe,
+} from "./recipe-board.js";
 
-// if (!user) {
-//   window.location.href = "./login.html";
-// }
-
-// if (user && user.role !== "admin") {
-//   window.location.href = "./index.html";
-// }
-
-console.log("Admin page accessed without login");
+// console.log("Admin page accessed without login");
 
 // USER MANAGEMENT
 
-let users = [];
-
-function loadUsers() {
-
-  let savedUsers = localStorage.getItem("users");
-
-  if (savedUsers) {
-
-    users = JSON.parse(savedUsers);
-
-  } else {
-
-    users = [
-      {
-        username: "john1234",
-        name: "John Doe",
-        email: "john.untar@gmail.com",
-        role: "admin"
-      }
-    ];
-
-    localStorage.setItem("users", JSON.stringify(users));
-  }
-}
-
-
 function renderUsers() {
-
   const table = $("#user-table-body");
-
+  const users = getUsers();
   table.empty();
 
   for (let i = 0; i < users.length; i++) {
-
     let item = users[i];
 
     let roleBadge = "";
 
     if (item.role === "admin") {
-
       roleBadge = `
         <span class="admin-role admin-role-admin">
           Admin
         </span>
       `;
-
     } else {
-
       roleBadge = `
         <span class="admin-role admin-role-user">
           User
         </span>
       `;
     }
-
 
     let row = `
       <tr>
@@ -116,41 +90,24 @@ function renderUsers() {
   }
 }
 
-
-function saveUsers() {
-
-  localStorage.setItem(
-    "users",
-    JSON.stringify(users)
-  );
-}
-
-
 // ADD USER
 
 function openAddUser() {
-
   $("#user-form")[0].reset();
 
   $("#user-index").val("");
 
-  $("#user-modal-title").text(
-    "Tambah User"
-  );
+  $("#user-modal-title").text("Tambah User");
 
-  const modal = new bootstrap.Modal(
-    document.getElementById("userModal")
-  );
+  const modal = new bootstrap.Modal($("#userModal")[0]);
 
   modal.show();
 }
 
-
 // EDIT USER
 
 function openEditUser(index) {
-
-  let item = users[index];
+  let item = getUsers()[index];
 
   $("#user-index").val(index);
 
@@ -162,46 +119,34 @@ function openEditUser(index) {
 
   $("#user-role").val(item.role);
 
-  $("#user-modal-title").text(
-    "Edit User"
-  );
+  $("#user-modal-title").text("Edit User");
 
-  const modal = new bootstrap.Modal(
-    document.getElementById("userModal")
-  );
+  const modal = new bootstrap.Modal($("#userModal")[0]);
 
   modal.show();
 }
 
-
 // DELETE USER
 
 function deleteUser(index) {
-
-  let item = users[index];
+  let item = getUsers()[index];
 
   let confirmDelete = confirm(
-    "Are you sure to delete user " +
-    item.username +
-    "?"
+    "Are you sure to delete user " + item.username + "?",
   );
 
   if (!confirmDelete) {
     return;
   }
 
-  users.splice(index, 1);
-
-  saveUsers();
+  removeUser(item.id);
 
   renderUsers();
 }
 
-
 // SAVE USER
 
 function saveUser() {
-
   let index = $("#user-index").val();
 
   let username = $("#user-username").val();
@@ -212,52 +157,45 @@ function saveUser() {
 
   let role = $("#user-role").val();
 
-
   let newUser = {
     username: username,
     name: name,
     email: email,
-    role: role
+    role: role,
+    joined: new Date().toISOString(),
+    id: crypto.randomUUID(),
   };
 
+  const users = getUsers();
 
   if (index === "") {
-
     users.push(newUser);
-
   } else {
-
     users[index] = newUser;
-
   }
-
-
-  saveUsers();
+  try {
+    editUser(newUser);
+  } catch {
+    addUsers(newUser);
+  }
 
   renderUsers();
 
+  let modalElement = document.getElementById("userModal");
 
-  let modalElement =
-    document.getElementById("userModal");
-
-  let modal =
-    bootstrap.Modal.getInstance(modalElement);
+  let modal = bootstrap.Modal.getInstance(modalElement);
 
   modal.hide();
 }
 
-
 // RECIPE MANAGEMENT
 
 function renderAdminRecipes() {
-
   const table = $("#recipe-table-body");
-
+  const recipesData = loadRecipes();
   table.empty();
 
-
   for (let i = 0; i < recipesData.length; i++) {
-
     let recipe = recipesData[i];
 
     let row = `
@@ -308,12 +246,10 @@ function renderAdminRecipes() {
   }
 }
 
-
 // EDIT RECIPE
 
 function openEditRecipe(index) {
-
-  let recipe = recipesData[index];
+  let recipe = getRecipe(index);
 
   $("#recipe-index").val(index);
 
@@ -329,209 +265,150 @@ function openEditRecipe(index) {
 
   $("#recipe-source").val(recipe.source);
 
-  $("#recipe-description").val(
-    recipe.description
-  );
+  $("#recipe-description").val(recipe.description);
 
-
-  const modal = new bootstrap.Modal(
-    document.getElementById("recipeModal")
-  );
+  const modal = new bootstrap.Modal(document.getElementById("recipeModal"));
 
   modal.show();
 }
 
-
 // SAVE RECIPE
 
 function saveRecipe() {
-
   let index = $("#recipe-index").val();
 
-  let recipe = recipesData[index];
+  let recipe = getRecipe(index);
 
+  recipe.title = $("#recipe-title").val();
 
-  recipe.title =
-    $("#recipe-title").val();
+  recipe.category = $("#recipe-category").val();
 
-  recipe.category =
-    $("#recipe-category").val();
+  recipe.method = $("#recipe-method").val();
 
-  recipe.method =
-    $("#recipe-method").val();
+  recipe.time = $("#recipe-time").val();
 
-  recipe.time =
-    $("#recipe-time").val();
+  recipe.servings = $("#recipe-servings").val();
 
-  recipe.servings =
-    $("#recipe-servings").val();
+  recipe.source = $("#recipe-source").val();
 
-  recipe.source =
-    $("#recipe-source").val();
-
-  recipe.description =
-    $("#recipe-description").val();
-
+  recipe.description = $("#recipe-description").val();
 
   // update label
 
   if (recipe.category === "sunda") {
-
     recipe.categoryLabel = "Khas Sunda";
-
   } else {
-
     recipe.categoryLabel = "Khas Solo";
-
   }
-
 
   if (recipe.method === "rice-cooker") {
-
     recipe.methodLabel = "Rice Cooker";
-
   } else {
-
     recipe.methodLabel = "Tradisional";
-
   }
 
+  console.log(recipe.id);
+  editRecipe(recipe);
 
   renderAdminRecipes();
 
+  let modalElement = document.getElementById("recipeModal");
 
-  let modalElement =
-    document.getElementById("recipeModal");
-
-  let modal =
-    bootstrap.Modal.getInstance(modalElement);
+  let modal = bootstrap.Modal.getInstance(modalElement);
 
   modal.hide();
 }
 
-
 // DELETE RECIPE
 
 function deleteRecipe(index) {
-
-  let recipe = recipesData[index];
+  let recipe = getRecipe(index);
 
   let confirmDelete = confirm(
-    "Are you sure to delete recipe " +
-    recipe.title +
-    "?"
+    "Are you sure to delete recipe " + recipe.title + "?",
   );
 
   if (!confirmDelete) {
     return;
   }
 
-
-  recipesData.splice(index, 1);
+  removeRecipe(recipe.id);
 
   renderAdminRecipes();
 }
 
-
 // BUTTON EVENTS
 
 $(document).ready(function () {
-
-  loadUsers();
-
-  renderUsers();
-
-  renderAdminRecipes();
-
+  // if (!isAdmin()) {
+  //   window.location.href = "./index.html";
 
   // ADD USER
 
   $("#add-user-btn").click(function () {
-
     openAddUser();
-
   });
 
+  $("#cancel-user-btn").click(function (e) {
+    e.preventDefault();
+  });
 
   // SAVE USER
 
-  $("#save-user-btn").click(function () {
-
+  $("#save-user-btn").click(function (e) {
+    e.preventDefault();
     saveUser();
-
   });
 
+  // SEED BUTTON
+
+  $("#seed-database-btn").click(function () {
+    seedRecipes();
+    seedUser();
+    renderUsers();
+    renderAdminRecipes();
+  });
 
   // EDIT USER
 
-  $(document).on(
-    "click",
-    ".edit-user-btn",
-    function () {
+  $(document).on("click", ".edit-user-btn", function () {
+    let index = $(this).attr("data-index");
 
-      let index =
-        $(this).attr("data-index");
-
-      openEditUser(index);
-
-    }
-  );
-
+    openEditUser(index);
+  });
 
   // DELETE USER
 
-  $(document).on(
-    "click",
-    ".delete-user-btn",
-    function () {
+  $(document).on("click", ".delete-user-btn", function () {
+    let index = $(this).attr("data-index");
 
-      let index =
-        $(this).attr("data-index");
-
-      deleteUser(index);
-
-    }
-  );
-
+    deleteUser(index);
+  });
 
   // EDIT RECIPE
 
-  $(document).on(
-    "click",
-    ".edit-recipe-btn",
-    function () {
+  $(document).on("click", ".edit-recipe-btn", function () {
+    let index = $(this).attr("data-index");
 
-      let index =
-        $(this).attr("data-index");
-
-      openEditRecipe(index);
-
-    }
-  );
-
+    openEditRecipe(index);
+  });
 
   // DELETE RECIPE
 
-  $(document).on(
-    "click",
-    ".delete-recipe-btn",
-    function () {
+  $(document).on("click", ".delete-recipe-btn", function () {
+    let index = $(this).attr("data-index");
 
-      let index =
-        $(this).attr("data-index");
-
-      deleteRecipe(index);
-
-    }
-  );
-
+    deleteRecipe(index);
+  });
 
   // SAVE RECIPE
 
   $("#save-recipe-btn").click(function () {
-
     saveRecipe();
-
   });
+  // }
 
+  renderUsers();
+
+  renderAdminRecipes();
 });

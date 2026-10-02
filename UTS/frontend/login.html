@@ -17,22 +17,21 @@
       <div class="login-container" id="login">
         <div class="login-page">
           <h1 class="fs-2 text-center">Log In Page</h1>
-          <form action="" method="post">
-            <div id="login-content">
+          <form id="form-login">
+            <div class="login-content">
               <div class="input-container">
                 <label for="emails">Email:</label>
-                <input type="email" name="emails" />
+                <input type="email" name="email" />
               </div>
               <div class="input-container">
                 <label for="password">Password:</label>
                 <input type="password" name="password" />
               </div>
-              <div class="form-buttons">
-                <button type="submit" class="form-button">Submit</button>
-                <button type="button" class="form-button" id="sign-up-button">
-                  Sign Up
-                </button>
-              </div>
+              <p>
+                Don't have an account?
+                <a id="sign-up-button">Sign up</a>
+              </p>
+              <button type="submit" class="form-button">Log in</button>
             </div>
           </form>
         </div>
@@ -40,11 +39,21 @@
       <div class="login-container" id="signup">
         <div class="login-page">
           <h1 class="fs-2 text-center">Sign Up Page</h1>
-          <form action="" method="post">
+          <form id="form-signup">
             <div class="login-content">
               <div class="input-container">
+                <label for="Name">Name:</label>
+                <input type="text" name="name" />
+              </div>
+
+              <div class="input-container">
+                <label for="Name">Username:</label>
+                <input type="text" name="username" />
+              </div>
+
+              <div class="input-container">
                 <label for="emails">Email:</label>
-                <input type="email" name="emails" />
+                <input type="email" name="email" />
               </div>
               <div class="input-container">
                 <label for="password">Password:</label>
@@ -54,12 +63,8 @@
                 <label for="c-password">Confirm Password:</label>
                 <input type="password" name="c-password" />
               </div>
-              <div class="form-buttons">
-                <button type="submit" class="form-button">Submit</button>
-                <button type="button" class="form-button" id="log-in-button">
-                  Log in
-                </button>
-              </div>
+              <p>Have an account? <a id="log-in-button">Log in</a></p>
+              <button type="submit" class="form-button">Sign up</button>
             </div>
           </form>
         </div>
@@ -79,17 +84,18 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="./script/auth.js"></script>
-    <script src="./script/header.js"></script>
+    <!-- <script src="./script/auth.js"></script> -->
+    <script src="./script/header.js" type="module"></script>
     <script>
-      $("#sign-up-button").on('click', function() {
+      $("#sign-up-button").on("click", function () {
         $("#login").slideToggle(0.2);
         $("#signup").slideToggle(0.2);
       });
-      $("#log-in-button").on('click', function() {
+      $("#log-in-button").on("click", function () {
         $("#login").slideToggle(0.2);
         $("#signup").slideToggle(0.2);
       });
     </script>
+    <script src="./script/login.js" type="module"></script>
   </body>
 </html>
