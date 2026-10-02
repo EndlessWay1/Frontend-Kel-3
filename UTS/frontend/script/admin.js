@@ -95,6 +95,7 @@ function renderUsers() {
 function openAddUser() {
   $("#user-form")[0].reset();
 
+  $("#user-type").val("CREATE");
   $("#user-index").val("");
 
   $("#user-modal-title").text("Tambah User");
@@ -109,6 +110,7 @@ function openAddUser() {
 function openEditUser(index) {
   let item = getUsers()[index];
 
+  $("#user-type").val("EDIT");
   $("#user-index").val(index);
 
   $("#user-username").val(item.username);
@@ -147,8 +149,6 @@ function deleteUser(index) {
 // SAVE USER
 
 function saveUser() {
-  let index = $("#user-index").val();
-
   let username = $("#user-username").val();
 
   let name = $("#user-name").val();
@@ -163,21 +163,42 @@ function saveUser() {
     email: email,
     role: role,
     joined: new Date().toISOString(),
+    password: "12345678",
     id: crypto.randomUUID(),
   };
 
-  const users = getUsers();
+  addUsers(newUser);
 
-  if (index === "") {
-    users.push(newUser);
-  } else {
-    users[index] = newUser;
-  }
-  try {
-    editUser(newUser);
-  } catch {
-    addUsers(newUser);
-  }
+  renderUsers();
+
+  let modalElement = document.getElementById("userModal");
+
+  let modal = bootstrap.Modal.getInstance(modalElement);
+
+  modal.hide();
+}
+
+//  EDIT USER
+
+// SAVE USER
+
+function editsUser() {
+  let index = $("#user-index").val();
+  let username = $("#user-username").val();
+
+  let name = $("#user-name").val();
+
+  let email = $("#user-email").val();
+
+  let role = $("#user-role").val();
+
+  const user = getUsers()[index];
+  user.username = username;
+  user.name = name;
+  user.email = email;
+  user.role = role;
+
+  editUser(user);
 
   renderUsers();
 
@@ -307,7 +328,7 @@ function saveRecipe() {
     recipe.methodLabel = "Tradisional";
   }
 
-  console.log(recipe.id);
+  // console.log(recipe.id);
   editRecipe(recipe);
 
   renderAdminRecipes();
@@ -357,7 +378,11 @@ $(document).ready(function () {
 
   $("#save-user-btn").click(function (e) {
     e.preventDefault();
-    saveUser();
+    if ($("#user-type").text() === "CREATE") {
+      saveUser();
+    } else {
+      editsUser();
+    }
   });
 
   // SEED BUTTON

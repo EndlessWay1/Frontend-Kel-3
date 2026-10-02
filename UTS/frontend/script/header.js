@@ -39,13 +39,14 @@ $(document).ready(function () {
         alink.text(name);
       }
 
-      if ((id === 4 || id === 6) && !user) {
+      if (id === 6 && (!user || user.role !== "admin")) {
         return undefined;
       }
 
       const li = $(`<li class="nav-item">
         </li>`);
       li.append(alink);
+
       return li;
     }),
   );
