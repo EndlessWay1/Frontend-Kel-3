@@ -328,7 +328,7 @@ function saveRecipe() {
     recipe.methodLabel = "Tradisional";
   }
 
-  console.log(recipe.id);
+  // console.log(recipe.id);
   editRecipe(recipe);
 
   renderAdminRecipes();

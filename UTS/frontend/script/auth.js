@@ -90,7 +90,7 @@ function setAuth(user) {
 }
 
 function loadUsers() {
-  console.log(sessionStorage.getItem("users"));
+  // console.log(sessionStorage.getItem("users"));
   return JSON.parse(
     sessionStorage.getItem("users") ??
       `[${JSON.stringify({
