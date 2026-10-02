@@ -79,7 +79,7 @@ signup.on("submit", function (e) {
     };
     addUsers(user);
     setAuth(user);
-    // window.location.href = "./index.html";
+    window.location.href = "./index.html";
   } catch (e) {
     $("#signup-error-global").text(e.message);
   }
