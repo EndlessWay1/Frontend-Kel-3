@@ -600,12 +600,7 @@ const linkNav = [
   {
     id: 2,
     target: "./recipes.html",
-    name: "Recipe",
-  },
-  {
-    id: 3,
-    target: "./login.html",
-    name: "Log in",
+    name: "Recipes",
   },
   {
     id: 4,
@@ -618,9 +613,14 @@ const linkNav = [
     name: "Create Recipe",
   },
   {
-    id: 5,
+    id: 6,
     target: "./admin.html",
     name: "Admin",
+  },
+  {
+    id: 3,
+    target: "./login.html",
+    name: "Log in",
   },
 ];
 

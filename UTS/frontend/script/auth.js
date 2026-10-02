@@ -33,25 +33,24 @@ function logout() {
 }
 
 function removeUser(id) {
-  const currentUser = auth();
-
-  if (!currentUser) {
+  if (!isAdmin()) {
     throw new Error("Unauthorized");
   }
 
-  if (isAdmin() || currentUser.email === user.email) {
-    const users = loadUsers();
+  const users = loadUsers();
 
-    const userIdx = users.findIndex((obj) => id === obj.id);
+  const userIdx = users.findIndex((obj) => id === obj.id);
 
-    if (userIdx === -1) {
-      throw new Error("User not found");
-    }
-    users.splice(userIdx, 1);
-    sessionStorage.setItem("users", JSON.stringify(users));
-    return;
+  if (userIdx === -1) {
+    throw new Error("User not found");
   }
-  throw new Error("Unathorized");
+
+  const user = users.splice(userIdx, 1)[0];
+  if (user.id === auth().id) {
+    setAuth("")
+  }
+
+  sessionStorage.setItem("users", JSON.stringify(users));
 }
 
 function findIndex(email) {
@@ -75,6 +74,9 @@ function editUser(user) {
     }
 
     users[userIdx] = user;
+    if (currentUser.email === user.email) {
+      setAuth(user);
+    }
 
     sessionStorage.setItem("users", JSON.stringify(users));
   } else {

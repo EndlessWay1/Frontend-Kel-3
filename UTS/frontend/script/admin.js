@@ -340,9 +340,9 @@ function deleteRecipe(index) {
 // BUTTON EVENTS
 
 $(document).ready(function () {
-  // if (!isAdmin()) {
-  //   window.location.href = "./index.html";
-
+  if (!isAdmin()) {
+    window.location.href = "./index.html";
+  }
   // ADD USER
 
   $("#add-user-btn").click(function () {

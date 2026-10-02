@@ -68,14 +68,34 @@ nav.navbar {
   white-space: nowrap;
 }
 
+.user-error {
+  color: var(--spiced-dark);
+  margin-left: 8px;
+}
+
 #user-title h2 {
   margin: 0;
 }
 
+#user-text-recipe {
+  text-align: center;
+}
+
+#user-text-recipe a {
+  text-decoration: none;
+  color: var(--moss-font);
+}
+#user-text-recipe a:hover {
+  opacity: 0.8;
+}
+
+
 #profile {
-  margin: 20dvh 32px;
+  margin: 20dvh auto;
+  width: 40dvw;
   /* height: 250dvh; */
   border-radius: 10px;
+  background-color: var(--tan-light);
 }
 
 .profile-content h5 {
@@ -84,7 +104,7 @@ nav.navbar {
 
   top: -15%;
   left: 3%;
-  background-color: white;
+  background-color: var(--tan-light);
 }
 
 .profile-content {
@@ -93,8 +113,11 @@ nav.navbar {
   padding: 4px;
 }
 
+.profile-content input,
 .profile-content div {
   border-color: var(--tan-dark);
+  background-color: var(--tan-light);
+
   font-size: large;
   border: 1px;
   border-radius: 10px;
@@ -138,16 +161,19 @@ nav.navbar {
 }
 
 .input-container input {
-  border-radius: 3px;
   border-style: solid;
+  border-radius: 8px;
   margin: 0 4px;
-  padding: 2px 4px;
+  padding: 4px 8px;
 }
 
 .form-buttons {
   display: flex;
-  gap: 32px;
+  gap: 16px;
   margin: auto;
+  padding: 0 32px;
+  justify-content:space-between;
+  align-items: center;
   margin-top: 16px;
 }
 
@@ -169,6 +195,32 @@ nav.navbar {
 #signup {
   display: none;
 }
+
+.profile-date {
+  font-weight: 600;
+  font-size: medium;
+  color: var(--spiced-dark);
+}
+
+#user-recipe-header {
+  margin: 10dvh;
+  padding: 16px 32px;
+  border-radius: 20px;
+  background-color: var(--tan-light);
+}
+
+#user-recipe-header h1 {
+  font-weight: 600;
+}
+
+#log-in-button,#sign-up-button {
+  text-decoration: underline;
+}
+
+#log-in-button:hover, #sign-up-button:hover {
+  font-weight: 600;
+}
+
 
 @media (max-width: 1024px) {
   #login-page {
@@ -607,6 +659,31 @@ nav.navbar {
 .recipes-footer p {
   color: var(--kombu-dark);
   margin: 0;
+}
+
+.form-cancel-btn {
+  border: 1px solid var(--tan-dark);
+  background-color: white;
+  padding: 8px 16px;
+  border-radius: 10px;
+  color: var(--moss-font);
+}
+.form-cancel-btn:hover {
+  background-color: var(--tan-dark);
+}
+
+.form-change-btn {
+  border: 1px solid var(--tan-dark);
+  background-color: white;
+
+  padding: 8px 16px;
+  border-radius: 10px;
+}
+
+.form-change-btn:hover {
+    color: white;
+
+  background-color: var(--kombu-mid);
 }
 
 @media (max-width: 991px) {

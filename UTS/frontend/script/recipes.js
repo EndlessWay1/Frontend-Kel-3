@@ -123,14 +123,12 @@ function renderRecipeDetail() {
   if (!recipeId) {
     recipeId = 1;
   }
+  console.log(typeof recipeId);
 
-  let recipe = null;
-  for (let i = 0; i < recipesData.length; i++) {
-    if (recipesData[i].id === recipeId) {
-      recipe = recipesData[i];
-      break;
-    }
-  }
+  const recipe = recipesData.find((e) => {
+    return e.id.toString() === recipeId;
+  });
+  console.log(recipesData);
 
   if (!recipe) {
     detailContainer.html(`

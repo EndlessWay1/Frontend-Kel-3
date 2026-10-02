@@ -39,7 +39,7 @@ $(document).ready(function () {
         alink.text(name);
       }
 
-      if (id === 4 && !user) {
+      if ((id === 4 || id === 6) && !user) {
         return undefined;
       }
 
