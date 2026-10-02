@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nasi Liwet:Create Recipe</title>
+    <link rel="icon" type="image/png" href="./assets/logo.png" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -17,7 +18,10 @@
     <main id="root" class="cr-page" hidden>
       <div class="container cr-container">
         <h1 class="cr-title">Share your nasi liwet</h1>
-        <p class="cr-sub">Posting as <strong id="postingAs"></strong>. Every field is required except image and source.</p>
+        <p class="cr-sub">
+          Posting as <strong id="postingAs"></strong>. Every field is required
+          except image and source.
+        </p>
 
         <form id="recipeForm" novalidate>
           <div class="row g-4">
@@ -26,7 +30,13 @@
                 <h2>The basics</h2>
                 <div class="cr-field">
                   <label class="cr-label" for="title">Title</label>
-                  <input class="cr-input" id="title" type="text" maxlength="80" placeholder="e.g. Nasi Liwet Sunda Teri" />
+                  <input
+                    class="cr-input"
+                    id="title"
+                    type="text"
+                    maxlength="80"
+                    placeholder="e.g. Nasi Liwet Sunda Teri"
+                  />
                   <div class="cr-error" id="errTitle"></div>
                 </div>
                 <div class="row g-3">
@@ -46,52 +56,95 @@
                   </div>
                   <div class="col-sm-6 cr-field">
                     <label class="cr-label" for="time">Cook time</label>
-                    <input class="cr-input" id="time" type="text" placeholder="e.g. 45 menit" />
+                    <input
+                      class="cr-input"
+                      id="time"
+                      type="text"
+                      placeholder="e.g. 45 menit"
+                    />
                     <div class="cr-error" id="errTime"></div>
                   </div>
                   <div class="col-sm-6 cr-field">
                     <label class="cr-label" for="servings">Servings</label>
-                    <input class="cr-input" id="servings" type="text" placeholder="e.g. 4 porsi" />
+                    <input
+                      class="cr-input"
+                      id="servings"
+                      type="text"
+                      placeholder="e.g. 4 porsi"
+                    />
                     <div class="cr-error" id="errServings"></div>
                   </div>
                 </div>
                 <div class="cr-field">
-                  <label class="cr-label" for="image">Image URL (optional)</label>
-                  <input class="cr-input" id="image" type="text" placeholder="https://..." />
+                  <label class="cr-label" for="image"
+                    >Image URL (optional)</label
+                  >
+                  <input
+                    class="cr-input"
+                    id="image"
+                    type="text"
+                    placeholder="https://..."
+                  />
                 </div>
                 <div class="cr-field">
                   <label class="cr-label" for="source">Source (optional)</label>
-                  <input class="cr-input" id="source" type="text" placeholder="e.g. Resep keluarga" />
+                  <input
+                    class="cr-input"
+                    id="source"
+                    type="text"
+                    placeholder="e.g. Resep keluarga"
+                  />
                 </div>
                 <div class="cr-field">
                   <label class="cr-label" for="description">Description</label>
-                  <textarea class="cr-input" id="description" rows="3" maxlength="300" placeholder="What makes your version special?"></textarea>
+                  <textarea
+                    class="cr-input"
+                    id="description"
+                    rows="3"
+                    maxlength="300"
+                    placeholder="What makes your version special?"
+                  ></textarea>
                   <div class="cr-error" id="errDesc"></div>
                 </div>
               </section>
 
               <section class="cr-card">
                 <h2>Tags</h2>
-                <p class="cr-hint">Main ingredients shown as chips on the recipe card. Type one and press Enter.</p>
+                <p class="cr-hint">
+                  Main ingredients shown as chips on the recipe card. Type one
+                  and press Enter.
+                </p>
                 <div class="cr-tagbox" id="tagBox">
-                  <input class="cr-tag-input" id="tagInput" type="text" placeholder="e.g. Ikan Teri" />
+                  <input
+                    class="cr-tag-input"
+                    id="tagInput"
+                    type="text"
+                    placeholder="e.g. Ikan Teri"
+                  />
                 </div>
                 <div class="cr-error" id="errTags"></div>
               </section>
 
               <section class="cr-card">
                 <h2>Ingredients</h2>
-                <p class="cr-hint">Group them like a recipe card, e.g. "Bumbu Halus", "Bahan Utama".</p>
+                <p class="cr-hint">
+                  Group them like a recipe card, e.g. "Bumbu Halus", "Bahan
+                  Utama".
+                </p>
                 <div id="groupList"></div>
                 <div class="cr-error" id="errGroups"></div>
-                <button type="button" class="cr-pill cr-pill-add" id="addGroup">Add group</button>
+                <button type="button" class="cr-pill cr-pill-add" id="addGroup">
+                  Add group
+                </button>
               </section>
 
               <section class="cr-card">
                 <h2>Instructions</h2>
                 <div id="stepList"></div>
                 <div class="cr-error" id="errSteps"></div>
-                <button type="button" class="cr-pill cr-pill-add" id="addStep">Add step</button>
+                <button type="button" class="cr-pill cr-pill-add" id="addStep">
+                  Add step
+                </button>
               </section>
             </div>
 
@@ -103,7 +156,9 @@
                     <img id="pvImage" class="cr-pv-img" alt="" hidden />
                     <span class="cr-pv-noimg" id="pvNoImg">No image yet</span>
                     <span class="cr-badge" id="pvCategory">Khas Sunda</span>
-                    <span class="cr-badge cr-badge-alt" id="pvMethod">Rice Cooker</span>
+                    <span class="cr-badge cr-badge-alt" id="pvMethod"
+                      >Rice Cooker</span
+                    >
                   </div>
                   <div class="cr-pv-body">
                     <div class="cr-meta">
@@ -119,8 +174,12 @@
                   </div>
                 </article>
                 <div class="cr-actions">
-                  <button type="submit" class="cr-pill cr-pill-dark">Publish recipe</button>
-                  <a href="./recipes.html" class="cr-pill cr-pill-light">Cancel</a>
+                  <button type="submit" class="cr-pill cr-pill-dark">
+                    Publish recipe
+                  </button>
+                  <a href="./recipes.html" class="cr-pill cr-pill-light"
+                    >Cancel</a
+                  >
                 </div>
               </aside>
             </div>
@@ -128,7 +187,7 @@
         </form>
       </div>
     </main>
-    <footer></footer>
+    <footer id="footer"></footer>
 
     <script
       src="https://code.jquery.com/jquery-4.0.0.js"
@@ -140,8 +199,9 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
-    <script src="./script/auth.js"></script>
-    <script src="./script/header.js"></script>
-    <script src="./script/create-recipe.js"></script>
+    <script src="./script/auth.js" type="module"></script>
+    <script src="./script/header.js" type="module"></script>
+    <script src="./script/create-recipe.js" type="module"></script>
+    <script src="./script/footer.js"></script>
   </body>
 </html>

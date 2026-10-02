@@ -1,31 +1,7 @@
+import { auth, logout } from "./auth.js";
+
+import { linkNav } from "./constants/index.js";
 // CONST
-const linkNav = [
-  {
-    id: 1,
-    target: "./index.html",
-    name: "Home",
-  },
-  {
-    id: 2,
-    target: "./recipes.html",
-    name: "Recipe",
-  },
-  {
-    id: 3,
-    target: "./login.html",
-    name: "Log in",
-  },
-  {
-    id: 4,
-    target: "./user.html",
-    name: "Profile",
-  },
-  {
-  id: 5,
-  target: "./admin.html",
-  name: "Admin",
-  },
-];
 
 const header = $("#header");
 $(document).ready(function () {
@@ -54,7 +30,7 @@ $(document).ready(function () {
 
         alink.on("click", function (e) {
           e.preventDefault();
-          sessionStorage.clear();
+          logout();
           window.location.reload();
         });
         alink.text("Sign out");
@@ -63,7 +39,7 @@ $(document).ready(function () {
         alink.text(name);
       }
 
-      if (id === 4 && !user) {
+      if ((id === 4 || id === 6) && !user) {
         return undefined;
       }
 
