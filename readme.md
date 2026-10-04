@@ -56,3 +56,13 @@ Bootstrap diterapkan pada bagian layout, navigasi, card produk, serta komponen i
 - **[Link Tugas](./Pertemuan-06/)**
 - **[Link Zip](./A03_T4_TugasBootstrap.zip)**
 - **[Link Laporan Pdf](./Laporan%20Bootstrap%20Kel-3.pdf)**
+
+### UTS: Nasi Liwet Nusantara
+
+Website bertemakan "Nasi Liwet Nusantara" yang dibuat sebagai project UTS matakuliah Frontend. Website ini dibuat untuk memperkenalkan berbagai resep nasi liwet nusantara serta menyediakan fitur untuk pengguna dan administrator. Fitur yang tersedia meliputi Home, Authentication, Profile, Create Recipe, Recipe, Search & Filter, Recipe Detail, dan Admin Page.
+
+Website juga dibuat dengan menerapkan responsive design sehingga dapat menyesuaikan tampilan pada berbagai ukuran perangkat.
+- **[Link Website via Vercel](https://frontend-kel-3-frontend-flax.vercel.app/index.html)**
+- **[Link Tugas](./UTS/frontend/)**
+- **[Link Zip]()**
+- **[Link Laporan Pdf]()**
