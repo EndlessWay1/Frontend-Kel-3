@@ -64,5 +64,5 @@ Website bertemakan "Nasi Liwet Nusantara" yang dibuat sebagai project UTS mataku
 Website juga dibuat dengan menerapkan responsive design sehingga dapat menyesuaikan tampilan pada berbagai ukuran perangkat.
 - **[Link Website via Vercel](https://frontend-kel-3-frontend-flax.vercel.app/index.html)**
 - **[Link Tugas](./UTS/frontend/)**
-- **[Link Zip]()**
-- **[Link Laporan Pdf]()**
+- **[Link Zip](./A03_UTS_Kuliner%20Nusantara:Nasi%20Liwet.zip)**
+- **[Link Laporan Pdf](./Laporan%20UTS%20Frontend%20Kel-3.pdf)**
