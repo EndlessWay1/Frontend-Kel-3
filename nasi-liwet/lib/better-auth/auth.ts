@@ -1,11 +1,29 @@
-// auth.ts
 import { betterAuth } from "better-auth";
+import pg from "pg";
 import { admin } from "better-auth/plugins";
-import { Pool } from "pg";
+
+const pool = new pg.Pool({
+  // connectionString: process.env.DATABASE_URL,
+
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  ssl: true,
+});
 
 export const auth = betterAuth({
-  // SQLite is reached over Layerbase's Postgres-compatible proxy.
-  database: new Pool({ connectionString: process.env.DATABASE_URL }),
-  emailAndPassword: { enabled: true },
+  baseURL: process.env.BETTER_AUTH_URL,
+  secret: process.env.BETTER_AUTH_SECRET,
+  emailAndPassword: {
+    enabled: true,
+  },
   plugins: [admin()],
+  database: pool,
+  advanced: {
+    database: {
+      validateSchema: false,
+    },
+  },
 });
