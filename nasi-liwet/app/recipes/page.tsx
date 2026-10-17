@@ -104,14 +104,15 @@ export default function RecipesPage() {
                 <p>Coba gunakan kata kunci lain atau ubah filter di atas.</p>
               </div>
             ) : (
-              filteredRecipes.map((recipe) => (
+              filteredRecipes.map((recipe, index) => (
                 <article key={recipe.id} className={styles.recipeCard}>
                   <div className={styles.recipeImgWrap}>
                     <Image
                       src={recipe.image}
                       alt={recipe.title}
-                      width={400}
-                      height={200}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      priority={index < 3}
                       className={styles.recipeImg}
                     />
                     <span className={styles.recipeBadge}>
