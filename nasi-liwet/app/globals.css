@@ -28,6 +28,11 @@
   background-color: whitesmoke;
 }
 
+.nav-item {
+  display: flex;
+  gap: 8px;
+}
+
 body {
   background-color: var(--moss-light);
   min-height: 100vh;
@@ -59,11 +64,35 @@ body {
   gap: 10px;
 }
 
+#head-title a {
+  color: var(--moss-font);
+  font-weight: 600;
+}
+
+#head-title a:hover {
+  /* opacity: 80%; */
+  font-weight: 500;
+}
+
 nav.navbar {
   display: flex !important;
   flex-direction: row !important;
   justify-content: space-between !important;
   align-items: center;
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-item a {
+  text-decoration: none;
+  color: var(--moss-font);
+  font-weight: 500;
+}
+.nav-item a {
+  opacity: 80%;
 }
 
 #navbarSupportedContent {
@@ -187,7 +216,7 @@ nav.navbar {
 
 .submit-form > p {
   font-size: small;
-  margin-top: 4px;
+  /* margin-top: 4px; */
 }
 
 .submit-form > p > span > button {

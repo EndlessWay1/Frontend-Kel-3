@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import BootstrapClient from "./componets/BootstrapClient";
+
 import "./globals.css";
 import Header from "./componets/Header";
 
@@ -13,6 +17,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <link rel='icon' href='logo.png' type='image/png' />
       </head>
       <body>
+        <BootstrapClient />
+
         <Header />
         {children}
       </body>

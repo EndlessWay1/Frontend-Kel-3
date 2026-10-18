@@ -11,13 +11,16 @@
   "dependencies": {
     "@libsql/kysely-libsql": "^0.4.1",
     "better-auth": "^1.7.9",
+    "bootstrap": "^5.3.8",
     "next": "16.4.0",
     "pg": "^8.23.1",
     "react": "19.3.0",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^9.6.0",
+    "@types/bootstrap": "^5.2.11",
     "@types/node": "^20",
     "@types/pg": "^8.23.1",
     "@types/react": "^19",
