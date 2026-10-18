@@ -15,8 +15,6 @@ function Header() {
           <Link href='/'>Nasi Liwet</Link>
         </div>
 
-        {isPending && <div id='user-title'>Loading...</div>}
-
         {!isPending && !error && session && (
           <div id='user-title'>{session.user.name}</div>
         )}

@@ -143,12 +143,12 @@ nav.navbar {
 .login-content {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
   margin-top: 16px;
 }
 
 .login-page {
-  width: 30%;
+  width: 384px;
   border-color: var(--tan-dark);
   border: 1px;
   border-style: solid;
@@ -166,13 +166,38 @@ nav.navbar {
   display: flex;
   flex-direction: column;
   font-size: large;
+  margin: 0 40px;
 }
 
 .input-container input {
   border-style: solid;
   border-radius: 8px;
-  margin: 0 4px;
-  padding: 4px 8px;
+  padding: 8px 16px;
+  font-size: medium;
+}
+
+.submit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: max-content;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.submit-form > p {
+  font-size: small;
+  margin-top: 4px;
+}
+
+.submit-form > p > span > button {
+  border: none;
+  background-color: transparent;
+  font-size: small;
+  padding: 0;
+}
+.submit-form > p > span > button:hover {
+  text-decoration: underline;
 }
 
 .form-buttons {

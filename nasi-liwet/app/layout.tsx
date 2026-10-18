@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Header from "./componets/Header";
 
 export const metadata: Metadata = {
   title: "Nasi Liwet",
@@ -11,7 +12,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <link rel='icon' href='logo.png' type='image/png' />
       </head>
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
