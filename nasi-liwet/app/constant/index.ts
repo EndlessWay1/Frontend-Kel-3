@@ -17,7 +17,7 @@ export const linkNav: linkNavType[] = [
   },
   {
     id: 4,
-    target: "/user",
+    target: "/profile",
     name: "Profile",
   },
   {
