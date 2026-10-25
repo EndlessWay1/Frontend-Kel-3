@@ -2,8 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { authClient } from "@/lib/better-auth/client";
-import { linkNav } from "../constant";
+import { linkNav } from "../../constant";
+import { useRouter } from "next/navigation";
+import { useCsrf } from "../../context/csrf/CsrfContext";
+import { useUser } from "../../hook/useUser";
+import "./header.css";
 
 type linkAttrType = {
   onClick?: () => void;
@@ -12,10 +15,32 @@ type linkAttrType = {
 };
 
 function Header() {
-  const { data: session, isPending, error } = authClient.useSession();
+  const router = useRouter();
 
-  const logout = async function () {
-    await authClient.signOut();
+  const { user } = useUser();
+
+  const { csrfToken } = useCsrf();
+
+  const signOut = async () => {
+    try {
+      const response = await fetch("/api/signout", {
+        method: "POST",
+        credentials: "same-origin",
+        cache: "no-store",
+        headers: {
+          "X-CSRF-Token": csrfToken,
+        },
+      });
+
+      if (!response.ok) {
+        console.error("Failed to sign out");
+        return;
+      }
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Sign-out request failed:", error);
+    }
   };
   return (
     <header id='header'>
@@ -27,8 +52,12 @@ function Header() {
           </Link>
         </div>
 
-        {!isPending && !error && session && (
-          <div id='user-title'>{session.user.name}</div>
+        {user && (
+          <div id='user-title'>
+            <h2>
+              Hello <span style={{ fontWeight: 700 }}>{user.name}</span>
+            </h2>
+          </div>
         )}
         <button
           className='navbar-toggler'
@@ -50,22 +79,26 @@ function Header() {
                 text: name,
               };
 
-              if (id === 3 && session) {
+              if (id === 3 && user) {
                 attribute.onClick = function () {
-                  logout();
+                  signOut();
                   window.location.reload();
                 };
                 attribute.text = "Sign out";
                 attribute.href = "#";
               }
 
-              if (id === 6 && (!session || session.user.role !== "admin")) {
+              if (id === 6 && (!user || user.role !== "ADMIN")) {
+                return undefined;
+              }
+
+              if (id === 4 && !user) {
                 return undefined;
               }
 
               return (
                 <li className='nav-item' key={id}>
-                  <a {...attribute}>{name}</a>
+                  <Link {...attribute}>{attribute.text}</Link>
                 </li>
               );
             })}

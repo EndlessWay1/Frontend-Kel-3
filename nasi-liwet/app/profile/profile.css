@@ -1,0 +1,76 @@
+#profile {
+  margin: 20dvh auto;
+  width: 40dvw;
+  min-height: 50vh;
+  /* height: 250dvh; */
+  border-radius: 10px;
+  background-color: var(--tan-light);
+}
+
+.profile-content h5 {
+  font-size: larger;
+  position: absolute;
+
+  top: -15%;
+  left: 3%;
+  background-color: var(--tan-light);
+}
+
+.profile-content {
+  position: relative;
+  margin: 12px 16px;
+  padding: 4px;
+}
+
+.profile-content input,
+.profile-content div {
+  border-color: var(--tan-dark);
+  background-color: var(--tan-light);
+
+  font-size: large;
+  border: 1px;
+  border-radius: 10px;
+  border-style: solid;
+  padding: 8px 16px;
+}
+
+.profile-date {
+  font-weight: 600;
+  font-size: medium;
+  color: var(--spiced-dark);
+}
+
+.form-buttons {
+  display: none;
+  gap: 16px;
+  margin: auto;
+  padding: 0 32px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.form-cancel-btn {
+  border: 1px solid var(--tan-dark);
+  background-color: white;
+  padding: 8px 16px;
+  border-radius: 10px;
+  color: var(--moss-font);
+}
+.form-cancel-btn:hover {
+  background-color: var(--tan-dark);
+}
+
+.form-change-btn {
+  border: 1px solid var(--tan-dark);
+  background-color: white;
+
+  padding: 8px 16px;
+  border-radius: 10px;
+}
+
+.form-change-btn:hover {
+  color: white;
+
+  background-color: var(--kombu-mid);
+}

@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../lib/generated/prisma"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER      @map("user")
+  ADMIN     @map("admin")
+  MODERATOR @map("mod")
+}
+
+enum Category {
+  SUNDA @map("sunda")
+  SOLO  @map("solo")
+}
+
+enum Method {
+  RICECOOKER  @map("ricecooker")
+  TRADISIONAL @map("tradisional")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  sessions Session[]
+  post     Post[]
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Foreign key relation back to the User model
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  source      String?
+  userId      String
+  duration    Int
+  serving     Int
+  method      Method   @default(RICECOOKER)
+  category    Category @default(SUNDA)
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+
+  user        User          @relation(fields: [userId], references: [id], onDelete: NoAction)
+  Instruction Instruction[]
+  PostImage   PostImage[]
+  Tags        Tags[]
+}
+
+model PostImage {
+  id        String @id @default(cuid())
+  imageData Bytes
+  imageType String
+  postId    String
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, id])
+}
+
+model Instruction {
+  id            String @id @default(cuid())
+  postId        String
+  instructionNo Int
+  instruction   String
+
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, instructionNo])
+}
+
+model Ingredients {
+  id               String             @id @default(cuid())
+  ingredientName   String
+  postId           String
+  IngredientsItems IngredientsItems[]
+}
+
+model IngredientsItems {
+  id            String      @id @default(cuid())
+  ingredientsId String
+  itemsName     String
+  ingredients   Ingredients @relation(fields: [ingredientsId], references: [id], onDelete: Cascade)
+}
+
+model Tags {
+  id      String @id @default(cuid())
+  tagName String
+  postId  String
+  post    Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+}

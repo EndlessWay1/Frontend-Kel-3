@@ -12,26 +12,6 @@
   --spiced-mid: #bc5427;
   --spiced-light: #b86f3c;
 }
-#header {
-  width: 100%;
-  z-index: 2;
-  position: fixed;
-  left: 0;
-  top: 0;
-}
-
-#header > nav {
-  position: relative;
-  margin: 16px 32px;
-  padding: 8px 16px;
-  border-radius: 10px;
-  background-color: whitesmoke;
-}
-
-.nav-item {
-  display: flex;
-  gap: 8px;
-}
 
 body {
   background-color: var(--moss-light);
@@ -50,69 +30,9 @@ body {
   color: var(--moss-font);
 }
 
-#head-title img {
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--kombu-dark);
-  background-color: var(--kombu-mid);
-  border-radius: 10px;
-}
-
-#head-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-#head-title a {
-  color: var(--moss-font);
-  font-weight: 600;
-}
-
-#head-title a:hover {
-  /* opacity: 80%; */
-  font-weight: 500;
-}
-
-nav.navbar {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: space-between !important;
-  align-items: center;
-}
-
-.navbar-nav {
-  display: flex;
-  gap: 8px;
-}
-
-.nav-item a {
-  text-decoration: none;
-  color: var(--moss-font);
-  font-weight: 500;
-}
-.nav-item a {
-  opacity: 80%;
-}
-
-#navbarSupportedContent {
-  flex-grow: 0;
-  align-items: center;
-}
-
-#user-title {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-}
-
 .user-error {
   color: var(--spiced-dark);
   margin-left: 8px;
-}
-
-#user-title h2 {
-  margin: 0;
 }
 
 #user-text-recipe {
@@ -127,141 +47,10 @@ nav.navbar {
   opacity: 0.8;
 }
 
-#profile {
-  margin: 20dvh auto;
-  width: 40dvw;
-  /* height: 250dvh; */
-  border-radius: 10px;
-  background-color: var(--tan-light);
-}
-
-.profile-content h5 {
-  font-size: larger;
-  position: absolute;
-
-  top: -15%;
-  left: 3%;
-  background-color: var(--tan-light);
-}
-
-.profile-content {
-  position: relative;
-  margin: 16px;
-  padding: 4px;
-}
-
-.profile-content input,
-.profile-content div {
-  border-color: var(--tan-dark);
-  background-color: var(--tan-light);
-
-  font-size: large;
-  border: 1px;
-  border-radius: 10px;
-  border-style: solid;
-  padding: 8px 16px;
-}
-
-.login-container {
-  width: 100%;
-  height: 100dvh;
-  /* margin-top: 20dvh; */
-  position: relative;
-}
-
-.login-content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.login-page {
-  width: 384px;
-  border-color: var(--tan-dark);
-  border: 1px;
-  border-style: solid;
-  background-color: var(--tan-light);
-
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -40%);
-  padding: 16px 32px;
-  border-radius: 10px;
-}
-
-.input-container {
-  display: flex;
-  flex-direction: column;
-  font-size: large;
-  margin: 0 40px;
-}
-
-.input-container input {
-  border-style: solid;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-size: medium;
-}
-
-.submit-form {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: max-content;
-  padding-left: 40px;
-  padding-right: 40px;
-}
-
-.submit-form > p {
-  font-size: small;
-  /* margin-top: 4px; */
-}
-
-.submit-form > p > span > button {
-  border: none;
-  background-color: transparent;
-  font-size: small;
-  padding: 0;
-}
-.submit-form > p > span > button:hover {
-  text-decoration: underline;
-}
-
-.form-buttons {
-  display: flex;
-  gap: 16px;
-  margin: auto;
-  padding: 0 32px;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
-}
-
-.form-button {
-  border-style: solid;
-  background-color: var(--spiced-light);
-  border-radius: 10px;
-  margin: auto;
-  padding: 4px 16px;
-  color: var(--tan-light);
-  transition: transform 0.2s ease-in-out;
-}
-
-.form-button:hover {
-  background-color: var(--spiced-mid);
-  transform: translateY(-3%);
-}
-
-#signup {
-  display: none;
-}
-
-.profile-date {
-  font-weight: 600;
-  font-size: medium;
-  color: var(--spiced-dark);
+@media (max-width: 512px) {
+  #user-title {
+    display: none;
+  }
 }
 
 #user-recipe-header {
@@ -273,32 +62,6 @@ nav.navbar {
 
 #user-recipe-header h1 {
   font-weight: 600;
-}
-
-#log-in-button,
-#sign-up-button {
-  text-decoration: underline;
-}
-
-#log-in-button:hover,
-#sign-up-button:hover {
-  font-weight: 600;
-}
-
-@media (max-width: 1024px) {
-  #login-page {
-    width: 60%;
-  }
-}
-
-@media (max-width: 512px) {
-  #user-title {
-    display: none;
-  }
-
-  #login-page {
-    width: 90%;
-  }
 }
 
 /* RECIPES */
@@ -724,30 +487,7 @@ nav.navbar {
   margin: 0;
 }
 
-.form-cancel-btn {
-  border: 1px solid var(--tan-dark);
-  background-color: white;
-  padding: 8px 16px;
-  border-radius: 10px;
-  color: var(--moss-font);
-}
-.form-cancel-btn:hover {
-  background-color: var(--tan-dark);
-}
 
-.form-change-btn {
-  border: 1px solid var(--tan-dark);
-  background-color: white;
-
-  padding: 8px 16px;
-  border-radius: 10px;
-}
-
-.form-change-btn:hover {
-  color: white;
-
-  background-color: var(--kombu-mid);
-}
 
 @media (max-width: 991px) {
   .detail-hero-card {

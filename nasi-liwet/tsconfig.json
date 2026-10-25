@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "bootstrap/dist/js/bootstrap": ["./node_modules/types/bootstrap"]
     }
   },
   "include": [
