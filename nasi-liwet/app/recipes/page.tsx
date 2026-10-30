@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { mockRecipes } from "./recipesData";
-import styles from "./recipes.module.css";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import Image from "next/image";
+import { Recipe } from "./recipesData";
+import styles from "./recipes.module.css";
 
 const filterOptions = [
   { label: "Semua Resep", value: "all" },
@@ -14,50 +15,53 @@ const filterOptions = [
 ];
 
 export default function RecipesPage() {
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [loading, setLoading] = useState(true);
   const [currentFilter, setCurrentFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  // filter data resep berdasarkan kategori/metode dan query pencarian
-  const filteredRecipes = mockRecipes.filter((item) => {
-    let matchCat = false;
-    if (currentFilter === "all") {
-      matchCat = true;
-    } else if (
-      item.category === currentFilter ||
-      item.method === currentFilter
-    ) {
-      matchCat = true;
-    }
-
-    let matchText = false;
-    const query = searchQuery.toLowerCase().trim();
-    if (query === "") {
-      matchText = true;
-    } else {
-      const judul = item.title.toLowerCase();
-      const deskripsi = item.description.toLowerCase();
-      if (judul.includes(query) || deskripsi.includes(query)) {
-        matchText = true;
+  useEffect(() => {
+    async function fetchRecipes() {
+      try {
+        const res = await fetch("/api/recipes");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data)) {
+            setRecipes(data);
+          }
+        }
+      } catch (err) {
+        console.error("Gagal load resep dari API:", err);
+      } finally {
+        setLoading(false);
       }
     }
+    fetchRecipes();
+  }, []);
 
-    return matchCat && matchText;
+  const filteredRecipes = recipes.filter((item) => {
+    const matchesFilter =
+      currentFilter === "all" ||
+      item.category === currentFilter ||
+      item.method === currentFilter;
+
+    const query = searchQuery.toLowerCase().trim();
+    const matchesQuery =
+      !query ||
+      item.title.toLowerCase().includes(query) ||
+      item.description.toLowerCase().includes(query);
+
+    return matchesFilter && matchesQuery;
   });
 
   return (
     <div className={styles.pageBackground}>
       <main className={styles.recipesWrapper}>
-        {/* bagian heading / hero */}
         <section className={styles.recipesHeading}>
-          <span className={styles.recipesHeadingTag}>
-            Koleksi Kuliner Nusantara
-          </span>
-          <h1 className={styles.recipesHeadingTitle}>
-            Katalog Resep Nasi Liwet
-          </h1>
+          <span className={styles.recipesHeadingTag}>Koleksi Resep</span>
+          <h1 className={styles.recipesHeadingTitle}>Resep Nasi Liwet</h1>
           <p className={styles.recipesHeadingDesc}>
-            Kumpulan resep nasi liwet khas Sunda dan Solo dengan beragam metode
-            memasak.
+            Daftar resep nasi liwet khas Sunda dan Solo dengan beragam pilihan cara memasak.
           </p>
 
           <div className={styles.recipeSearchBox}>
@@ -72,7 +76,6 @@ export default function RecipesPage() {
           </div>
         </section>
 
-        {/* bagian filter */}
         <section className={styles.recipesFilterSection}>
           <div className={styles.recipesFilterBar}>
             {filterOptions.map((opt) => (
@@ -90,15 +93,19 @@ export default function RecipesPage() {
           </div>
 
           <div className={styles.recipesCount}>
-            {filteredRecipes.length > 0 &&
+            {!loading &&
+              filteredRecipes.length > 0 &&
               `Menampilkan ${filteredRecipes.length} resep`}
           </div>
         </section>
 
-        {/* daftar resep */}
         <section>
           <div className={styles.recipesGrid}>
-            {filteredRecipes.length === 0 ? (
+            {loading ? (
+              <div className={styles.recipesEmpty}>
+                <h4>Memuat resep...</h4>
+              </div>
+            ) : filteredRecipes.length === 0 ? (
               <div className={styles.recipesEmpty}>
                 <h4>Tidak ada resep yang ditemukan</h4>
                 <p>Coba gunakan kata kunci lain atau ubah filter di atas.</p>
@@ -125,33 +132,24 @@ export default function RecipesPage() {
 
                   <div className={styles.recipeCardBody}>
                     <div className={styles.recipePendukung}>
-                      <span>⏱ {recipe.time}</span>
-                      <span>👥 {recipe.servings}</span>
+                      <span>{recipe.time}</span>
+                      <span>•</span>
+                      <span>{recipe.servings}</span>
                     </div>
 
                     <h3 className={styles.recipeTitle}>{recipe.title}</h3>
                     <p className={styles.recipeDesc}>{recipe.description}</p>
 
-                    <div className={styles.recipeIngredients}>
-                      <div className={styles.recipeIngredientsLabel}>
-                        Bahan Utama
-                      </div>
-                      <div className={styles.ingredientTags}>
-                        {recipe.generalIngredients.map((ing, idx) => (
-                          <span key={idx} className={styles.ingredientTag}>
-                            {ing}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
                     <div className={styles.recipeCardFooter}>
                       <span className={styles.recipeSource}>
                         Sumber: {recipe.source}
                       </span>
-                      <a href="#" className={styles.recipeLinkBtn}>
+                      <Link
+                        href={`/recipes/${recipe.id}`}
+                        className={styles.recipeLinkBtn}
+                      >
                         Lihat Resep
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </article>

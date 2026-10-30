@@ -1583,12 +1583,14 @@ export namespace Prisma {
     Instruction: number
     PostImage: number
     Tags: number
+    Ingredients: number
   }
 
   export type PostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     Instruction?: boolean | PostCountOutputTypeCountInstructionArgs
     PostImage?: boolean | PostCountOutputTypeCountPostImageArgs
     Tags?: boolean | PostCountOutputTypeCountTagsArgs
+    Ingredients?: boolean | PostCountOutputTypeCountIngredientsArgs
   }
 
   // Custom InputTypes
@@ -1621,6 +1623,13 @@ export namespace Prisma {
    */
   export type PostCountOutputTypeCountTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TagsWhereInput
+  }
+
+  /**
+   * PostCountOutputType without action
+   */
+  export type PostCountOutputTypeCountIngredientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: IngredientsWhereInput
   }
 
 
@@ -3912,6 +3921,7 @@ export namespace Prisma {
     serving: number | null
     method: $Enums.Method | null
     category: $Enums.Category | null
+    image: string | null
     updatedAt: Date | null
     createdAt: Date | null
   }
@@ -3926,6 +3936,7 @@ export namespace Prisma {
     serving: number | null
     method: $Enums.Method | null
     category: $Enums.Category | null
+    image: string | null
     updatedAt: Date | null
     createdAt: Date | null
   }
@@ -3940,6 +3951,7 @@ export namespace Prisma {
     serving: number
     method: number
     category: number
+    image: number
     updatedAt: number
     createdAt: number
     _all: number
@@ -3966,6 +3978,7 @@ export namespace Prisma {
     serving?: true
     method?: true
     category?: true
+    image?: true
     updatedAt?: true
     createdAt?: true
   }
@@ -3980,6 +3993,7 @@ export namespace Prisma {
     serving?: true
     method?: true
     category?: true
+    image?: true
     updatedAt?: true
     createdAt?: true
   }
@@ -3994,6 +4008,7 @@ export namespace Prisma {
     serving?: true
     method?: true
     category?: true
+    image?: true
     updatedAt?: true
     createdAt?: true
     _all?: true
@@ -4095,6 +4110,7 @@ export namespace Prisma {
     serving: number
     method: $Enums.Method
     category: $Enums.Category
+    image: string | null
     updatedAt: Date
     createdAt: Date
     _count: PostCountAggregateOutputType | null
@@ -4128,12 +4144,14 @@ export namespace Prisma {
     serving?: boolean
     method?: boolean
     category?: boolean
+    image?: boolean
     updatedAt?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     Instruction?: boolean | Post$InstructionArgs<ExtArgs>
     PostImage?: boolean | Post$PostImageArgs<ExtArgs>
     Tags?: boolean | Post$TagsArgs<ExtArgs>
+    Ingredients?: boolean | Post$IngredientsArgs<ExtArgs>
     _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
@@ -4147,6 +4165,7 @@ export namespace Prisma {
     serving?: boolean
     method?: boolean
     category?: boolean
+    image?: boolean
     updatedAt?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4162,6 +4181,7 @@ export namespace Prisma {
     serving?: boolean
     method?: boolean
     category?: boolean
+    image?: boolean
     updatedAt?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -4177,16 +4197,18 @@ export namespace Prisma {
     serving?: boolean
     method?: boolean
     category?: boolean
+    image?: boolean
     updatedAt?: boolean
     createdAt?: boolean
   }
 
-  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "source" | "userId" | "duration" | "serving" | "method" | "category" | "updatedAt" | "createdAt", ExtArgs["result"]["post"]>
+  export type PostOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "source" | "userId" | "duration" | "serving" | "method" | "category" | "image" | "updatedAt" | "createdAt", ExtArgs["result"]["post"]>
   export type PostInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     Instruction?: boolean | Post$InstructionArgs<ExtArgs>
     PostImage?: boolean | Post$PostImageArgs<ExtArgs>
     Tags?: boolean | Post$TagsArgs<ExtArgs>
+    Ingredients?: boolean | Post$IngredientsArgs<ExtArgs>
     _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4203,6 +4225,7 @@ export namespace Prisma {
       Instruction: Prisma.$InstructionPayload<ExtArgs>[]
       PostImage: Prisma.$PostImagePayload<ExtArgs>[]
       Tags: Prisma.$TagsPayload<ExtArgs>[]
+      Ingredients: Prisma.$IngredientsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4214,6 +4237,7 @@ export namespace Prisma {
       serving: number
       method: $Enums.Method
       category: $Enums.Category
+      image: string | null
       updatedAt: Date
       createdAt: Date
     }, ExtArgs["result"]["post"]>
@@ -4614,6 +4638,7 @@ export namespace Prisma {
     Instruction<T extends Post$InstructionArgs<ExtArgs> = {}>(args?: Subset<T, Post$InstructionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InstructionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     PostImage<T extends Post$PostImageArgs<ExtArgs> = {}>(args?: Subset<T, Post$PostImageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Tags<T extends Post$TagsArgs<ExtArgs> = {}>(args?: Subset<T, Post$TagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TagsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Ingredients<T extends Post$IngredientsArgs<ExtArgs> = {}>(args?: Subset<T, Post$IngredientsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IngredientsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4652,6 +4677,7 @@ export namespace Prisma {
     readonly serving: FieldRef<"Post", 'Int'>
     readonly method: FieldRef<"Post", 'Method'>
     readonly category: FieldRef<"Post", 'Category'>
+    readonly image: FieldRef<"Post", 'String'>
     readonly updatedAt: FieldRef<"Post", 'DateTime'>
     readonly createdAt: FieldRef<"Post", 'DateTime'>
   }
@@ -5119,6 +5145,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TagsScalarFieldEnum | TagsScalarFieldEnum[]
+  }
+
+  /**
+   * Post.Ingredients
+   */
+  export type Post$IngredientsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Ingredients
+     */
+    select?: IngredientsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Ingredients
+     */
+    omit?: IngredientsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredientsInclude<ExtArgs> | null
+    where?: IngredientsWhereInput
+    orderBy?: IngredientsOrderByWithRelationInput | IngredientsOrderByWithRelationInput[]
+    cursor?: IngredientsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: IngredientsScalarFieldEnum | IngredientsScalarFieldEnum[]
   }
 
   /**
@@ -7412,6 +7462,7 @@ export namespace Prisma {
     id?: boolean
     ingredientName?: boolean
     postId?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
     IngredientsItems?: boolean | Ingredients$IngredientsItemsArgs<ExtArgs>
     _count?: boolean | IngredientsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ingredients"]>
@@ -7420,12 +7471,14 @@ export namespace Prisma {
     id?: boolean
     ingredientName?: boolean
     postId?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ingredients"]>
 
   export type IngredientsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     ingredientName?: boolean
     postId?: boolean
+    post?: boolean | PostDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ingredients"]>
 
   export type IngredientsSelectScalar = {
@@ -7436,15 +7489,21 @@ export namespace Prisma {
 
   export type IngredientsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ingredientName" | "postId", ExtArgs["result"]["ingredients"]>
   export type IngredientsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
     IngredientsItems?: boolean | Ingredients$IngredientsItemsArgs<ExtArgs>
     _count?: boolean | IngredientsCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type IngredientsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type IngredientsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type IngredientsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
+  export type IngredientsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    post?: boolean | PostDefaultArgs<ExtArgs>
+  }
 
   export type $IngredientsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Ingredients"
     objects: {
+      post: Prisma.$PostPayload<ExtArgs>
       IngredientsItems: Prisma.$IngredientsItemsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -7845,6 +7904,7 @@ export namespace Prisma {
    */
   export interface Prisma__IngredientsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    post<T extends PostDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostDefaultArgs<ExtArgs>>): Prisma__PostClient<$Result.GetResult<Prisma.$PostPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     IngredientsItems<T extends Ingredients$IngredientsItemsArgs<ExtArgs> = {}>(args?: Subset<T, Ingredients$IngredientsItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$IngredientsItemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -8127,6 +8187,10 @@ export namespace Prisma {
      */
     data: IngredientsCreateManyInput | IngredientsCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredientsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8197,6 +8261,10 @@ export namespace Prisma {
      * Limit how many Ingredients to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: IngredientsIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -10423,6 +10491,7 @@ export namespace Prisma {
     serving: 'serving',
     method: 'method',
     category: 'category',
+    image: 'image',
     updatedAt: 'updatedAt',
     createdAt: 'createdAt'
   };
@@ -10772,12 +10841,14 @@ export namespace Prisma {
     serving?: IntFilter<"Post"> | number
     method?: EnumMethodFilter<"Post"> | $Enums.Method
     category?: EnumCategoryFilter<"Post"> | $Enums.Category
+    image?: StringNullableFilter<"Post"> | string | null
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdAt?: DateTimeFilter<"Post"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     Instruction?: InstructionListRelationFilter
     PostImage?: PostImageListRelationFilter
     Tags?: TagsListRelationFilter
+    Ingredients?: IngredientsListRelationFilter
   }
 
   export type PostOrderByWithRelationInput = {
@@ -10790,12 +10861,14 @@ export namespace Prisma {
     serving?: SortOrder
     method?: SortOrder
     category?: SortOrder
+    image?: SortOrderInput | SortOrder
     updatedAt?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     Instruction?: InstructionOrderByRelationAggregateInput
     PostImage?: PostImageOrderByRelationAggregateInput
     Tags?: TagsOrderByRelationAggregateInput
+    Ingredients?: IngredientsOrderByRelationAggregateInput
   }
 
   export type PostWhereUniqueInput = Prisma.AtLeast<{
@@ -10811,12 +10884,14 @@ export namespace Prisma {
     serving?: IntFilter<"Post"> | number
     method?: EnumMethodFilter<"Post"> | $Enums.Method
     category?: EnumCategoryFilter<"Post"> | $Enums.Category
+    image?: StringNullableFilter<"Post"> | string | null
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdAt?: DateTimeFilter<"Post"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     Instruction?: InstructionListRelationFilter
     PostImage?: PostImageListRelationFilter
     Tags?: TagsListRelationFilter
+    Ingredients?: IngredientsListRelationFilter
   }, "id">
 
   export type PostOrderByWithAggregationInput = {
@@ -10829,6 +10904,7 @@ export namespace Prisma {
     serving?: SortOrder
     method?: SortOrder
     category?: SortOrder
+    image?: SortOrderInput | SortOrder
     updatedAt?: SortOrder
     createdAt?: SortOrder
     _count?: PostCountOrderByAggregateInput
@@ -10851,6 +10927,7 @@ export namespace Prisma {
     serving?: IntWithAggregatesFilter<"Post"> | number
     method?: EnumMethodWithAggregatesFilter<"Post"> | $Enums.Method
     category?: EnumCategoryWithAggregatesFilter<"Post"> | $Enums.Category
+    image?: StringNullableWithAggregatesFilter<"Post"> | string | null
     updatedAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Post"> | Date | string
   }
@@ -10966,6 +11043,7 @@ export namespace Prisma {
     id?: StringFilter<"Ingredients"> | string
     ingredientName?: StringFilter<"Ingredients"> | string
     postId?: StringFilter<"Ingredients"> | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
     IngredientsItems?: IngredientsItemsListRelationFilter
   }
 
@@ -10973,6 +11051,7 @@ export namespace Prisma {
     id?: SortOrder
     ingredientName?: SortOrder
     postId?: SortOrder
+    post?: PostOrderByWithRelationInput
     IngredientsItems?: IngredientsItemsOrderByRelationAggregateInput
   }
 
@@ -10983,6 +11062,7 @@ export namespace Prisma {
     NOT?: IngredientsWhereInput | IngredientsWhereInput[]
     ingredientName?: StringFilter<"Ingredients"> | string
     postId?: StringFilter<"Ingredients"> | string
+    post?: XOR<PostScalarRelationFilter, PostWhereInput>
     IngredientsItems?: IngredientsItemsListRelationFilter
   }, "id">
 
@@ -11257,12 +11337,14 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutPostInput
     Instruction?: InstructionCreateNestedManyWithoutPostInput
     PostImage?: PostImageCreateNestedManyWithoutPostInput
     Tags?: TagsCreateNestedManyWithoutPostInput
+    Ingredients?: IngredientsCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateInput = {
@@ -11275,11 +11357,13 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
     Instruction?: InstructionUncheckedCreateNestedManyWithoutPostInput
     PostImage?: PostImageUncheckedCreateNestedManyWithoutPostInput
     Tags?: TagsUncheckedCreateNestedManyWithoutPostInput
+    Ingredients?: IngredientsUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostUpdateInput = {
@@ -11291,12 +11375,14 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostNestedInput
     Instruction?: InstructionUpdateManyWithoutPostNestedInput
     PostImage?: PostImageUpdateManyWithoutPostNestedInput
     Tags?: TagsUpdateManyWithoutPostNestedInput
+    Ingredients?: IngredientsUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateInput = {
@@ -11309,11 +11395,13 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Instruction?: InstructionUncheckedUpdateManyWithoutPostNestedInput
     PostImage?: PostImageUncheckedUpdateManyWithoutPostNestedInput
     Tags?: TagsUncheckedUpdateManyWithoutPostNestedInput
+    Ingredients?: IngredientsUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type PostCreateManyInput = {
@@ -11326,6 +11414,7 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
   }
@@ -11339,6 +11428,7 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11353,6 +11443,7 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11456,7 +11547,7 @@ export namespace Prisma {
   export type IngredientsCreateInput = {
     id?: string
     ingredientName: string
-    postId: string
+    post: PostCreateNestedOneWithoutIngredientsInput
     IngredientsItems?: IngredientsItemsCreateNestedManyWithoutIngredientsInput
   }
 
@@ -11470,7 +11561,7 @@ export namespace Prisma {
   export type IngredientsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     ingredientName?: StringFieldUpdateOperationsInput | string
-    postId?: StringFieldUpdateOperationsInput | string
+    post?: PostUpdateOneRequiredWithoutIngredientsNestedInput
     IngredientsItems?: IngredientsItemsUpdateManyWithoutIngredientsNestedInput
   }
 
@@ -11490,7 +11581,6 @@ export namespace Prisma {
   export type IngredientsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     ingredientName?: StringFieldUpdateOperationsInput | string
-    postId?: StringFieldUpdateOperationsInput | string
   }
 
   export type IngredientsUncheckedUpdateManyInput = {
@@ -11850,6 +11940,12 @@ export namespace Prisma {
     none?: TagsWhereInput
   }
 
+  export type IngredientsListRelationFilter = {
+    every?: IngredientsWhereInput
+    some?: IngredientsWhereInput
+    none?: IngredientsWhereInput
+  }
+
   export type InstructionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -11859,6 +11955,10 @@ export namespace Prisma {
   }
 
   export type TagsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type IngredientsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11872,6 +11972,7 @@ export namespace Prisma {
     serving?: SortOrder
     method?: SortOrder
     category?: SortOrder
+    image?: SortOrder
     updatedAt?: SortOrder
     createdAt?: SortOrder
   }
@@ -11891,6 +11992,7 @@ export namespace Prisma {
     serving?: SortOrder
     method?: SortOrder
     category?: SortOrder
+    image?: SortOrder
     updatedAt?: SortOrder
     createdAt?: SortOrder
   }
@@ -11905,6 +12007,7 @@ export namespace Prisma {
     serving?: SortOrder
     method?: SortOrder
     category?: SortOrder
+    image?: SortOrder
     updatedAt?: SortOrder
     createdAt?: SortOrder
   }
@@ -12246,6 +12349,13 @@ export namespace Prisma {
     connect?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
   }
 
+  export type IngredientsCreateNestedManyWithoutPostInput = {
+    create?: XOR<IngredientsCreateWithoutPostInput, IngredientsUncheckedCreateWithoutPostInput> | IngredientsCreateWithoutPostInput[] | IngredientsUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: IngredientsCreateOrConnectWithoutPostInput | IngredientsCreateOrConnectWithoutPostInput[]
+    createMany?: IngredientsCreateManyPostInputEnvelope
+    connect?: IngredientsWhereUniqueInput | IngredientsWhereUniqueInput[]
+  }
+
   export type InstructionUncheckedCreateNestedManyWithoutPostInput = {
     create?: XOR<InstructionCreateWithoutPostInput, InstructionUncheckedCreateWithoutPostInput> | InstructionCreateWithoutPostInput[] | InstructionUncheckedCreateWithoutPostInput[]
     connectOrCreate?: InstructionCreateOrConnectWithoutPostInput | InstructionCreateOrConnectWithoutPostInput[]
@@ -12265,6 +12375,13 @@ export namespace Prisma {
     connectOrCreate?: TagsCreateOrConnectWithoutPostInput | TagsCreateOrConnectWithoutPostInput[]
     createMany?: TagsCreateManyPostInputEnvelope
     connect?: TagsWhereUniqueInput | TagsWhereUniqueInput[]
+  }
+
+  export type IngredientsUncheckedCreateNestedManyWithoutPostInput = {
+    create?: XOR<IngredientsCreateWithoutPostInput, IngredientsUncheckedCreateWithoutPostInput> | IngredientsCreateWithoutPostInput[] | IngredientsUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: IngredientsCreateOrConnectWithoutPostInput | IngredientsCreateOrConnectWithoutPostInput[]
+    createMany?: IngredientsCreateManyPostInputEnvelope
+    connect?: IngredientsWhereUniqueInput | IngredientsWhereUniqueInput[]
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -12333,6 +12450,20 @@ export namespace Prisma {
     deleteMany?: TagsScalarWhereInput | TagsScalarWhereInput[]
   }
 
+  export type IngredientsUpdateManyWithoutPostNestedInput = {
+    create?: XOR<IngredientsCreateWithoutPostInput, IngredientsUncheckedCreateWithoutPostInput> | IngredientsCreateWithoutPostInput[] | IngredientsUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: IngredientsCreateOrConnectWithoutPostInput | IngredientsCreateOrConnectWithoutPostInput[]
+    upsert?: IngredientsUpsertWithWhereUniqueWithoutPostInput | IngredientsUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: IngredientsCreateManyPostInputEnvelope
+    set?: IngredientsWhereUniqueInput | IngredientsWhereUniqueInput[]
+    disconnect?: IngredientsWhereUniqueInput | IngredientsWhereUniqueInput[]
+    delete?: IngredientsWhereUniqueInput | IngredientsWhereUniqueInput[]
+    connect?: IngredientsWhereUniqueInput | IngredientsWhereUniqueInput[]
+    update?: IngredientsUpdateWithWhereUniqueWithoutPostInput | IngredientsUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: IngredientsUpdateManyWithWhereWithoutPostInput | IngredientsUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: IngredientsScalarWhereInput | IngredientsScalarWhereInput[]
+  }
+
   export type InstructionUncheckedUpdateManyWithoutPostNestedInput = {
     create?: XOR<InstructionCreateWithoutPostInput, InstructionUncheckedCreateWithoutPostInput> | InstructionCreateWithoutPostInput[] | InstructionUncheckedCreateWithoutPostInput[]
     connectOrCreate?: InstructionCreateOrConnectWithoutPostInput | InstructionCreateOrConnectWithoutPostInput[]
@@ -12375,6 +12506,20 @@ export namespace Prisma {
     deleteMany?: TagsScalarWhereInput | TagsScalarWhereInput[]
   }
 
+  export type IngredientsUncheckedUpdateManyWithoutPostNestedInput = {
+    create?: XOR<IngredientsCreateWithoutPostInput, IngredientsUncheckedCreateWithoutPostInput> | IngredientsCreateWithoutPostInput[] | IngredientsUncheckedCreateWithoutPostInput[]
+    connectOrCreate?: IngredientsCreateOrConnectWithoutPostInput | IngredientsCreateOrConnectWithoutPostInput[]
+    upsert?: IngredientsUpsertWithWhereUniqueWithoutPostInput | IngredientsUpsertWithWhereUniqueWithoutPostInput[]
+    createMany?: IngredientsCreateManyPostInputEnvelope
+    set?: IngredientsWhereUniqueInput | IngredientsWhereUniqueInput[]
+    disconnect?: IngredientsWhereUniqueInput | IngredientsWhereUniqueInput[]
+    delete?: IngredientsWhereUniqueInput | IngredientsWhereUniqueInput[]
+    connect?: IngredientsWhereUniqueInput | IngredientsWhereUniqueInput[]
+    update?: IngredientsUpdateWithWhereUniqueWithoutPostInput | IngredientsUpdateWithWhereUniqueWithoutPostInput[]
+    updateMany?: IngredientsUpdateManyWithWhereWithoutPostInput | IngredientsUpdateManyWithWhereWithoutPostInput[]
+    deleteMany?: IngredientsScalarWhereInput | IngredientsScalarWhereInput[]
+  }
+
   export type PostCreateNestedOneWithoutPostImageInput = {
     create?: XOR<PostCreateWithoutPostImageInput, PostUncheckedCreateWithoutPostImageInput>
     connectOrCreate?: PostCreateOrConnectWithoutPostImageInput
@@ -12407,6 +12552,12 @@ export namespace Prisma {
     update?: XOR<XOR<PostUpdateToOneWithWhereWithoutInstructionInput, PostUpdateWithoutInstructionInput>, PostUncheckedUpdateWithoutInstructionInput>
   }
 
+  export type PostCreateNestedOneWithoutIngredientsInput = {
+    create?: XOR<PostCreateWithoutIngredientsInput, PostUncheckedCreateWithoutIngredientsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutIngredientsInput
+    connect?: PostWhereUniqueInput
+  }
+
   export type IngredientsItemsCreateNestedManyWithoutIngredientsInput = {
     create?: XOR<IngredientsItemsCreateWithoutIngredientsInput, IngredientsItemsUncheckedCreateWithoutIngredientsInput> | IngredientsItemsCreateWithoutIngredientsInput[] | IngredientsItemsUncheckedCreateWithoutIngredientsInput[]
     connectOrCreate?: IngredientsItemsCreateOrConnectWithoutIngredientsInput | IngredientsItemsCreateOrConnectWithoutIngredientsInput[]
@@ -12419,6 +12570,14 @@ export namespace Prisma {
     connectOrCreate?: IngredientsItemsCreateOrConnectWithoutIngredientsInput | IngredientsItemsCreateOrConnectWithoutIngredientsInput[]
     createMany?: IngredientsItemsCreateManyIngredientsInputEnvelope
     connect?: IngredientsItemsWhereUniqueInput | IngredientsItemsWhereUniqueInput[]
+  }
+
+  export type PostUpdateOneRequiredWithoutIngredientsNestedInput = {
+    create?: XOR<PostCreateWithoutIngredientsInput, PostUncheckedCreateWithoutIngredientsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutIngredientsInput
+    upsert?: PostUpsertWithoutIngredientsInput
+    connect?: PostWhereUniqueInput
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutIngredientsInput, PostUpdateWithoutIngredientsInput>, PostUncheckedUpdateWithoutIngredientsInput>
   }
 
   export type IngredientsItemsUpdateManyWithoutIngredientsNestedInput = {
@@ -12741,11 +12900,13 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
     Instruction?: InstructionCreateNestedManyWithoutPostInput
     PostImage?: PostImageCreateNestedManyWithoutPostInput
     Tags?: TagsCreateNestedManyWithoutPostInput
+    Ingredients?: IngredientsCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateWithoutUserInput = {
@@ -12757,11 +12918,13 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
     Instruction?: InstructionUncheckedCreateNestedManyWithoutPostInput
     PostImage?: PostImageUncheckedCreateNestedManyWithoutPostInput
     Tags?: TagsUncheckedCreateNestedManyWithoutPostInput
+    Ingredients?: IngredientsUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostCreateOrConnectWithoutUserInput = {
@@ -12831,6 +12994,7 @@ export namespace Prisma {
     serving?: IntFilter<"Post"> | number
     method?: EnumMethodFilter<"Post"> | $Enums.Method
     category?: EnumCategoryFilter<"Post"> | $Enums.Category
+    image?: StringNullableFilter<"Post"> | string | null
     updatedAt?: DateTimeFilter<"Post"> | Date | string
     createdAt?: DateTimeFilter<"Post"> | Date | string
   }
@@ -12998,6 +13162,28 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type IngredientsCreateWithoutPostInput = {
+    id?: string
+    ingredientName: string
+    IngredientsItems?: IngredientsItemsCreateNestedManyWithoutIngredientsInput
+  }
+
+  export type IngredientsUncheckedCreateWithoutPostInput = {
+    id?: string
+    ingredientName: string
+    IngredientsItems?: IngredientsItemsUncheckedCreateNestedManyWithoutIngredientsInput
+  }
+
+  export type IngredientsCreateOrConnectWithoutPostInput = {
+    where: IngredientsWhereUniqueInput
+    create: XOR<IngredientsCreateWithoutPostInput, IngredientsUncheckedCreateWithoutPostInput>
+  }
+
+  export type IngredientsCreateManyPostInputEnvelope = {
+    data: IngredientsCreateManyPostInput | IngredientsCreateManyPostInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutPostInput = {
     update: XOR<UserUpdateWithoutPostInput, UserUncheckedUpdateWithoutPostInput>
     create: XOR<UserCreateWithoutPostInput, UserUncheckedCreateWithoutPostInput>
@@ -13112,6 +13298,31 @@ export namespace Prisma {
     postId?: StringFilter<"Tags"> | string
   }
 
+  export type IngredientsUpsertWithWhereUniqueWithoutPostInput = {
+    where: IngredientsWhereUniqueInput
+    update: XOR<IngredientsUpdateWithoutPostInput, IngredientsUncheckedUpdateWithoutPostInput>
+    create: XOR<IngredientsCreateWithoutPostInput, IngredientsUncheckedCreateWithoutPostInput>
+  }
+
+  export type IngredientsUpdateWithWhereUniqueWithoutPostInput = {
+    where: IngredientsWhereUniqueInput
+    data: XOR<IngredientsUpdateWithoutPostInput, IngredientsUncheckedUpdateWithoutPostInput>
+  }
+
+  export type IngredientsUpdateManyWithWhereWithoutPostInput = {
+    where: IngredientsScalarWhereInput
+    data: XOR<IngredientsUpdateManyMutationInput, IngredientsUncheckedUpdateManyWithoutPostInput>
+  }
+
+  export type IngredientsScalarWhereInput = {
+    AND?: IngredientsScalarWhereInput | IngredientsScalarWhereInput[]
+    OR?: IngredientsScalarWhereInput[]
+    NOT?: IngredientsScalarWhereInput | IngredientsScalarWhereInput[]
+    id?: StringFilter<"Ingredients"> | string
+    ingredientName?: StringFilter<"Ingredients"> | string
+    postId?: StringFilter<"Ingredients"> | string
+  }
+
   export type PostCreateWithoutPostImageInput = {
     id?: string
     title: string
@@ -13121,11 +13332,13 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutPostInput
     Instruction?: InstructionCreateNestedManyWithoutPostInput
     Tags?: TagsCreateNestedManyWithoutPostInput
+    Ingredients?: IngredientsCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateWithoutPostImageInput = {
@@ -13138,10 +13351,12 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
     Instruction?: InstructionUncheckedCreateNestedManyWithoutPostInput
     Tags?: TagsUncheckedCreateNestedManyWithoutPostInput
+    Ingredients?: IngredientsUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostCreateOrConnectWithoutPostImageInput = {
@@ -13169,11 +13384,13 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostNestedInput
     Instruction?: InstructionUpdateManyWithoutPostNestedInput
     Tags?: TagsUpdateManyWithoutPostNestedInput
+    Ingredients?: IngredientsUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateWithoutPostImageInput = {
@@ -13186,10 +13403,12 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Instruction?: InstructionUncheckedUpdateManyWithoutPostNestedInput
     Tags?: TagsUncheckedUpdateManyWithoutPostNestedInput
+    Ingredients?: IngredientsUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type PostCreateWithoutInstructionInput = {
@@ -13201,11 +13420,13 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutPostInput
     PostImage?: PostImageCreateNestedManyWithoutPostInput
     Tags?: TagsCreateNestedManyWithoutPostInput
+    Ingredients?: IngredientsCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateWithoutInstructionInput = {
@@ -13218,10 +13439,12 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
     PostImage?: PostImageUncheckedCreateNestedManyWithoutPostInput
     Tags?: TagsUncheckedCreateNestedManyWithoutPostInput
+    Ingredients?: IngredientsUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostCreateOrConnectWithoutInstructionInput = {
@@ -13249,11 +13472,13 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostNestedInput
     PostImage?: PostImageUpdateManyWithoutPostNestedInput
     Tags?: TagsUpdateManyWithoutPostNestedInput
+    Ingredients?: IngredientsUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateWithoutInstructionInput = {
@@ -13266,10 +13491,53 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     PostImage?: PostImageUncheckedUpdateManyWithoutPostNestedInput
     Tags?: TagsUncheckedUpdateManyWithoutPostNestedInput
+    Ingredients?: IngredientsUncheckedUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostCreateWithoutIngredientsInput = {
+    id?: string
+    title: string
+    description: string
+    source?: string | null
+    duration: number
+    serving: number
+    method?: $Enums.Method
+    category?: $Enums.Category
+    image?: string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutPostInput
+    Instruction?: InstructionCreateNestedManyWithoutPostInput
+    PostImage?: PostImageCreateNestedManyWithoutPostInput
+    Tags?: TagsCreateNestedManyWithoutPostInput
+  }
+
+  export type PostUncheckedCreateWithoutIngredientsInput = {
+    id?: string
+    title: string
+    description: string
+    source?: string | null
+    userId: string
+    duration: number
+    serving: number
+    method?: $Enums.Method
+    category?: $Enums.Category
+    image?: string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    Instruction?: InstructionUncheckedCreateNestedManyWithoutPostInput
+    PostImage?: PostImageUncheckedCreateNestedManyWithoutPostInput
+    Tags?: TagsUncheckedCreateNestedManyWithoutPostInput
+  }
+
+  export type PostCreateOrConnectWithoutIngredientsInput = {
+    where: PostWhereUniqueInput
+    create: XOR<PostCreateWithoutIngredientsInput, PostUncheckedCreateWithoutIngredientsInput>
   }
 
   export type IngredientsItemsCreateWithoutIngredientsInput = {
@@ -13290,6 +13558,53 @@ export namespace Prisma {
   export type IngredientsItemsCreateManyIngredientsInputEnvelope = {
     data: IngredientsItemsCreateManyIngredientsInput | IngredientsItemsCreateManyIngredientsInput[]
     skipDuplicates?: boolean
+  }
+
+  export type PostUpsertWithoutIngredientsInput = {
+    update: XOR<PostUpdateWithoutIngredientsInput, PostUncheckedUpdateWithoutIngredientsInput>
+    create: XOR<PostCreateWithoutIngredientsInput, PostUncheckedCreateWithoutIngredientsInput>
+    where?: PostWhereInput
+  }
+
+  export type PostUpdateToOneWithWhereWithoutIngredientsInput = {
+    where?: PostWhereInput
+    data: XOR<PostUpdateWithoutIngredientsInput, PostUncheckedUpdateWithoutIngredientsInput>
+  }
+
+  export type PostUpdateWithoutIngredientsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: IntFieldUpdateOperationsInput | number
+    serving?: IntFieldUpdateOperationsInput | number
+    method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
+    category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutPostNestedInput
+    Instruction?: InstructionUpdateManyWithoutPostNestedInput
+    PostImage?: PostImageUpdateManyWithoutPostNestedInput
+    Tags?: TagsUpdateManyWithoutPostNestedInput
+  }
+
+  export type PostUncheckedUpdateWithoutIngredientsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    userId?: StringFieldUpdateOperationsInput | string
+    duration?: IntFieldUpdateOperationsInput | number
+    serving?: IntFieldUpdateOperationsInput | number
+    method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
+    category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Instruction?: InstructionUncheckedUpdateManyWithoutPostNestedInput
+    PostImage?: PostImageUncheckedUpdateManyWithoutPostNestedInput
+    Tags?: TagsUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type IngredientsItemsUpsertWithWhereUniqueWithoutIngredientsInput = {
@@ -13320,7 +13635,7 @@ export namespace Prisma {
   export type IngredientsCreateWithoutIngredientsItemsInput = {
     id?: string
     ingredientName: string
-    postId: string
+    post: PostCreateNestedOneWithoutIngredientsInput
   }
 
   export type IngredientsUncheckedCreateWithoutIngredientsItemsInput = {
@@ -13348,7 +13663,7 @@ export namespace Prisma {
   export type IngredientsUpdateWithoutIngredientsItemsInput = {
     id?: StringFieldUpdateOperationsInput | string
     ingredientName?: StringFieldUpdateOperationsInput | string
-    postId?: StringFieldUpdateOperationsInput | string
+    post?: PostUpdateOneRequiredWithoutIngredientsNestedInput
   }
 
   export type IngredientsUncheckedUpdateWithoutIngredientsItemsInput = {
@@ -13366,11 +13681,13 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutPostInput
     Instruction?: InstructionCreateNestedManyWithoutPostInput
     PostImage?: PostImageCreateNestedManyWithoutPostInput
+    Ingredients?: IngredientsCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateWithoutTagsInput = {
@@ -13383,10 +13700,12 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
     Instruction?: InstructionUncheckedCreateNestedManyWithoutPostInput
     PostImage?: PostImageUncheckedCreateNestedManyWithoutPostInput
+    Ingredients?: IngredientsUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostCreateOrConnectWithoutTagsInput = {
@@ -13414,11 +13733,13 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostNestedInput
     Instruction?: InstructionUpdateManyWithoutPostNestedInput
     PostImage?: PostImageUpdateManyWithoutPostNestedInput
+    Ingredients?: IngredientsUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateWithoutTagsInput = {
@@ -13431,10 +13752,12 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Instruction?: InstructionUncheckedUpdateManyWithoutPostNestedInput
     PostImage?: PostImageUncheckedUpdateManyWithoutPostNestedInput
+    Ingredients?: IngredientsUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type SessionCreateManyUserInput = {
@@ -13454,6 +13777,7 @@ export namespace Prisma {
     serving: number
     method?: $Enums.Method
     category?: $Enums.Category
+    image?: string | null
     updatedAt?: Date | string
     createdAt?: Date | string
   }
@@ -13491,11 +13815,13 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Instruction?: InstructionUpdateManyWithoutPostNestedInput
     PostImage?: PostImageUpdateManyWithoutPostNestedInput
     Tags?: TagsUpdateManyWithoutPostNestedInput
+    Ingredients?: IngredientsUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateWithoutUserInput = {
@@ -13507,11 +13833,13 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     Instruction?: InstructionUncheckedUpdateManyWithoutPostNestedInput
     PostImage?: PostImageUncheckedUpdateManyWithoutPostNestedInput
     Tags?: TagsUncheckedUpdateManyWithoutPostNestedInput
+    Ingredients?: IngredientsUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateManyWithoutUserInput = {
@@ -13523,6 +13851,7 @@ export namespace Prisma {
     serving?: IntFieldUpdateOperationsInput | number
     method?: EnumMethodFieldUpdateOperationsInput | $Enums.Method
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13542,6 +13871,11 @@ export namespace Prisma {
   export type TagsCreateManyPostInput = {
     id?: string
     tagName: string
+  }
+
+  export type IngredientsCreateManyPostInput = {
+    id?: string
+    ingredientName: string
   }
 
   export type InstructionUpdateWithoutPostInput = {
@@ -13593,6 +13927,23 @@ export namespace Prisma {
   export type TagsUncheckedUpdateManyWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
     tagName?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type IngredientsUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ingredientName?: StringFieldUpdateOperationsInput | string
+    IngredientsItems?: IngredientsItemsUpdateManyWithoutIngredientsNestedInput
+  }
+
+  export type IngredientsUncheckedUpdateWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ingredientName?: StringFieldUpdateOperationsInput | string
+    IngredientsItems?: IngredientsItemsUncheckedUpdateManyWithoutIngredientsNestedInput
+  }
+
+  export type IngredientsUncheckedUpdateManyWithoutPostInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    ingredientName?: StringFieldUpdateOperationsInput | string
   }
 
   export type IngredientsItemsCreateManyIngredientsInput = {
