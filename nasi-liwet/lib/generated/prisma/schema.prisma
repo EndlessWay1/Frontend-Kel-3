@@ -66,6 +66,7 @@ model Post {
   serving     Int
   method      Method   @default(RICECOOKER)
   category    Category @default(SUNDA)
+  image       String?
   updatedAt   DateTime @updatedAt
   createdAt   DateTime @default(now())
 
@@ -73,6 +74,7 @@ model Post {
   Instruction Instruction[]
   PostImage   PostImage[]
   Tags        Tags[]
+  Ingredients Ingredients[]
 }
 
 model PostImage {
@@ -101,6 +103,7 @@ model Ingredients {
   id               String             @id @default(cuid())
   ingredientName   String
   postId           String
+  post             Post               @relation(fields: [postId], references: [id], onDelete: Cascade)
   IngredientsItems IngredientsItems[]
 }
 

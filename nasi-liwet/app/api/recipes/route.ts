@@ -1,94 +1,141 @@
 import { NextResponse } from "next/server";
-import { pool } from "@/lib/sql-database/database";
-import { createBetterAuthServerClient } from "@/lib/better-auth/server-client";
+import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/auth/session";
 
-const str = (v: unknown, max: number) =>
-  typeof v === "string" ? v.trim().slice(0, max) : "";
-const strList = (v: unknown, max: number, limit: number) =>
-  Array.isArray(v) ? v.map((x) => str(x, max)).filter(Boolean).slice(0, limit) : [];
-
-export async function POST(req: Request) {
-  // user_id always comes from the session, never from the request body
-  const session = await createBetterAuthServerClient();
-  if (!session) return NextResponse.json({ error: "Not logged in." }, { status: 401 });
-
-  const b = (await req.json().catch(() => null)) as Record<string, unknown> | null;
-  if (!b) return NextResponse.json({ error: "Invalid request." }, { status: 400 });
-
-  const category = b.category === "sunda" || b.category === "solo" ? b.category : null;
-  const method = b.method === "rice-cooker" || b.method === "tradisional" ? b.method : null;
-  const title = str(b.title, 80);
-  const cookTime = str(b.time, 40);
-  const servings = str(b.servings, 40);
-  const description = str(b.description, 300);
-  const image = str(b.image, 500);
-  const source = str(b.source, 80) || session.user.name;
-  const general = strList(b.generalIngredients, 60, 12);
-  const steps = strList(b.instructions, 500, 40);
-  const groups = Array.isArray(b.ingredients)
-    ? b.ingredients
-        .map((g: { group?: unknown; items?: unknown }) => ({
-          group: str(g?.group, 80),
-          items: strList(g?.items, 200, 40),
-        }))
-        .filter((g) => g.group && g.items.length)
-        .slice(0, 20)
-    : [];
-
-  if (!category || !method || !title || !cookTime || !servings || description.length < 10 ||
-      !general.length || !groups.length || !steps.length)
-    return NextResponse.json({ error: "Please fill in every required field." }, { status: 400 });
-  if (image && !/^(https?:\/\/|\/)/.test(image))
-    return NextResponse.json({ error: "Image must be a link starting with http(s)://" }, { status: 400 });
-
+export async function GET() {
   try {
-    const { rows } = await pool.query(
-      `INSERT INTO recipes (user_id, title, category, method, image, cook_time, servings,
-                            source, description, general_ingredients, ingredients, instructions)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING id`,
-      [session.user.id, title, category, method, image, cookTime, servings, source, description,
-       JSON.stringify(general), JSON.stringify(groups), JSON.stringify(steps)],
-    );
-    return NextResponse.json({ id: rows[0].id }, { status: 201 });
+    const posts = await prisma.post.findMany({
+      include: {
+        Instruction: {
+          orderBy: { instructionNo: "asc" },
+        },
+        Ingredients: {
+          include: {
+            IngredientsItems: true,
+          },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    const recipes = posts.map((post) => ({
+      id: post.id,
+      title: post.title,
+      category: post.category === "SUNDA" ? "sunda" : "solo",
+      method: post.method === "RICECOOKER" ? "rice-cooker" : "tradisional",
+      categoryLabel: post.category === "SUNDA" ? "Khas Sunda" : "Khas Solo",
+      methodLabel: post.method === "RICECOOKER" ? "Rice Cooker" : "Tradisional",
+      image: post.image || "/recipes/pictures/Foto 1.jpg",
+      time: `${post.duration} menit`,
+      servings: `${post.serving} porsi`,
+      source: post.source || "Nasi Liwet Nusantara",
+      description: post.description,
+      ingredients: post.Ingredients.map((g) => ({
+        group: g.ingredientName,
+        items: g.IngredientsItems.map((it) => it.itemsName),
+      })),
+      instructions: post.Instruction.map((ins) => ins.instruction),
+    }));
+
+    return NextResponse.json(recipes);
   } catch (err) {
-    console.error("create recipe failed", err);
-    return NextResponse.json({ error: "Could not save the recipe." }, { status: 500 });
+    console.error("Gagal mengambil resep:", err);
+    return NextResponse.json(
+      { error: "Gagal memuat resep dari database." },
+      { status: 500 }
+    );
   }
 }
 
-const LABELS = {
-  category: { sunda: "Khas Sunda", solo: "Khas Solo" },
-  method: { "rice-cooker": "Rice Cooker", tradisional: "Tradisional" },
-} as const;
-
-// Public: anyone can browse recipes. Each item is shaped like the Recipe interface in recipesData.ts.
-export async function GET() {
-  try {
-    const { rows } = await pool.query(
-      `SELECT id, title, category, method, image, cook_time, servings, source, description,
-              general_ingredients, ingredients, instructions
-       FROM recipes ORDER BY created_at DESC`,
-    );
+export async function POST(req: Request) {
+  const session = await getSession();
+  if (!session) {
     return NextResponse.json(
-      rows.map((r) => ({
-        id: r.id,
-        title: r.title,
-        category: r.category,
-        method: r.method,
-        categoryLabel: LABELS.category[r.category as keyof typeof LABELS.category],
-        methodLabel: LABELS.method[r.method as keyof typeof LABELS.method],
-        image: r.image,
-        time: r.cook_time,
-        servings: r.servings,
-        source: r.source,
-        description: r.description,
-        generalIngredients: r.general_ingredients,
-        ingredients: r.ingredients,
-        instructions: r.instructions,
-      })),
+      { error: "Silakan login terlebih dahulu." },
+      { status: 401 }
     );
+  }
+
+  const body = await req.json().catch(() => null);
+  if (!body) {
+    return NextResponse.json(
+      { error: "Request tidak valid." },
+      { status: 400 }
+    );
+  }
+
+  const {
+    title,
+    category,
+    method,
+    time,
+    servings,
+    image,
+    source,
+    description,
+    ingredients,
+    instructions,
+  } = body;
+
+  if (!title || !description || !ingredients || !instructions) {
+    return NextResponse.json(
+      { error: "Mohon isi semua data resep yang diperlukan." },
+      { status: 400 }
+    );
+  }
+
+  const durationMatch = time ? String(time).match(/\d+/) : null;
+  const duration = durationMatch ? parseInt(durationMatch[0]) : 40;
+
+  const servingMatch = servings ? String(servings).match(/\d+/) : null;
+  const serving = servingMatch ? parseInt(servingMatch[0]) : 4;
+
+  const categoryEnum = category === "solo" ? "SOLO" : "SUNDA";
+  const methodEnum = method === "tradisional" ? "TRADISIONAL" : "RICECOOKER";
+
+  try {
+    const newPost = await prisma.post.create({
+      data: {
+        title: title.trim(),
+        description: description.trim(),
+        source: source ? source.trim() : session.user.name,
+        userId: session.user.id,
+        duration,
+        serving,
+        category: categoryEnum,
+        method: methodEnum,
+        image: image ? image.trim() : "/recipes/pictures/Foto 1.jpg",
+        Instruction: {
+          create: instructions.map((step: string, idx: number) => ({
+            instructionNo: idx + 1,
+            instruction: String(step).trim(),
+          })),
+        },
+      },
+    });
+
+    for (const g of ingredients) {
+      if (g.group && g.items && g.items.length) {
+        await prisma.ingredients.create({
+          data: {
+            ingredientName: String(g.group).trim(),
+            postId: newPost.id,
+            IngredientsItems: {
+              create: g.items.map((it: string) => ({
+                itemsName: String(it).trim(),
+              })),
+            },
+          },
+        });
+      }
+    }
+
+    return NextResponse.json({ id: newPost.id }, { status: 201 });
   } catch (err) {
-    console.error("list recipes failed", err);
-    return NextResponse.json({ error: "Could not load recipes." }, { status: 500 });
+    console.error("Gagal menyimpan resep:", err);
+    return NextResponse.json(
+      { error: "Gagal menyimpan resep ke database." },
+      { status: 500 }
+    );
   }
 }
