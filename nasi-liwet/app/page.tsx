@@ -1,4 +1,3 @@
-
 const recipes = [
   {
     name: "Nasi Liwet Sunda",
@@ -34,15 +33,13 @@ const recipes = [
 
 export default function Home() {
   return (
-    <main className="home-wrapper">
-      <section className="home-hero">
-        <div className="home-hero-content">
-          <span className="home-tag">KULINER NUSANTARA</span>
+    <main className='home-wrapper'>
+      <section className='home-hero'>
+        <div className='home-hero-content'>
+          <span className='home-tag'>KULINER NUSANTARA</span>
 
           <h1>
-            Nikmati Kelezatan
-            <span>Nasi Liwet</span>
-            Nusantara
+            Nikmati Kelezatan <span>Nasi Liwet</span> Nusantara
           </h1>
 
           <p>
@@ -50,55 +47,53 @@ export default function Home() {
             rasa Sunda hingga Solo yang dapat kamu buat sendiri di rumah.
           </p>
 
-          <div className="home-hero-buttons">
-            <a href="/recipes" className="home-primary-btn">
+          <div className='home-hero-buttons'>
+            <a href='/recipes' className='home-primary-btn'>
               Jelajahi Resep
             </a>
 
-            <a href="#about" className="home-secondary-btn">
+            <a href='#about' className='home-secondary-btn'>
               Tentang Kami
             </a>
           </div>
         </div>
 
-        <div className="home-hero-image">
-          <div className="hero-image-card">
+        <div className='home-hero-image'>
+          <div className='hero-image-card'>
             <img
-              src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=80"
-              alt="Nasi Liwet"
+              src='https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=80'
+              alt='Nasi Liwet'
             />
           </div>
         </div>
       </section>
 
-      <section className="home-section">
-        <div className="home-section-heading">
-          <span className="home-section-tag">REKOMENDASI</span>
+      <section className='home-section'>
+        <div className='home-section-heading'>
+          <span className='home-section-tag'>REKOMENDASI</span>
           <h2>Resep Pilihan</h2>
           <p>Beberapa pilihan resep nasi liwet yang dapat kamu coba.</p>
         </div>
 
-        <div className="row g-4">
+        <div className='row g-4'>
           {recipes.map((recipe) => (
-            <div className="col-lg-4 col-md-6" key={recipe.name}>
-              <div className="home-recipe-card">
-                <div className="home-recipe-image">
+            <div className='col-lg-4 col-md-6' key={recipe.name}>
+              <div className='home-recipe-card'>
+                <div className='home-recipe-image'>
                   <img src={recipe.image} alt={recipe.name} />
-                  <span className="home-recipe-badge">
-                    {recipe.category}
-                  </span>
+                  <span className='home-recipe-badge'>{recipe.category}</span>
                 </div>
 
-                <div className="home-recipe-body">
+                <div className='home-recipe-body'>
                   <h3>{recipe.name}</h3>
                   <p>{recipe.description}</p>
 
-                  <div className="home-recipe-info">
+                  <div className='home-recipe-info'>
                     <span>🕒 {recipe.time}</span>
                     <span>🍳 {recipe.method}</span>
                   </div>
 
-                  <a href="/recipes" className="home-recipe-button">
+                  <a href='/recipes' className='home-recipe-button'>
                     Lihat Resep
                   </a>
                 </div>
@@ -108,23 +103,23 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="home-about" id="about">
-        <div className="home-about-image">
+      <section className='home-about' id='about'>
+        <div className='home-about-image'>
           <img
-            src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80"
-            alt="Kuliner Nusantara"
+            src='https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80'
+            alt='Kuliner Nusantara'
           />
         </div>
 
-        <div className="home-about-content">
-          <span className="home-section-tag">TENTANG NASI LIWET</span>
+        <div className='home-about-content'>
+          <span className='home-section-tag'>TENTANG NASI LIWET</span>
 
           <h2>Mengenal Cita Rasa Kuliner Nusantara</h2>
 
           <p>
             Nasi liwet merupakan salah satu hidangan khas Indonesia yang
-            memiliki beragam variasi di berbagai daerah. Setiap daerah
-            memiliki cara memasak dan cita rasa yang berbeda.
+            memiliki beragam variasi di berbagai daerah. Setiap daerah memiliki
+            cara memasak dan cita rasa yang berbeda.
           </p>
 
           <p>
@@ -132,15 +127,15 @@ export default function Home() {
             dan metode memasak nasi liwet dengan mudah.
           </p>
 
-          <a href="/recipes" className="home-primary-btn">
+          <a href='/recipes' className='home-primary-btn'>
             Lihat Semua Resep
           </a>
         </div>
       </section>
 
-      <section className="home-cta">
+      <section className='home-cta'>
         <div>
-          <span className="home-section-tag">MULAI MEMASAK</span>
+          <span className='home-section-tag'>MULAI MEMASAK</span>
 
           <h2>Temukan Resep Favoritmu</h2>
 
@@ -150,7 +145,7 @@ export default function Home() {
           </p>
         </div>
 
-        <a href="/recipes" className="home-cta-button">
+        <a href='/recipes' className='home-cta-button'>
           Jelajahi Resep
         </a>
       </section>

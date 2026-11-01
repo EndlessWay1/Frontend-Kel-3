@@ -2,7 +2,6 @@
 import { ComponentProps, useState } from "react";
 import "./login.css";
 import { useCsrf } from "../context/csrf/CsrfContext";
-import { redirect } from "next/navigation";
 
 type Mode = "signup" | "signin";
 
@@ -186,7 +185,7 @@ function LoginSignUpCotent() {
                     {valError["password"] ?? ""}
                   </span>
                 </div>
-                <span className='user-error pt-3 text-center'>
+                <span className='user-error py-3 text-center'>
                   {globalError}
                 </span>
                 <div className='submit-form'>
@@ -263,7 +262,7 @@ function LoginSignUpCotent() {
                   </span>
                 </div>
                 <span
-                  className='user-error pt-3 text-center'
+                  className='user-error py-3 text-center'
                   id='signup-error-global'
                 ></span>
                 <div className='submit-form'>
