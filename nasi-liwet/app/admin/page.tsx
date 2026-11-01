@@ -1,95 +1,65 @@
-
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./admin.css";
 
 type User = {
-  username: string;
+  id?: string;
   name: string;
   email: string;
-  role: "user" | "admin";
+  role: "USER" | "ADMIN" | "MODERATOR";
+  password?: string;
 };
 
 type Recipe = {
+  id: string;
   title: string;
-  category: string;
-  method: string;
-  time: string;
-  servings: string;
-  source: string;
+  category: "SUNDA" | "SOLO";
+  method: "RICECOOKER" | "TRADISIONAL";
+  duration: number;
+  serving: number;
+  source: string | null;
   description: string;
 };
 
-const initialUsers: User[] = [
-  {
-    username: "cath",
-    name: "Cath",
-    email: "cath@example.com",
-    role: "admin",
-  },
-  {
-    username: "user01",
-    name: "Guest User",
-    email: "user@example.com",
-    role: "user",
-  },
-];
-
-const initialRecipes: Recipe[] = [
-  {
-    title: "Nasi Liwet Sunda",
-    category: "sunda",
-    method: "rice-cooker",
-    time: "45 minutes",
-    servings: "4 portions",
-    source: "Resep Nusantara",
-    description: "Nasi gurih khas Sunda dengan berbagai rempah.",
-  },
-  {
-    title: "Nasi Liwet Solo",
-    category: "solo",
-    method: "tradisional",
-    time: "60 minutes",
-    servings: "4 portions",
-    source: "Resep Tradisional",
-    description: "Nasi liwet khas Solo yang gurih dan harum.",
-  },
-];
-
-const emptyUser: User = {
-  username: "",
-  name: "",
-  email: "",
-  role: "user",
-};
+const emptyUser: User = { name: "", email: "", role: "USER", password: "" };
 
 const emptyRecipe: Recipe = {
+  id: "",
   title: "",
-  category: "sunda",
-  method: "rice-cooker",
-  time: "",
-  servings: "",
+  category: "SUNDA",
+  method: "RICECOOKER",
+  duration: 0,
+  serving: 0,
   source: "",
   description: "",
 };
 
 export default function AdminPage() {
-  const [users, setUsers] = useState<User[]>(initialUsers);
-  const [recipes, setRecipes] =
-    useState<Recipe[]>(initialRecipes);
+  const [users, setUsers] = useState<User[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   const [userModalOpen, setUserModalOpen] = useState(false);
   const [recipeModalOpen, setRecipeModalOpen] = useState(false);
 
-  const [editingUserIndex, setEditingUserIndex] =
-    useState<number | null>(null);
-  const [editingRecipeIndex, setEditingRecipeIndex] =
-    useState<number | null>(null);
+  const [editingUserIndex, setEditingUserIndex] = useState<number | null>(null);
+  const [editingRecipeIndex, setEditingRecipeIndex] = useState<number | null>(null);
 
   const [userForm, setUserForm] = useState<User>(emptyUser);
-  const [recipeForm, setRecipeForm] =
-    useState<Recipe>(emptyRecipe);
+  const [recipeForm, setRecipeForm] = useState<Recipe>(emptyRecipe);
+
+  async function loadData() {
+    const [u, r] = await Promise.all([
+      fetch("/api/admin/users"),
+      fetch("/api/admin/recipes"),
+    ]);
+    if (u.ok) setUsers(await u.json());
+    if (r.ok) setRecipes(await r.json());
+  }
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   function openAddUser() {
     setEditingUserIndex(null);
@@ -99,62 +69,58 @@ export default function AdminPage() {
 
   function openEditUser(index: number) {
     setEditingUserIndex(index);
-    setUserForm({ ...users[index] });
+    setUserForm({ ...users[index], password: "" });
     setUserModalOpen(true);
   }
 
-  function saveUser() {
+  async function saveUser() {
+    const editing = editingUserIndex !== null ? users[editingUserIndex] : null;
+
     if (
-      !userForm.username.trim() ||
       !userForm.name.trim() ||
-      !userForm.email.trim()
+      !userForm.email.trim() ||
+      (!editing && !userForm.password)
     ) {
       alert("Please fill in all user fields.");
       return;
     }
 
-    const duplicate = users.some(
-      (user, index) =>
-        index !== editingUserIndex &&
-        (user.username.toLowerCase() ===
-          userForm.username.trim().toLowerCase() ||
-          user.email.toLowerCase() ===
-            userForm.email.trim().toLowerCase())
+    const res = await fetch(
+      editing ? `/api/admin/users/${editing.id}` : "/api/admin/users",
+      {
+        method: editing ? "PATCH" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...userForm,
+          name: userForm.name.trim(),
+          email: userForm.email.trim(),
+        }),
+      }
     );
 
-    if (duplicate) {
-      alert("Username or email already exists.");
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      alert(data.error ?? "Something went wrong.");
       return;
     }
 
-    const updatedUser = {
-      ...userForm,
-      username: userForm.username.trim(),
-      name: userForm.name.trim(),
-      email: userForm.email.trim(),
-    };
-
-    if (editingUserIndex !== null) {
-      setUsers((current) =>
-        current.map((user, index) =>
-          index === editingUserIndex ? updatedUser : user
-        )
-      );
-    } else {
-      setUsers((current) => [...current, updatedUser]);
-    }
-
+    await loadData();
     setUserModalOpen(false);
   }
 
-  function deleteUser(index: number) {
-    if (!window.confirm("Are you sure you want to delete this user?")) {
+  async function deleteUser(index: number) {
+    if (!window.confirm("Are you sure you want to delete this user?")) return;
+
+    const res = await fetch(`/api/admin/users/${users[index].id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      alert(data.error ?? "Could not delete user.");
       return;
     }
-
-    setUsers((current) =>
-      current.filter((_, i) => i !== index)
-    );
+    await loadData();
   }
 
   function openEditRecipe(index: number) {
@@ -163,59 +129,46 @@ export default function AdminPage() {
     setRecipeModalOpen(true);
   }
 
-  function saveRecipe() {
+  async function saveRecipe() {
+    if (editingRecipeIndex === null) return;
+
     if (
       !recipeForm.title.trim() ||
-      !recipeForm.time.trim() ||
-      !recipeForm.servings.trim() ||
-      !recipeForm.source.trim() ||
-      !recipeForm.description.trim()
+      !recipeForm.description.trim() ||
+      recipeForm.duration <= 0 ||
+      recipeForm.serving <= 0
     ) {
       alert("Please fill in all recipe fields.");
       return;
     }
 
-    const updatedRecipe = {
-      ...recipeForm,
-      title: recipeForm.title.trim(),
-    };
+    const res = await fetch(`/api/admin/recipes/${recipeForm.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...recipeForm, title: recipeForm.title.trim() }),
+    });
 
-    if (editingRecipeIndex !== null) {
-      setRecipes((current) =>
-        current.map((recipe, index) =>
-          index === editingRecipeIndex
-            ? updatedRecipe
-            : recipe
-        )
-      );
+    if (!res.ok) {
+      alert("Could not save recipe.");
+      return;
     }
 
+    await loadData();
     setRecipeModalOpen(false);
   }
 
-  function deleteRecipe(index: number) {
-    if (
-      !window.confirm("Are you sure you want to delete this recipe?")
-    ) {
+  async function deleteRecipe(index: number) {
+    if (!window.confirm("Are you sure you want to delete this recipe?")) return;
+
+    const res = await fetch(`/api/admin/recipes/${recipes[index].id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      alert("Could not delete recipe.");
       return;
     }
-
-    setRecipes((current) =>
-      current.filter((_, i) => i !== index)
-    );
-  }
-
-  function seedDatabase() {
-    if (
-      !window.confirm(
-        "Reset the dashboard to the initial sample data?"
-      )
-    ) {
-      return;
-    }
-
-    setUsers(initialUsers.map((user) => ({ ...user })));
-    setRecipes(initialRecipes.map((recipe) => ({ ...recipe })));
+    await loadData();
   }
 
   return (
@@ -225,33 +178,17 @@ export default function AdminPage() {
       <main className="admin-wrapper">
         <section className="admin-heading">
           <div>
-            <span className="admin-heading-tag">
-              ADMINISTRATOR
-            </span>
+            <span className="admin-heading-tag">ADMINISTRATOR</span>
             <h1>Admin Dashboard</h1>
-            <p>
-              Kelola user dan resep yang tersedia di Nasi Liwet
-              Nusantara.
-            </p>
+            <p>Kelola user dan resep yang tersedia di Nasi Liwet Nusantara.</p>
           </div>
-
-          <button
-            className="home-primary-btn"
-            id="seed-database-btn"
-            style={{ border: "none" }}
-            onClick={seedDatabase}
-          >
-            + Seed Database
-          </button>
         </section>
 
         {/* USER MANAGEMENT */}
         <section className="admin-section">
           <div className="admin-section-heading">
             <div>
-              <span className="admin-section-tag">
-                USER MANAGEMENT
-              </span>
+              <span className="admin-section-tag">USER MANAGEMENT</span>
               <h2>User Management</h2>
             </div>
 
@@ -270,7 +207,6 @@ export default function AdminPage() {
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Username</th>
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Role</th>
@@ -281,15 +217,14 @@ export default function AdminPage() {
                 <tbody>
                   {users.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="text-center">
+                      <td colSpan={5} className="text-center">
                         No users available.
                       </td>
                     </tr>
                   ) : (
                     users.map((user, index) => (
-                      <tr key={user.username}>
+                      <tr key={user.id}>
                         <td>{index + 1}</td>
-                        <td>{user.username}</td>
                         <td>{user.name}</td>
                         <td>{user.email}</td>
                         <td>{user.role}</td>
@@ -324,9 +259,7 @@ export default function AdminPage() {
         <section className="admin-section">
           <div className="admin-section-heading">
             <div>
-              <span className="admin-section-tag">
-                RECIPE MANAGEMENT
-              </span>
+              <span className="admin-section-tag">RECIPE MANAGEMENT</span>
               <h2>Recipe Management</h2>
             </div>
           </div>
@@ -354,12 +287,12 @@ export default function AdminPage() {
                     </tr>
                   ) : (
                     recipes.map((recipe, index) => (
-                      <tr key={`${recipe.title}-${index}`}>
+                      <tr key={recipe.id}>
                         <td>{index + 1}</td>
                         <td>{recipe.title}</td>
                         <td>{recipe.category}</td>
                         <td>{recipe.method}</td>
-                        <td>{recipe.source}</td>
+                        <td>{recipe.source ?? "-"}</td>
                         <td>
                           <div className="admin-actions">
                             <button
@@ -393,9 +326,7 @@ export default function AdminPage() {
         <div
           className="admin-modal-backdrop"
           onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setUserModalOpen(false);
-            }
+            if (event.target === event.currentTarget) setUserModalOpen(false);
           }}
         >
           <div
@@ -406,10 +337,7 @@ export default function AdminPage() {
           >
             <div className="modal-content admin-modal">
               <div className="modal-header">
-                <h5
-                  className="modal-title"
-                  id="user-modal-title"
-                >
+                <h5 className="modal-title" id="user-modal-title">
                   {editingUserIndex === null ? "Add User" : "Edit User"}
                 </h5>
                 <button
@@ -428,23 +356,6 @@ export default function AdminPage() {
               >
                 <div className="modal-body">
                   <div className="admin-form-group">
-                    <label htmlFor="user-username">Username</label>
-                    <input
-                      type="text"
-                      id="user-username"
-                      className="form-control"
-                      required
-                      value={userForm.username}
-                      onChange={(event) =>
-                        setUserForm({
-                          ...userForm,
-                          username: event.target.value,
-                        })
-                      }
-                    />
-                  </div>
-
-                  <div className="admin-form-group">
                     <label htmlFor="user-name">Nama</label>
                     <input
                       type="text"
@@ -452,11 +363,8 @@ export default function AdminPage() {
                       className="form-control"
                       required
                       value={userForm.name}
-                      onChange={(event) =>
-                        setUserForm({
-                          ...userForm,
-                          name: event.target.value,
-                        })
+                      onChange={(e) =>
+                        setUserForm({ ...userForm, name: e.target.value })
                       }
                     />
                   </div>
@@ -469,14 +377,27 @@ export default function AdminPage() {
                       className="form-control"
                       required
                       value={userForm.email}
-                      onChange={(event) =>
-                        setUserForm({
-                          ...userForm,
-                          email: event.target.value,
-                        })
+                      onChange={(e) =>
+                        setUserForm({ ...userForm, email: e.target.value })
                       }
                     />
                   </div>
+
+                  {editingUserIndex === null && (
+                    <div className="admin-form-group">
+                      <label htmlFor="user-password">Password</label>
+                      <input
+                        type="password"
+                        id="user-password"
+                        className="form-control"
+                        required
+                        value={userForm.password ?? ""}
+                        onChange={(e) =>
+                          setUserForm({ ...userForm, password: e.target.value })
+                        }
+                      />
+                    </div>
+                  )}
 
                   <div className="admin-form-group">
                     <label htmlFor="user-role">Role</label>
@@ -484,15 +405,16 @@ export default function AdminPage() {
                       id="user-role"
                       className="form-select"
                       value={userForm.role}
-                      onChange={(event) =>
+                      onChange={(e) =>
                         setUserForm({
                           ...userForm,
-                          role: event.target.value as User["role"],
+                          role: e.target.value as User["role"],
                         })
                       }
                     >
-                      <option value="user">User</option>
-                      <option value="admin">Admin</option>
+                      <option value="USER">User</option>
+                      <option value="ADMIN">Admin</option>
+                      <option value="MODERATOR">Moderator</option>
                     </select>
                   </div>
                 </div>
@@ -505,10 +427,7 @@ export default function AdminPage() {
                   >
                     Cancel
                   </button>
-                  <button
-                    type="submit"
-                    className="admin-primary-btn"
-                  >
+                  <button type="submit" className="admin-primary-btn">
                     Save
                   </button>
                 </div>
@@ -523,9 +442,7 @@ export default function AdminPage() {
         <div
           className="admin-modal-backdrop"
           onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
-              setRecipeModalOpen(false);
-            }
+            if (event.target === event.currentTarget) setRecipeModalOpen(false);
           }}
         >
           <div
@@ -536,10 +453,7 @@ export default function AdminPage() {
           >
             <div className="modal-content admin-modal">
               <div className="modal-header">
-                <h5
-                  className="modal-title"
-                  id="recipe-modal-title"
-                >
+                <h5 className="modal-title" id="recipe-modal-title">
                   Edit Recipe
                 </h5>
                 <button
@@ -565,11 +479,8 @@ export default function AdminPage() {
                       className="form-control"
                       required
                       value={recipeForm.title}
-                      onChange={(event) =>
-                        setRecipeForm({
-                          ...recipeForm,
-                          title: event.target.value,
-                        })
+                      onChange={(e) =>
+                        setRecipeForm({ ...recipeForm, title: e.target.value })
                       }
                     />
                   </div>
@@ -577,22 +488,20 @@ export default function AdminPage() {
                   <div className="row">
                     <div className="col-md-6">
                       <div className="admin-form-group">
-                        <label htmlFor="recipe-category">
-                          Category
-                        </label>
+                        <label htmlFor="recipe-category">Category</label>
                         <select
                           id="recipe-category"
                           className="form-select"
                           value={recipeForm.category}
-                          onChange={(event) =>
+                          onChange={(e) =>
                             setRecipeForm({
                               ...recipeForm,
-                              category: event.target.value,
+                              category: e.target.value as Recipe["category"],
                             })
                           }
                         >
-                          <option value="sunda">Sunda</option>
-                          <option value="solo">Solo</option>
+                          <option value="SUNDA">Sunda</option>
+                          <option value="SOLO">Solo</option>
                         </select>
                       </div>
                     </div>
@@ -604,53 +513,51 @@ export default function AdminPage() {
                           id="recipe-method"
                           className="form-select"
                           value={recipeForm.method}
-                          onChange={(event) =>
+                          onChange={(e) =>
                             setRecipeForm({
                               ...recipeForm,
-                              method: event.target.value,
+                              method: e.target.value as Recipe["method"],
                             })
                           }
                         >
-                          <option value="rice-cooker">
-                            Rice Cooker
-                          </option>
-                          <option value="tradisional">
-                            Traditional
-                          </option>
+                          <option value="RICECOOKER">Rice Cooker</option>
+                          <option value="TRADISIONAL">Traditional</option>
                         </select>
                       </div>
                     </div>
                   </div>
 
                   <div className="admin-form-group">
-                    <label htmlFor="recipe-time">Time</label>
+                    <label htmlFor="recipe-duration">Duration (minutes)</label>
                     <input
-                      id="recipe-time"
-                      type="text"
+                      id="recipe-duration"
+                      type="number"
+                      min={1}
                       className="form-control"
                       required
-                      value={recipeForm.time}
-                      onChange={(event) =>
+                      value={recipeForm.duration}
+                      onChange={(e) =>
                         setRecipeForm({
                           ...recipeForm,
-                          time: event.target.value,
+                          duration: Number(e.target.value),
                         })
                       }
                     />
                   </div>
 
                   <div className="admin-form-group">
-                    <label htmlFor="recipe-servings">Portion</label>
+                    <label htmlFor="recipe-serving">Servings</label>
                     <input
-                      id="recipe-servings"
-                      type="text"
+                      id="recipe-serving"
+                      type="number"
+                      min={1}
                       className="form-control"
                       required
-                      value={recipeForm.servings}
-                      onChange={(event) =>
+                      value={recipeForm.serving}
+                      onChange={(e) =>
                         setRecipeForm({
                           ...recipeForm,
-                          servings: event.target.value,
+                          serving: Number(e.target.value),
                         })
                       }
                     />
@@ -662,31 +569,25 @@ export default function AdminPage() {
                       id="recipe-source"
                       type="text"
                       className="form-control"
-                      required
-                      value={recipeForm.source}
-                      onChange={(event) =>
-                        setRecipeForm({
-                          ...recipeForm,
-                          source: event.target.value,
-                        })
+                      value={recipeForm.source ?? ""}
+                      onChange={(e) =>
+                        setRecipeForm({ ...recipeForm, source: e.target.value })
                       }
                     />
                   </div>
 
                   <div className="admin-form-group">
-                    <label htmlFor="recipe-description">
-                      Description
-                    </label>
+                    <label htmlFor="recipe-description">Description</label>
                     <textarea
                       id="recipe-description"
                       className="form-control"
                       rows={4}
                       required
                       value={recipeForm.description}
-                      onChange={(event) =>
+                      onChange={(e) =>
                         setRecipeForm({
                           ...recipeForm,
-                          description: event.target.value,
+                          description: e.target.value,
                         })
                       }
                     />
@@ -701,10 +602,7 @@ export default function AdminPage() {
                   >
                     Cancel
                   </button>
-                  <button
-                    type="submit"
-                    className="admin-primary-btn"
-                  >
+                  <button type="submit" className="admin-primary-btn">
                     Save Changes
                   </button>
                 </div>
