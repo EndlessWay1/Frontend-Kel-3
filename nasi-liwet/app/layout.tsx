@@ -4,7 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapClient from "./componets/BootstrapClient";
 
 import "./globals.css";
-import Header from "./componets/Header";
+import Header from "./componets/header/Header";
+import { CsrfProvider } from "./context/csrf/CsrfProvider";
 
 export const metadata: Metadata = {
   title: "Nasi Liwet",
@@ -18,9 +19,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         <BootstrapClient />
-
-        <Header />
-        {children}
+        <CsrfProvider>
+          <Header />
+          {children}
+        </CsrfProvider>
       </body>
     </html>
   );

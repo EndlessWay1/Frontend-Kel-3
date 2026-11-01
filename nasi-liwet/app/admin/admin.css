@@ -1,0 +1,59 @@
+
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1055;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.admin-modal-backdrop .modal-dialog {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+
+.admin-modal-backdrop .modal-dialog.modal-lg {
+  max-width: 800px;
+}
+
+.admin-modal-backdrop .modal-content {
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+}
+
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-delete-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #dc3545;
+  color: white;
+  cursor: pointer;
+}
+
+.admin-delete-btn:hover {
+  background: #bb2d3b;
+}
+
+.admin-modal-backdrop .modal-header,
+.admin-modal-backdrop .modal-footer {
+  padding: 1rem;
+}
+
+.admin-modal-backdrop .modal-body {
+  padding: 1rem;
+}
+
+.admin-form-group {
+  margin-bottom: 1rem;
+}

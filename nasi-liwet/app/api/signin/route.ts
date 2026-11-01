@@ -1,52 +1,87 @@
-import { auth } from "@/lib/better-auth/auth";
+import "server-only";
 import { NextResponse } from "next/server";
+import { z } from "zod";
 
-// Validate the body
+import { prisma } from "@/lib/prisma";
+import bcrypt from "bcryptjs";
+import { createSession } from "@/lib/auth/session";
 
-function validateSignIn(body: Record<string, string>) {
-  if (!body || !body.email || !body.password) {
-    return false;
-  }
-  const email = body.email;
+const signInSchema = z.object({
+  email: z.email(),
+  password: z.string().min(1),
+});
 
+export async function signIn(email: string, password: string) {
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  // Return a generic error for invalid credentials.
   if (
-    !email
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      )
+    !user ||
+    !user.password ||
+    !(await bcrypt.compare(password, user.password))
   ) {
-    return false;
+    return {
+      data: null,
+      error: "Invalid email or password",
+    };
   }
 
-  const password = body.password;
-  if (password.length <= 8) {
-    return false;
-  }
+  // Generate a secure session token.
+  await createSession(user.id);
 
-  return true;
+  return {
+    data: {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+    },
+    error: null,
+  };
 }
 
 export async function POST(request: Request) {
-  const body = await request.json().catch(() => null);
+  const forwardedFor = request.headers.get("x-forwarded-for");
+  const ip =
+    request.headers.get("x-real-ip") ?? forwardedFor?.split(",")[0]?.trim();
 
-  if (validateSignIn(body)) {
+  if (!ip) {
+    return Response.json(
+      { error: "Unable to process request." },
+      { status: 400 },
+    );
+  }
+
+  // Parse and validate untrusted input
+  const body = await request.json().catch(() => null);
+  const result = signInSchema.safeParse(body);
+
+  console.log(body);
+
+  if (!result.success) {
     return NextResponse.json(
       { error: "Incorrect email or password, try again later." },
       { status: 400 },
     );
   }
+  const { email, password } = result.data;
 
-  const email = body.email;
-  const password = body.password;
+  const { data, error } = await signIn(email, password);
 
-  const response = await auth.api.signInEmail({
-    body: {
-      email,
-      password,
+  if (error) {
+    return NextResponse.json(
+      { error: "Incorrect email or password, try again later." },
+      { status: 401 },
+    );
+  }
+
+  return NextResponse.json({
+    success: true,
+    user: {
+      id: data!.id,
+      email: data!.email,
     },
-    asResponse: true, // returns a response object instead of data
   });
-  console.log(response);
-  return response;
 }
