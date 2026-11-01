@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, type FormEvent, type KeyboardEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent, type KeyboardEvent } from "react";
 import styles from "./create-recipe.module.css";
+import { useCsrf } from "../context/csrf/CsrfContext";
 
 type Item = { id: number; value: string };
 type Group = { id: number; name: string; items: Item[] };
@@ -13,19 +14,26 @@ const LABELS = {
   method: { "rice-cooker": "Rice Cooker", tradisional: "Tradisional" },
 } as const;
 
+const ALLOWED_IMAGES = ["image/jpeg", "image/png", "image/webp"];
+const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
+
 let counter = 0;
 const uid = () => ++counter;
 const blank = (): Item => ({ id: uid(), value: "" });
 const clean = (items: Item[]) => items.map((i) => i.value.trim()).filter(Boolean);
+// duration and servings are integers in the database, so only whole numbers are accepted
+const isWholeNumber = (v: string) => /^\d{1,4}$/.test(v.trim()) && Number(v) > 0;
 
 export default function CreateRecipeForm({ userName }: { userName: string }) {
   const router = useRouter();
+  const { csrfToken } = useCsrf();
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState<keyof typeof LABELS.category>("sunda");
   const [method, setMethod] = useState<keyof typeof LABELS.method>("rice-cooker");
   const [time, setTime] = useState("");
   const [servings, setServings] = useState("");
-  const [image, setImage] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState("");
   const [source, setSource] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState<string[]>([]);
@@ -37,7 +45,22 @@ export default function CreateRecipeForm({ userName }: { userName: string }) {
   const [steps, setSteps] = useState<Item[]>(() => [blank(), blank()]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
-  const [imgBroken, setImgBroken] = useState(false);
+  // preview comes from the chosen file itself; free the blob URL when it changes
+  useEffect(() => () => { if (previewUrl) URL.revokeObjectURL(previewUrl); }, [previewUrl]);
+
+  function onFile(e: ChangeEvent<HTMLInputElement>) {
+    const f = e.target.files?.[0] ?? null;
+    const reject = (image: string) => {
+      setErrors((p) => ({ ...p, image }));
+      e.target.value = "";
+    };
+    setErrors((p) => ({ ...p, image: "" }));
+    if (!f) { setFile(null); setPreviewUrl(""); return; }
+    if (!ALLOWED_IMAGES.includes(f.type)) return reject("Use a JPG, PNG or WebP image.");
+    if (f.size > MAX_IMAGE_BYTES) return reject("The image must be 2 MB or smaller.");
+    setFile(f);
+    setPreviewUrl(URL.createObjectURL(f));
+  }
 
   // ---------- tags (saved as generalIngredients) ----------
   const addTag = (raw: string) => {
@@ -71,8 +94,8 @@ export default function CreateRecipeForm({ userName }: { userName: string }) {
 
     const err: Record<string, string> = {};
     if (!title.trim()) err.title = "Add a title for your recipe.";
-    if (!time.trim()) err.time = "Enter a cook time, e.g. 45 menit.";
-    if (!servings.trim()) err.servings = "Enter how many servings this makes.";
+    if (!isWholeNumber(time)) err.time = "Enter the cook time as a whole number of minutes, e.g. 45.";
+    if (!isWholeNumber(servings)) err.servings = "Enter the servings as a whole number, e.g. 4.";
     if (description.trim().length < 10) err.description = "Write a description of at least 10 characters.";
     if (!tags.length) err.tags = "Add at least one tag.";
     if (!ingredients.length) err.ingredients = "Add at least one ingredient group with a name and items.";
@@ -80,24 +103,34 @@ export default function CreateRecipeForm({ userName }: { userName: string }) {
     setErrors(err);
     if (Object.keys(err).length) return;
 
+    if (!csrfToken) {
+      setErrors({ form: "The security token is not ready yet. Wait a second and try again." });
+      return;
+    }
+
     setSaving(true);
     try {
+      const body = new FormData();
+      body.append("data", JSON.stringify({
+        title: title.trim(),
+        category,
+        method,
+        time: Number(time),
+        servings: Number(servings),
+        source: source.trim(),
+        description: description.trim(),
+        generalIngredients: tags,
+        ingredients,
+        instructions,
+      }));
+      if (file) body.append("image", file);
+
+      // no Content-Type header here: the browser adds the multipart boundary itself
       const res = await fetch("/api/recipes", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: title.trim(),
-          category,
-          method,
-          time: time.trim(),
-          servings: servings.trim(),
-          image: image.trim(),
-          source: source.trim(),
-          description: description.trim(),
-          generalIngredients: tags,
-          ingredients,
-          instructions,
-        }),
+        credentials: "same-origin",
+        headers: { "X-CSRF-Token": csrfToken },
+        body,
       });
       if (res.status === 401) {
         router.push("/login");
@@ -105,7 +138,11 @@ export default function CreateRecipeForm({ userName }: { userName: string }) {
       }
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        setErrors({ form: data.error ?? "Could not save the recipe." });
+        setErrors({
+          form: res.status === 403
+            ? "Your security token expired. Refresh the page and try again."
+            : (data.error ?? "Could not save the recipe."),
+        });
         return;
       }
       router.push("/recipes");
@@ -154,23 +191,25 @@ export default function CreateRecipeForm({ userName }: { userName: string }) {
                     </select>
                   </div>
                   <div className={`col-sm-6 ${styles.field}`}>
-                    <label className={styles.label} htmlFor="time">Cook time</label>
-                    <input className={styles.input} id="time" value={time}
-                      onChange={(e) => setTime(e.target.value)} placeholder="e.g. 45 menit" />
+                    <label className={styles.label} htmlFor="time">Cook time (minutes)</label>
+                    <input className={styles.input} id="time" type="number" min={1} max={9999} inputMode="numeric" value={time}
+                      onChange={(e) => setTime(e.target.value)} placeholder="e.g. 45" />
                     <div className={styles.error}>{errors.time}</div>
                   </div>
                   <div className={`col-sm-6 ${styles.field}`}>
-                    <label className={styles.label} htmlFor="servings">Servings</label>
-                    <input className={styles.input} id="servings" value={servings}
-                      onChange={(e) => setServings(e.target.value)} placeholder="e.g. 4 porsi" />
+                    <label className={styles.label} htmlFor="servings">Servings (people)</label>
+                    <input className={styles.input} id="servings" type="number" min={1} max={9999} inputMode="numeric" value={servings}
+                      onChange={(e) => setServings(e.target.value)} placeholder="e.g. 4" />
                     <div className={styles.error}>{errors.servings}</div>
                   </div>
                 </div>
 
                 <div className={styles.field}>
-                  <label className={styles.label} htmlFor="image">Image URL (optional)</label>
-                  <input className={styles.input} id="image" value={image}
-                    onChange={(e) => { setImage(e.target.value); setImgBroken(false); }} placeholder="https://..." />
+                  <label className={styles.label} htmlFor="image">Photo (optional)</label>
+                  <p className={styles.hint}>JPG, PNG or WebP, up to 2 MB. A default photo is used if you skip it.</p>
+                  <input className={styles.input} id="image" type="file"
+                    accept="image/jpeg,image/png,image/webp" onChange={onFile} />
+                  <div className={styles.error}>{errors.image}</div>
                 </div>
                 <div className={styles.field}>
                   <label className={styles.label} htmlFor="source">Source (optional)</label>
@@ -256,9 +295,9 @@ export default function CreateRecipeForm({ userName }: { userName: string }) {
                 <p className={styles.hint}>Preview, as it appears in the recipe list</p>
                 <article className={styles.pv}>
                   <div className={styles.pvImgWrap}>
-                    {image.trim() && !imgBroken ? (
+                    {previewUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img className={styles.pvImg} src={image.trim()} alt="" onError={() => setImgBroken(true)} />
+                      <img className={styles.pvImg} src={previewUrl} alt="" />
                     ) : (
                       <span>No image yet</span>
                     )}
@@ -267,8 +306,8 @@ export default function CreateRecipeForm({ userName }: { userName: string }) {
                   </div>
                   <div className={styles.pvBody}>
                     <div className={styles.meta}>
-                      <span>{time.trim() || "Cook time"}</span>
-                      <span>{servings.trim() || "Servings"}</span>
+                      <span>{time.trim() ? `${time.trim()} menit` : "Cook time"}</span>
+                      <span>{servings.trim() ? `${servings.trim()} porsi` : "Servings"}</span>
                     </div>
                     <h3>{title.trim() || "Your recipe title"}</h3>
                     <p>{description.trim() || "Your description will appear here."}</p>
