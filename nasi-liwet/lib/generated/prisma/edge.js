@@ -87,9 +87,6 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
-  ReadUncommitted: 'ReadUncommitted',
-  ReadCommitted: 'ReadCommitted',
-  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -166,11 +163,6 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
@@ -212,7 +204,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\denze\\Documents\\Frontend-Kel-3\\nasi-liwet\\lib\\generated\\prisma",
+      "value": "/home/nickson/Documents/Coding Folder/html/Tugas Kelompok/nasi-liwet/lib/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -221,7 +213,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       },
       {
@@ -230,7 +222,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\denze\\Documents\\Frontend-Kel-3\\nasi-liwet\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/nickson/Documents/Coding Folder/html/Tugas Kelompok/nasi-liwet/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -243,8 +235,7 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "postgresql",
-  "postinstall": false,
+  "activeProvider": "sqlite",
   "inlineDatasources": {
     "db": {
       "url": {
@@ -253,8 +244,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../lib/generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Role {\n  USER      @map(\"user\")\n  ADMIN     @map(\"admin\")\n  MODERATOR @map(\"mod\")\n}\n\nenum Category {\n  SUNDA @map(\"sunda\")\n  SOLO  @map(\"solo\")\n}\n\nenum Method {\n  RICECOOKER  @map(\"ricecooker\")\n  TRADISIONAL @map(\"tradisional\")\n}\n\nmodel User {\n  id            String    @id @default(cuid())\n  name          String\n  email         String    @unique\n  emailVerified DateTime?\n  image         String?\n  password      String?\n  role          Role      @default(USER)\n  createdAt     DateTime  @default(now())\n  updatedAt     DateTime  @updatedAt\n\n  // Relations\n  sessions Session[]\n  post     Post[]\n}\n\nmodel Session {\n  id           String   @id @default(cuid())\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  // Foreign key relation back to the User model\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nmodel Post {\n  id          String   @id @default(cuid())\n  title       String\n  description String\n  source      String?\n  userId      String\n  duration    Int\n  serving     Int\n  method      Method   @default(RICECOOKER)\n  category    Category @default(SUNDA)\n  image       String?\n  updatedAt   DateTime @updatedAt\n  createdAt   DateTime @default(now())\n\n  user        User          @relation(fields: [userId], references: [id], onDelete: NoAction)\n  Instruction Instruction[]\n  PostImage   PostImage[]\n  Tags        Tags[]\n  Ingredients Ingredients[]\n}\n\nmodel PostImage {\n  id        String @id @default(cuid())\n  imageData Bytes\n  imageType String\n  postId    String\n\n  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)\n\n  @@unique([postId, id])\n}\n\nmodel Instruction {\n  id            String @id @default(cuid())\n  postId        String\n  instructionNo Int\n  instruction   String\n\n  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)\n\n  @@unique([postId, instructionNo])\n}\n\nmodel Ingredients {\n  id               String             @id @default(cuid())\n  ingredientName   String\n  postId           String\n  post             Post               @relation(fields: [postId], references: [id], onDelete: Cascade)\n  IngredientsItems IngredientsItems[]\n}\n\nmodel IngredientsItems {\n  id            String      @id @default(cuid())\n  ingredientsId String\n  itemsName     String\n  ingredients   Ingredients @relation(fields: [ingredientsId], references: [id], onDelete: Cascade)\n}\n\nmodel Tags {\n  id      String @id @default(cuid())\n  tagName String\n  postId  String\n  post    Post   @relation(fields: [postId], references: [id], onDelete: Cascade)\n}\n",
-  "inlineSchemaHash": "9ab7beb665361446bef62ec28223a44ea2d582e6583957170d55900556e631e4",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../lib/generated/prisma\"\n  binaryTargets = [\"native\", \"rhel-openssl-3.0.x\"]\n}\n\ndatasource db {\n  // provider = \"postgresql\"\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Role {\n  USER      @map(\"user\")\n  ADMIN     @map(\"admin\")\n  MODERATOR @map(\"mod\")\n}\n\nenum Category {\n  SUNDA @map(\"sunda\")\n  SOLO  @map(\"solo\")\n}\n\nenum Method {\n  RICECOOKER  @map(\"ricecooker\")\n  TRADISIONAL @map(\"tradisional\")\n}\n\nmodel User {\n  id            String    @id @default(cuid())\n  name          String\n  email         String    @unique\n  emailVerified DateTime?\n  image         String?\n  password      String?\n  role          Role      @default(USER)\n  createdAt     DateTime  @default(now())\n  updatedAt     DateTime  @updatedAt\n\n  // Relations\n  sessions Session[]\n  post     Post[]\n}\n\nmodel Session {\n  id           String   @id @default(cuid())\n  sessionToken String   @unique\n  userId       String\n  expires      DateTime\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  // Foreign key relation back to the User model\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nmodel Post {\n  id          String   @id @default(cuid())\n  title       String\n  description String\n  source      String?\n  userId      String\n  duration    Int\n  serving     Int\n  method      Method   @default(RICECOOKER)\n  category    Category @default(SUNDA)\n  image       String?\n  updatedAt   DateTime @updatedAt\n  createdAt   DateTime @default(now())\n\n  user        User          @relation(fields: [userId], references: [id], onDelete: NoAction)\n  Instruction Instruction[]\n  PostImage   PostImage[]\n  Tags        Tags[]\n  Ingredients Ingredients[]\n}\n\nmodel PostImage {\n  id        String @id @default(cuid())\n  imageData Bytes\n  imageType String\n  postId    String\n\n  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)\n\n  @@unique([postId, id])\n}\n\nmodel Instruction {\n  id            String @id @default(cuid())\n  postId        String\n  instructionNo Int\n  instruction   String\n\n  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)\n\n  @@unique([postId, instructionNo])\n}\n\nmodel Ingredients {\n  id               String             @id @default(cuid())\n  ingredientName   String\n  postId           String\n  post             Post               @relation(fields: [postId], references: [id], onDelete: Cascade)\n  IngredientsItems IngredientsItems[]\n}\n\nmodel IngredientsItems {\n  id            String      @id @default(cuid())\n  ingredientsId String\n  itemsName     String\n  ingredients   Ingredients @relation(fields: [ingredientsId], references: [id], onDelete: Cascade)\n}\n\nmodel Tags {\n  id      String @id @default(cuid())\n  tagName String\n  postId  String\n  post    Post   @relation(fields: [postId], references: [id], onDelete: Cascade)\n}\n",
+  "inlineSchemaHash": "8102fa8e1c93420d4c25907cde84df739c7aa4804d8114832da54c1d1f964ac1",
   "copyEngine": true
 }
 config.dirname = '/'
