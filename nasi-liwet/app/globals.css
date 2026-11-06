@@ -431,6 +431,11 @@ body {
   margin-bottom: 12px;
   background-color: #ffffff;
   border: 1px solid var(--tan-dark);
+  transition: border-color 0.2s ease;
+}
+
+.method-step-card:hover {
+  border-color: var(--spiced-mid);
 }
 
 .method-step-num {
