@@ -15,6 +15,7 @@ export interface Recipe {
   servings: string;
   source: string;
   description: string;
+  generalIngredients?: string[];
   ingredients: IngredientGroup[];
   instructions: string[];
 }
@@ -33,6 +34,15 @@ export const mockRecipes: Recipe[] = [
     source: "BrilioFood",
     description:
       "Nasi liwet khas Sunda dengan bumbu serai dan daun salam, serta taburan teri goreng dan petai.",
+    generalIngredients: [
+      "Beras",
+      "Ikan Teri",
+      "Petai",
+      "Bawang Merah & Putih",
+      "Cabai Keriting",
+      "Serai & Daun Salam"
+    ],
+
     ingredients: [
       {
         group: "Bahan Pokok",
@@ -84,6 +94,15 @@ export const mockRecipes: Recipe[] = [
     source: "Yummy App",
     description:
       "Nasi liwet yang dikukus dengan dandang tradisional, harum daun jeruk dengan tekstur nasi yang pulen.",
+    generalIngredients: [
+      "Beras",
+      "Ikan Teri",
+      "Cabai Rawit Utuh",
+      "Bawang Merah & Putih",
+      "Daun Jeruk & Salam",
+      "Serai & Lengkuas"
+    ],
+
     ingredients: [
       {
         group: "Bahan Pokok",
@@ -132,6 +151,15 @@ export const mockRecipes: Recipe[] = [
     source: "Liputan6",
     description:
       "Resep nasi liwet Sunda dengan lauk lengkap: ayam goreng, tahu, tempe, lalapan, dan cocolan sambal terasi.",
+    generalIngredients: [
+      "Beras Pulen",
+      "Teri Medan",
+      "Petai",
+      "Ayam Goreng & Tahu Tempe",
+      "Sambal Terasi & Lalapan",
+      "Serai & Lengkuas"
+    ],
+
     ingredients: [
       {
         group: "Bahan Nasi",
@@ -190,6 +218,15 @@ export const mockRecipes: Recipe[] = [
     source: "IDN Times",
     description:
       "Nasi liwet gurih dengan santan kelapa dan rempah lengkuas, dilengkapi taburan teri medan goreng.",
+    generalIngredients: [
+      "Beras",
+      "Santan Kental",
+      "Teri Medan",
+      "Daun Salam & Serai",
+      "Lengkuas",
+      "Bawang Merah & Putih"
+    ],
+
     ingredients: [
       {
         group: "Bahan Pokok",
@@ -238,6 +275,15 @@ export const mockRecipes: Recipe[] = [
     source: "Halodoc",
     description:
       "Resep praktis masak nasi liwet di rice cooker dengan wangi daun pandan dan daun jeruk.",
+    generalIngredients: [
+      "Beras",
+      "Ikan Teri",
+      "Daun Pandan",
+      "Daun Salam & Daun Jeruk",
+      "Bawang Merah & Putih",
+      "Cabai Rawit"
+    ],
+
     ingredients: [
       {
         group: "Bahan Pokok",
@@ -282,6 +328,14 @@ export const mockRecipes: Recipe[] = [
     source: "Cookpad",
     description:
       "Nasi liwet gurih bersantan dengan serai dan daun salam, disajikan dengan emping dan telur orak-arik.",
+    generalIngredients: [
+      "Beras",
+      "Santan Kelapa",
+      "Teri Medan Goreng",
+      "Serai & Bawang Merah",
+      "Pelengkap Sambal & Emping"
+    ],
+
     ingredients: [
       {
         group: "Bahan Pokok",
@@ -332,6 +386,15 @@ export const mockRecipes: Recipe[] = [
     source: "Cookpad",
     description:
       "Nasi liwet rice cooker dengan bumbu tumis bawang, cabai merah, dan teri medan yang dimasak bersamaan.",
+    generalIngredients: [
+      "Beras",
+      "Teri Medan",
+      "Cabai Merah",
+      "Bawang Merah & Bawang Putih",
+      "Daun Jeruk & Serai",
+      "Daun Salam"
+    ],
+
     ingredients: [
       {
         group: "Bahan Nasi",
@@ -377,6 +440,14 @@ export const mockRecipes: Recipe[] = [
     source: "IDN Times",
     description:
       "Nasi liwet khas Solo dengan nasi gurih bersantan, disajikan bersama suwiran ayam areh dan sayur labu siam.",
+    generalIngredients: [
+      "Beras & Santan",
+      "Ayam Suwir Areh",
+      "Sayur Labu Siam",
+      "Air Kelapa & Gula Merah",
+      "Kemiri & Lengkuas"
+    ],
+
     ingredients: [
       {
         group: "Bahan Nasi Liwet Gurih",
@@ -430,6 +501,14 @@ export const mockRecipes: Recipe[] = [
     source: "Diah Didi's Kitchen",
     description:
       "Nasi liwet komplit khas Solo di pincuk daun pisang, lengkap dengan suwiran opor ayam, telur pindang, sayur labu siam, dan kuah areh.",
+    generalIngredients: [
+      "Beras Gurih Santan",
+      "Ayam Opor Ingkung",
+      "Telur Pindang",
+      "Sayur Labu Siam & Ebi",
+      "Areh Santan Kuning & Putih"
+    ],
+
     ingredients: [
       {
         group: "Bahan Nasi Liwet Gurih",
@@ -490,6 +569,14 @@ export const mockRecipes: Recipe[] = [
     source: "BrilioFood",
     description:
       "Nasi liwet Solo versi rice cooker beraroma jahe dan pandan, disajikan bersama sayur lodeh labu siam udang rebon.",
+    generalIngredients: [
+      "Beras & Santan",
+      "Sayur Lodeh Labu Siam",
+      "Udang Rebon",
+      "Jahe & Pandan",
+      "Bumbu Bawang & Kemiri"
+    ],
+
     ingredients: [
       {
         group: "Bahan Nasi Gurih Jahe Pandan",

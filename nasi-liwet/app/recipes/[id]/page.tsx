@@ -56,6 +56,7 @@ async function RecipeDetailContent({ params }: RecipeDetailPageProps) {
             IngredientsItems: true,
           },
         },
+        Tags: true,
       },
     });
 
@@ -72,6 +73,7 @@ async function RecipeDetailContent({ params }: RecipeDetailPageProps) {
         servings: `${post.serving} porsi`,
         source: post.source || "Nasi Liwet Nusantara",
         description: post.description,
+        generalIngredients: post.Tags.map((t) => t.tagName),
         ingredients: post.Ingredients.map((g) => ({
           group: g.ingredientName,
           items: g.IngredientsItems.map((it) => it.itemsName),

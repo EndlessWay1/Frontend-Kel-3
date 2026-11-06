@@ -211,6 +211,34 @@
   line-height: 1.5;
 }
 
+.recipeIngredients {
+  margin-bottom: 14px;
+}
+
+.recipeIngredientsLabel {
+  color: #364025;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.recipeTagsList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ingredientTag {
+  color: #4a3024;
+  font-size: 12px;
+  padding: 2px 8px;
+  display: inline-block;
+  border-radius: 4px;
+  margin: 2px 4px 2px 0;
+  border: 1px solid #cfbb9a;
+  background-color: #ffffff;
+}
+
 .recipeCardFooter {
   margin-top: auto;
   align-items: center;
