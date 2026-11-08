@@ -33,8 +33,8 @@
 
 .preview { position: sticky; top: 100px; }
 .pv { background: var(--tan-light, #f7f2e8); border: 1px solid var(--tan-dark, #cfbb9a); border-radius: 20px; overflow: hidden; }
-.pvImgWrap { position: relative; height: 190px; background: #e9dfc8; display: grid; place-items: center; }
-.pvImg { width: 100%; height: 100%; object-fit: cover; }
+.pvImgWrap { position: relative; height: 190px; overflow: hidden; background: #e9dfc8; display: grid; place-items: center; }
+.pvImg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .badge { position: absolute; top: 12px; left: 12px; background: var(--kombu-dark, #364025); color: #fff; border-radius: 999px; padding: 4px 12px; font-size: 0.8rem; font-weight: 700; }
 .badgeAlt { left: auto; right: 12px; background: var(--spiced-mid, #bc5427); }
 .pvBody { padding: 18px; }
