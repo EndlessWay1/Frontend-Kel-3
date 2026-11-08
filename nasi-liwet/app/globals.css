@@ -1758,3 +1758,18 @@ body {
     transform: none;
   }
 }
+
+/* long words wrap inside the cards instead of stretching the layout */
+.detail-title,
+.detail-desc,
+.detail-pendukung-bar span,
+.ingredient-group-title,
+.ingredient-item,
+.method-step-text {
+  overflow-wrap: anywhere;
+}
+
+.detail-hero-card,
+.detail-section-card {
+  min-width: 0;
+}

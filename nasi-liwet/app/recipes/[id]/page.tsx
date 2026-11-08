@@ -57,6 +57,8 @@ async function RecipeDetailContent({ params }: RecipeDetailPageProps) {
           },
         },
         Tags: true,
+        // CHANGE 1: also look up whether this recipe has an uploaded photo
+        PostImage: { select: { id: true }, take: 1 },
       },
     });
 
@@ -68,7 +70,10 @@ async function RecipeDetailContent({ params }: RecipeDetailPageProps) {
         categoryLabel: post.category === "SUNDA" ? "Khas Sunda" : "Khas Solo",
         method: post.method === "RICECOOKER" ? "rice-cooker" : "tradisional",
         methodLabel: post.method === "RICECOOKER" ? "Rice Cooker" : "Tradisional",
-        image: post.image || "/recipes/pictures/Foto 1.jpg",
+        // CHANGE 2: use the uploaded photo when there is one
+        image: post.PostImage.length
+          ? `/api/recipes/${post.id}/image`
+          : post.image || "/recipes/pictures/Foto 1.jpg",
         time: `${post.duration} menit`,
         servings: `${post.serving} porsi`,
         source: post.source || "Nasi Liwet Nusantara",
