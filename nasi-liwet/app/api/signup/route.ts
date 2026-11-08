@@ -34,8 +34,6 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   const result = signUpSchema.safeParse(body);
 
-  console.log(result.error);
-
   if (!result.success) {
     return NextResponse.json(
       { error: "Invalid email, password, or confirm format." },

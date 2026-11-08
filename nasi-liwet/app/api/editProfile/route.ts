@@ -13,6 +13,7 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
+  
   const session = await getSession();
   if (!session) {
     return NextResponse.json(

@@ -162,7 +162,6 @@
 .verification-form input:focus {
   border-color: var(--kombu-light);
   background: white;
-  box-shadow: 0 0 0 4px rgba(128, 158, 92, 0.12);
 }
 
 /* Feedback */
