@@ -25,6 +25,15 @@ export async function signIn(email: string, password: string) {
     return {
       data: null,
       error: "Invalid email or password",
+      code: 401,
+    };
+  }
+
+  if (!user.emailVerified) {
+    return {
+      data: null,
+      error: "Please verify your email adress",
+      code: 403,
     };
   }
 
@@ -39,6 +48,7 @@ export async function signIn(email: string, password: string) {
       role: user.role,
     },
     error: null,
+    code: 200,
   };
 }
 
@@ -58,8 +68,6 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   const result = signInSchema.safeParse(body);
 
-  console.log(body);
-
   if (!result.success) {
     return NextResponse.json(
       { error: "Incorrect email or password, try again later." },
@@ -68,20 +76,30 @@ export async function POST(request: Request) {
   }
   const { email, password } = result.data;
 
-  const { data, error } = await signIn(email, password);
+  const { data, error, code } = await signIn(email, password);
 
-  if (error) {
+  if (error && code === 401) {
     return NextResponse.json(
       { error: "Incorrect email or password, try again later." },
-      { status: 401 },
+      { status: code },
     );
   }
 
-  return NextResponse.json({
-    success: true,
-    user: {
-      id: data!.id,
-      email: data!.email,
+  if (error && code === 403) {
+    return NextResponse.json(
+      { code: "EMAIL_NOT_VERIFIED", error: "Please verify your email adress." },
+      { status: code },
+    );
+  }
+
+  return NextResponse.json(
+    {
+      success: true,
+      user: {
+        id: data!.id,
+        email: data!.email,
+      },
     },
-  });
+    { status: 200 },
+  );
 }

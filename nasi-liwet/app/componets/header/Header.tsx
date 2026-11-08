@@ -3,22 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { linkNav } from "../../constant";
-import { useRouter } from "next/navigation";
 import { useCsrf } from "../../context/csrf/CsrfContext";
 import { useUser } from "../../hook/useUser";
 import "./header.css";
 
-type linkAttrType = {
-  onClick?: () => void;
-  href: string;
-  text: string;
-};
-
 function Header() {
-  const router = useRouter();
-
   const { user } = useUser();
-
   const { csrfToken } = useCsrf();
 
   const signOut = async () => {
@@ -37,7 +27,7 @@ function Header() {
         return;
       }
 
-      window.location.reload();
+      window.location.replace("/");
     } catch (error) {
       console.error("Sign-out request failed:", error);
     }
@@ -46,16 +36,14 @@ function Header() {
     <header id='header'>
       <nav className='navbar navbar-expand-md'>
         <div id='head-title'>
-          <Image src='/logo.png' alt='coffee' width={38} height={38} />
-          <Link href='/' style={{ textDecoration: "none" }}>
-            Nasi Liwet
-          </Link>
+          <Image src='/logo.png' alt='nasi liwet' width={38} height={38} />
+          <Link href='/'>NASI LIWET</Link>
         </div>
 
         {user && (
           <div id='user-title'>
             <h2>
-              Hello <span style={{ fontWeight: 700 }}>{user.name}</span>
+              Hello <span>{user.name}</span>
             </h2>
           </div>
         )}
@@ -74,31 +62,31 @@ function Header() {
         <div className='collapse navbar-collapse' id='navbarSupportedContent'>
           <ul className='navbar-nav'>
             {linkNav.map(({ id, target, name }) => {
-              const attribute: linkAttrType = {
-                href: target,
-                text: name,
-              };
-
-              if (id === 3 && user) {
-                attribute.onClick = function () {
-                  signOut();
-                  window.location.reload();
-                };
-                attribute.text = "Sign out";
-                attribute.href = "#";
-              }
-
               if (id === 6 && (!user || user.role !== "ADMIN")) {
-                return undefined;
+                return null;
               }
 
               if (id === 4 && !user) {
-                return undefined;
+                return null;
+              }
+
+              if (id === 3 && user) {
+                return (
+                  <li className='nav-item' key={id}>
+                    <button
+                      className='nav-signout'
+                      type='button'
+                      onClick={signOut}
+                    >
+                      Sign out
+                    </button>
+                  </li>
+                );
               }
 
               return (
                 <li className='nav-item' key={id}>
-                  <Link {...attribute}>{attribute.text}</Link>
+                  <Link href={target}>{name}</Link>
                 </li>
               );
             })}

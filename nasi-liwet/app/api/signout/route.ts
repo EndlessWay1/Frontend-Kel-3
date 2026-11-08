@@ -26,7 +26,6 @@ export async function POST(request: Request) {
     );
   }
   const sessionToken = createHash("sha256").update(token).digest("hex");
-  console.log(sessionToken);
   await prisma.session.update({
     where: {
       sessionToken,

@@ -15,10 +15,10 @@
 
 body {
   background-color: var(--moss-light);
-  min-height: 100vh;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  margin: 0;
 }
 
 #footer {
@@ -491,8 +491,6 @@ body {
   color: var(--kombu-dark);
   margin: 0;
 }
-
-
 
 @media (max-width: 991px) {
   .detail-hero-card {

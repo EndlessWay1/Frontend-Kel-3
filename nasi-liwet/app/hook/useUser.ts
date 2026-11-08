@@ -28,7 +28,6 @@ export function useUser() {
         if (!cancelled) {
           setUser(result.user);
         }
-        console.log(result.user);
       } catch {
         if (!cancelled) {
           setUser(null);
