@@ -7,18 +7,13 @@ type Mode = "signup" | "signin";
 
 function LoginSignUpCotent() {
   const [mode, setMode] = useState<Mode>("signin");
-
   const [email, setEmail] = useState<string>("");
-
   const [name, setName] = useState<string>("");
-
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-
   const [password, setPassword] = useState<string>("");
-
   const [valError, setValError] = useState<Record<string, string>>({});
-
   const [globalError, setGlobalError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const { csrfToken } = useCsrf();
 
@@ -27,133 +22,81 @@ function LoginSignUpCotent() {
     setGlobalError("");
   };
 
-  const validateEmail = (email: string) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      );
-  };
+  const validateEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  const onSubmitSignIn: NonNullable<
-    ComponentProps<"form">["onSubmit"]
-  > = async (e) => {
-    e.preventDefault();
-
-    clearError();
-
-    const validationError: Record<string, string> = {};
+  const validate = (signup: boolean) => {
+    const errors: Record<string, string> = {};
 
     if (!validateEmail(email)) {
-      validationError["email"] = "Please enter a valid email address.";
-      return;
+      errors.email = "Please enter a valid email address.";
     }
 
-    setValError(validationError);
-    if (Object.keys(valError).length !== 0) {
-      return;
+    if (signup && !name.trim()) {
+      errors.name = "Name is required.";
     }
+
+    if (!password) {
+      errors.password = "Password is required.";
+    } else if (signup && password.length < 8) {
+      errors.password = "Password must be at least 8 characters.";
+    }
+
+    if (signup && password !== confirmPassword) {
+      errors.confirmpassword = "Passwords do not match.";
+    }
+
+    setValError(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const submit = async (
+    e: Parameters<NonNullable<ComponentProps<"form">["onSubmit"]>>[0],
+    signup: boolean,
+  ) => {
+    e.preventDefault();
+    clearError();
+
+    if (!validate(signup)) return;
+
+    setLoading(true);
 
     try {
       console.log(csrfToken);
-      const response = await fetch("/api/signin", {
+      const response = await fetch(signup ? "/api/signup" : "/api/signin", {
         method: "POST",
         credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",
           "X-CSRF-Token": csrfToken,
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(
+          signup
+            ? { email, password, confirm: confirmPassword, name }
+            : { email, password },
+        ),
       });
 
       const result = await response.json();
 
       if (!response.ok) {
-        setGlobalError(result.error);
+        setGlobalError(result.error || "Something went wrong.");
         return;
       }
 
-      console.log(response);
+      window.location.replace("/");
 
       // Sign-in succeeded.
       // Redirect or refresh the UI as appropriate.
-    } catch (e: unknown) {
-      if (e instanceof Error) {
-        console.log(e.message);
-        setGlobalError("A network error occurred. Please try again.");
-        return;
-      }
+    } catch {
+      setGlobalError("A network error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
-    window.location.replace("/");
   };
 
-  const onSubmitSignUp: NonNullable<
-    ComponentProps<"form">["onSubmit"]
-  > = async (e) => {
-    e.preventDefault();
-    clearError();
+  const isSignup = mode === "signup";
 
-    const validationError: Record<string, string> = {};
-
-    if (!validateEmail(email)) {
-      validationError["email"] = "Please enter a valid email address.";
-      return;
-    }
-
-    if (name.length < 1) {
-      validationError["name"] = "Name is required.";
-    }
-
-    if (password.length < 1) {
-      validationError["password"] = "Password is required.";
-    } else if (password.length < 8) {
-      validationError["password"] = "Password must be more than 8 characters";
-    }
-
-    if (password !== confirmPassword) {
-      validationError["confirmpassword"] = "Password don't matched.";
-    }
-
-    setValError(validationError);
-
-    console.log(valError);
-
-    if (Object.keys(valError).length !== 0) {
-      return;
-    }
-
-    try {
-      console.log(csrfToken);
-      const response = await fetch("/api/signup", {
-        method: "POST",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": csrfToken,
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          confirm: confirmPassword,
-          name,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        setGlobalError(result.error);
-        return;
-      }
-    } catch (e: unknown) {
-      if (e instanceof Error) {
-        console.log(e.message);
-        setGlobalError("A network error occurred. Please try again.");
-        return;
-      }
-    }
-    window.location.replace("/");
-  };
 
   return (
     <div className='login-container'>

@@ -2,19 +2,27 @@ import { Spinner } from "react-bootstrap";
 
 function Spiner() {
   return (
-    <Spinner
+    <div
       style={{
-        display: "fixed",
-        top: "50%",
-        left: "50%",
-        fontWeight: "bold",
-        fontSize: "large",
-        transform: "translate(-50%,-50%)",
+        position: "fixed",
+        inset: 0,
+        top: "calc(50% - 20px)",
+        left: "calc(50% - 20px)",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex: 9999,
+        width: "40px",
+        height: "40px",
+        color: "var(--kombu-mid)",
+        borderWidth: "4px",
       }}
       role='status'
     >
-      <span className='visually-hidden'>Loading...</span>
-    </Spinner>
+      <Spinner animation='border' role='status'>
+        <span className='visually-hidden'>Loading...</span>
+      </Spinner>
+    </div>
   );
 }
 export default Spiner;
