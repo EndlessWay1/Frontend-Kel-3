@@ -49,7 +49,11 @@ export default function RecipesPage() {
     const matchesQuery =
       !query ||
       item.title.toLowerCase().includes(query) ||
-      item.description.toLowerCase().includes(query);
+      item.description.toLowerCase().includes(query) ||
+      (item.generalIngredients &&
+        item.generalIngredients.some((tag) =>
+          tag.toLowerCase().includes(query)
+        ));
 
     return matchesFilter && matchesQuery;
   });
@@ -139,6 +143,19 @@ export default function RecipesPage() {
 
                     <h3 className={styles.recipeTitle}>{recipe.title}</h3>
                     <p className={styles.recipeDesc}>{recipe.description}</p>
+
+                    {recipe.generalIngredients && recipe.generalIngredients.length > 0 && (
+                      <div className={styles.recipeIngredients}>
+                        <div className={styles.recipeIngredientsLabel}>Bahan Utama</div>
+                        <div className={styles.recipeTagsList}>
+                          {recipe.generalIngredients.map((tag, tagIndex) => (
+                            <span key={tagIndex} className={styles.ingredientTag}>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     <div className={styles.recipeCardFooter}>
                       <span className={styles.recipeSource}>

@@ -1,4 +1,3 @@
-import { createSession } from "@/lib/auth/session";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
@@ -35,8 +34,6 @@ export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
   const result = signUpSchema.safeParse(body);
 
-  console.log(result.error);
-
   if (!result.success) {
     return NextResponse.json(
       { error: "Invalid email, password, or confirm format." },
@@ -50,7 +47,7 @@ export async function POST(request: Request) {
 
   const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
   try {
-    const user = await prisma.user.create({
+    await prisma.user.create({
       data: {
         email,
         name,
@@ -58,17 +55,8 @@ export async function POST(request: Request) {
       },
     });
 
-    await createSession(user.id);
-
-    return NextResponse.json(
-      {
-        success: true,
-        user,
-      },
-      { status: 201 },
-    );
-  } catch (error) {
-    console.error(error);
+    return Response.json({ success: true }, { status: 200 });
+  } catch {
     return NextResponse.json(
       { error: "Unable to create account. Please try again." },
       { status: 400 },

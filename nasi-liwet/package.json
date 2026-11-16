@@ -19,6 +19,7 @@
     "bcryptjs": "^3.0.3",
     "bootstrap": "^5.3.8",
     "next": "^16.4.3",
+    "nodemailer": "^10.4.0",
     "react": "19.3.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "19.3.0",
