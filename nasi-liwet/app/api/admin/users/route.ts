@@ -1,10 +1,21 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/auth/session";
+
+async function requireAdmin() {
+  const session = await getSession();
+  if (!session || session.user.role !== "ADMIN") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  return null;
+}
 
 const userSelect = { id: true, name: true, email: true, role: true } as const;
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
   const users = await prisma.user.findMany({
     select: userSelect,
     orderBy: { createdAt: "asc" },
@@ -13,6 +24,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
   const { name, email, role, password } = await req.json();
 
   if (!name || !email || !password) {
