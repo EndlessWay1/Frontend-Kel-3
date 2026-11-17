@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useCsrf } from "../context/csrf/CsrfContext";
 import "./admin.css";
 
 type User = {
@@ -36,6 +37,7 @@ const emptyRecipe: Recipe = {
 };
 
 export default function AdminPage() {
+  const { csrfToken } = useCsrf();
   const [users, setUsers] = useState<User[]>([]);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
@@ -89,7 +91,10 @@ export default function AdminPage() {
       editing ? `/api/admin/users/${editing.id}` : "/api/admin/users",
       {
         method: editing ? "PATCH" : "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": csrfToken,
+        },
         body: JSON.stringify({
           ...userForm,
           name: userForm.name.trim(),
@@ -113,6 +118,7 @@ export default function AdminPage() {
 
     const res = await fetch(`/api/admin/users/${users[index].id}`, {
       method: "DELETE",
+      headers: { "X-CSRF-Token": csrfToken },
     });
 
     if (!res.ok) {
@@ -144,12 +150,16 @@ export default function AdminPage() {
 
     const res = await fetch(`/api/admin/recipes/${recipeForm.id}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": csrfToken,
+        },
       body: JSON.stringify({ ...recipeForm, title: recipeForm.title.trim() }),
     });
 
     if (!res.ok) {
-      alert("Could not save recipe.");
+      const data = await res.json().catch(() => ({}));
+      alert(data.error ?? "Could not save recipe.");
       return;
     }
 
@@ -162,10 +172,12 @@ export default function AdminPage() {
 
     const res = await fetch(`/api/admin/recipes/${recipes[index].id}`, {
       method: "DELETE",
+      headers: { "X-CSRF-Token": csrfToken },
     });
 
     if (!res.ok) {
-      alert("Could not delete recipe.");
+      const data = await res.json().catch(() => ({}));
+      alert(data.error ?? "Could not delete recipe.");
       return;
     }
     await loadData();
