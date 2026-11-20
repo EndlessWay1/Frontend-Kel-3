@@ -114,7 +114,6 @@ function ProfilePageComponent() {
             <span className='profile-role'>{user.role}</span>
           </div>
         </header>
-
         {/* Account Information */}
         <section className='profile-section'>
           <div className='section-heading'>
@@ -197,8 +196,7 @@ function ProfilePageComponent() {
             )}
           </form>
         </section>
-
-        {/* Activity Navigation
+        {/* Activity Navigation*/}
         <section className='profile-section'>
           <div className='section-heading'>
             <div>
@@ -211,7 +209,7 @@ function ProfilePageComponent() {
             <Link href='/profile/posts' className='profile-nav-card'>
               <div>
                 <h3>My Posts</h3>
-                <p>Manage your published posts and drafts.</p>
+                <p>Manage your published posts.</p>
               </div>
             </Link>
 
@@ -221,9 +219,8 @@ function ProfilePageComponent() {
                 <p>Revisit content you have saved.</p>
               </div>
             </Link>
-
           </div>
-        </section> */}
+        </section>
       </section>
     </main>
   );

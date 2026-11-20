@@ -31,8 +31,7 @@ export async function generateMetadata({ params }: RecipeDetailPageProps) {
         title: `Nasi Liwet: ${post.title}`,
       };
     }
-  } catch {
-  }
+  } catch {}
 
   return {
     title: "Nasi Liwet: Resep Tidak Ditemukan",
@@ -69,7 +68,8 @@ async function RecipeDetailContent({ params }: RecipeDetailPageProps) {
         category: post.category === "SUNDA" ? "sunda" : "solo",
         categoryLabel: post.category === "SUNDA" ? "Khas Sunda" : "Khas Solo",
         method: post.method === "RICECOOKER" ? "rice-cooker" : "tradisional",
-        methodLabel: post.method === "RICECOOKER" ? "Rice Cooker" : "Tradisional",
+        methodLabel:
+          post.method === "RICECOOKER" ? "Rice Cooker" : "Tradisional",
         // CHANGE 2: use the uploaded photo when there is one
         image: post.PostImage.length
           ? `/api/recipes/${post.id}/image`
@@ -92,11 +92,11 @@ async function RecipeDetailContent({ params }: RecipeDetailPageProps) {
 
   if (!recipe) {
     return (
-      <main className="recipes-wrapper">
-        <div className="recipes-empty my-5">
+      <main className='recipes-wrapper'>
+        <div className='recipes-empty my-5'>
           <h4>Resep tidak ditemukan</h4>
-          <p className="mb-3">Resep yang Anda tuju tidak tersedia.</p>
-          <Link href="/recipes" className="recipe-link-btn">
+          <p className='mb-3'>Resep yang Anda tuju tidak tersedia.</p>
+          <Link href='/recipes' className='recipe-link-btn'>
             Kembali ke Katalog Resep
           </Link>
         </div>
@@ -105,93 +105,98 @@ async function RecipeDetailContent({ params }: RecipeDetailPageProps) {
   }
 
   return (
-    <main className="recipes-wrapper">
-      <section className="detail-hero-card">
-        <div className="row align-items-center g-4">
-          <div className="col-12 col-lg-7">
-            <div className="d-flex gap-2 mb-2">
+    <main className='recipes-wrapper'>
+      <section className='detail-hero-card'>
+        <div className='row align-items-center g-4'>
+          <div className='col-12 col-lg-7'>
+            <div className='d-flex gap-2 mb-2'>
               <span
-                className="badge"
+                className='badge'
                 style={{ backgroundColor: "var(--kombu-dark)", color: "#fff" }}
               >
                 {recipe.categoryLabel}
               </span>
               <span
-                className="badge"
-                style={{ backgroundColor: "var(--spiced-light)", color: "#fff" }}
+                className='badge'
+                style={{
+                  backgroundColor: "var(--spiced-light)",
+                  color: "#fff",
+                }}
               >
                 {recipe.methodLabel}
               </span>
             </div>
 
-            <h1 className="detail-title">{recipe.title}</h1>
+            <h1 className='detail-title'>{recipe.title}</h1>
 
-            <div className="detail-pendukung-bar">
+            <div className='detail-pendukung-bar'>
               <span>Waktu: {recipe.time}</span>
               <span>Porsi: {recipe.servings}</span>
               <span>Sumber: {recipe.source}</span>
             </div>
 
-            <p className="detail-desc">{recipe.description}</p>
+            <p className='detail-desc'>{recipe.description}</p>
 
-            <div className="mt-4">
-              <Link href="/recipes" className="recipe-link-btn">
+            <div className='mt-4'>
+              <Link href='/recipes' className='recipe-link-btn'>
                 &larr; Kembali ke Katalog Resep
               </Link>
             </div>
           </div>
 
-          <div className="col-12 col-lg-5">
-            <div className="detail-img-wrap" style={{ position: "relative" }}>
+          <div className='col-12 col-lg-5'>
+            <div className='detail-img-wrap' style={{ position: "relative" }}>
               <Image
                 src={recipe.image}
                 alt={recipe.title}
                 fill
                 priority
-                sizes="(max-width: 991px) 100vw, 40vw"
-                className="detail-img"
+                sizes='(max-width: 991px) 100vw, 40vw'
+                className='detail-img'
               />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="row g-4 mt-1">
-        <div className="col-12 col-lg-5">
-          <div className="detail-section-card">
-            <div className="detail-section-title">
+      <section className='row g-4 mt-1'>
+        <div className='col-12 col-lg-5'>
+          <div className='detail-section-card'>
+            <div className='detail-section-title'>
               <span>Bahan-Bahan</span>
-              <span className="detail-servings-badge">{recipe.servings}</span>
+              <span className='detail-servings-badge'>{recipe.servings}</span>
             </div>
-            <div className="ingredients-list">
-              {recipe.ingredients.map((groupObj: IngredientGroup, i: number) => (
-                <div key={i}>
-                  <div className="ingredient-group-title">
-                    {groupObj.group}
+            <div className='ingredients-list'>
+              {recipe.ingredients.map(
+                (groupObj: IngredientGroup, i: number) => (
+                  <div key={i}>
+                    <div className='ingredient-group-title'>
+                      {groupObj.group}
+                    </div>
+                    <ul className='ingredient-list'>
+                      {groupObj.items.map((item: string, j: number) => (
+                        <li key={j} className='ingredient-item'>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="ingredient-list">
-                    {groupObj.items.map((item: string, j: number) => (
-                      <li key={j} className="ingredient-item">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           </div>
         </div>
 
-        <div className="col-12 col-lg-7">
-          <div className="detail-section-card">
-            <div className="detail-section-title">
+        <div className='col-12 col-lg-7'>
+          <div className='detail-section-card'>
+            <div className='detail-section-title'>
               <span>Langkah-Langkah Memasak</span>
             </div>
-            <div className="instructions-list">
+            <div className='instructions-list'>
               {recipe.instructions.map((step: string, i: number) => (
-                <div key={i} className="method-step-card">
-                  <span className="method-step-num">Langkah {i + 1}</span>
-                  <p className="method-step-text">{step}</p>
+                <div key={i} className='method-step-card'>
+                  <span className='method-step-num'>Langkah {i + 1}</span>
+                  <p className='method-step-text'>{step}</p>
                 </div>
               ))}
             </div>
@@ -199,8 +204,8 @@ async function RecipeDetailContent({ params }: RecipeDetailPageProps) {
         </div>
       </section>
 
-      <div className="detail-back-bar">
-        <Link href="/recipes" className="recipe-link-btn">
+      <div className='detail-back-bar'>
+        <Link href='/recipes' className='recipe-link-btn'>
           &larr; Kembali ke Semua Resep
         </Link>
       </div>
@@ -212,8 +217,8 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
   return (
     <Suspense
       fallback={
-        <main className="recipes-wrapper">
-          <div className="recipes-empty my-5">
+        <main className='recipes-wrapper'>
+          <div className='recipes-empty my-5'>
             <h4>Loading...</h4>
           </div>
         </main>

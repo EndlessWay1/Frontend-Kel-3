@@ -4,7 +4,9 @@ export interface IngredientGroup {
 }
 
 export interface Recipe {
+  favorite?: boolean;
   id: number | string;
+  userId?: string;
   title: string;
   category: "sunda" | "solo";
   method: "rice-cooker" | "tradisional";

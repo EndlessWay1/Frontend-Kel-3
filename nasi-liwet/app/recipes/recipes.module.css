@@ -167,8 +167,8 @@
 .recipeMethodBadge {
   font-size: 12px;
   position: absolute;
-  right: 10px;
-  top: 10px;
+  left: 10px;
+  bottom: 10px;
   background-color: #b86f3c;
   color: #ffffff;
   padding: 4px 8px;
@@ -184,6 +184,7 @@
 }
 
 .recipePendukung {
+  position: relative;
   font-weight: 600;
   display: flex;
   font-size: 13px;

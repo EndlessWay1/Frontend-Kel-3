@@ -44,6 +44,7 @@ model User {
   sessions          Session[]
   post              Post[]
   EmailVerification EmailVerification[]
+  favorites         Favorites[]
 }
 
 model EmailVerification {
@@ -90,6 +91,7 @@ model Post {
   PostImage   PostImage[]
   Tags        Tags[]
   Ingredients Ingredients[]
+  Favorites   Favorites[]
 }
 
 model PostImage {
@@ -134,4 +136,17 @@ model Tags {
   tagName String
   postId  String
   post    Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+}
+
+model Favorites {
+  id     String @id @default(cuid())
+  postId String
+  userId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+  @@index([userId])
+  @@index([postId])
 }
