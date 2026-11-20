@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Recipe } from "./recipesData";
 import styles from "./recipes.module.css";
+import { useUser } from "../hook/useUser";
+import { useCsrf } from "../context/csrf/CsrfContext";
 
 const filterOptions = [
   { label: "Semua Resep", value: "all" },
@@ -19,6 +21,8 @@ export default function RecipesPage() {
   const [loading, setLoading] = useState(true);
   const [currentFilter, setCurrentFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const { user } = useUser();
+  const { csrfToken } = useCsrf();
 
   useEffect(() => {
     async function fetchRecipes() {
@@ -52,11 +56,48 @@ export default function RecipesPage() {
       item.description.toLowerCase().includes(query) ||
       (item.generalIngredients &&
         item.generalIngredients.some((tag) =>
-          tag.toLowerCase().includes(query)
+          tag.toLowerCase().includes(query),
         ));
 
     return matchesFilter && matchesQuery;
   });
+
+  const toggleFavorite = async (
+    recipeId: string | number,
+    reject: boolean | undefined,
+  ) => {
+    if (!user) {
+      window.location.replace("/login");
+      return;
+    }
+
+    const previousRecipes = recipes;
+
+    setRecipes((prev) =>
+      prev.map((recipe) =>
+        recipe.id === recipeId ? { ...recipe, favorite: reject } : recipe,
+      ),
+    );
+
+    try {
+      const res = await fetch("/api/favorites", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": csrfToken,
+        },
+        body: JSON.stringify({ postId: recipeId, reject: !reject }),
+      });
+
+      if (!res.ok) {
+        setRecipes(previousRecipes);
+      }
+    } catch (err) {
+      console.error("Failed to toggle favorite:", err);
+      setRecipes(previousRecipes);
+    }
+  };
 
   return (
     <div className={styles.pageBackground}>
@@ -65,17 +106,18 @@ export default function RecipesPage() {
           <span className={styles.recipesHeadingTag}>Koleksi Resep</span>
           <h1 className={styles.recipesHeadingTitle}>Resep Nasi Liwet</h1>
           <p className={styles.recipesHeadingDesc}>
-            Daftar resep nasi liwet khas Sunda dan Solo dengan beragam pilihan cara memasak.
+            Daftar resep nasi liwet khas Sunda dan Solo dengan beragam pilihan
+            cara memasak.
           </p>
 
           <div className={styles.recipeSearchBox}>
             <input
-              type="text"
+              type='text'
               className={styles.recipeSearchInput}
-              placeholder="Cari resep, bahan, atau metode"
+              placeholder='Cari resep, bahan, atau metode'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              autoComplete="off"
+              autoComplete='off'
             />
           </div>
         </section>
@@ -85,7 +127,7 @@ export default function RecipesPage() {
             {filterOptions.map((opt) => (
               <button
                 key={opt.value}
-                type="button"
+                type='button'
                 className={`${styles.filterBtn} ${
                   currentFilter === opt.value ? styles.filterBtnActive : ""
                 }`}
@@ -122,7 +164,7 @@ export default function RecipesPage() {
                       src={recipe.image}
                       alt={recipe.title}
                       fill
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw'
                       priority={index < 3}
                       className={styles.recipeImg}
                     />
@@ -132,6 +174,24 @@ export default function RecipesPage() {
                     <span className={styles.recipeMethodBadge}>
                       {recipe.methodLabel}
                     </span>
+                    <button
+                      style={{
+                        fontSize: "250%",
+                        color: "yellow",
+                        zIndex: 10,
+                        position: "absolute",
+                        right: "10px",
+                        top: "10px",
+                        transform: "translate(0, -20%)",
+                        border: "none",
+                        background: "transparent",
+                      }}
+                      onClick={() =>
+                        toggleFavorite(recipe.id, !recipe.favorite)
+                      }
+                    >
+                      {recipe.favorite ? "★" : "☆"}
+                    </button>
                   </div>
 
                   <div className={styles.recipeCardBody}>
@@ -144,18 +204,24 @@ export default function RecipesPage() {
                     <h3 className={styles.recipeTitle}>{recipe.title}</h3>
                     <p className={styles.recipeDesc}>{recipe.description}</p>
 
-                    {recipe.generalIngredients && recipe.generalIngredients.length > 0 && (
-                      <div className={styles.recipeIngredients}>
-                        <div className={styles.recipeIngredientsLabel}>Bahan Utama</div>
-                        <div className={styles.recipeTagsList}>
-                          {recipe.generalIngredients.map((tag, tagIndex) => (
-                            <span key={tagIndex} className={styles.ingredientTag}>
-                              {tag}
-                            </span>
-                          ))}
+                    {recipe.generalIngredients &&
+                      recipe.generalIngredients.length > 0 && (
+                        <div className={styles.recipeIngredients}>
+                          <div className={styles.recipeIngredientsLabel}>
+                            Bahan Utama
+                          </div>
+                          <div className={styles.recipeTagsList}>
+                            {recipe.generalIngredients.map((tag, tagIndex) => (
+                              <span
+                                key={tagIndex}
+                                className={styles.ingredientTag}
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
 
                     <div className={styles.recipeCardFooter}>
                       <span className={styles.recipeSource}>
