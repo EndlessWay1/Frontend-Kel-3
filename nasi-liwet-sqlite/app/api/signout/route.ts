@@ -4,18 +4,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { createHash } from "node:crypto";
 
-export async function POST(request: Request) {
-  const forwardedFor = request.headers.get("x-forwarded-for");
-  const ip =
-    request.headers.get("x-real-ip") ?? forwardedFor?.split(",")[0]?.trim();
-
-  if (!ip) {
-    return NextResponse.json(
-      { error: "Unable to process request." },
-      { status: 400 },
-    );
-  }
-
+export async function POST() {
   const cookieStore = await cookies();
   const token = cookieStore.get("session")?.value;
 

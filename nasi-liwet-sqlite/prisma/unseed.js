@@ -1,4 +1,5 @@
 // Script untuk menghapus semua data resep dari database (tanpa menghapus akun user)
+require("dotenv/config");
 const { PrismaClient } = require("../lib/generated/prisma");
 
 const prisma = new PrismaClient();

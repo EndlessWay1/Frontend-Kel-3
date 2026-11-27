@@ -37,17 +37,6 @@ function validateCode(pin: string, hashToken: string) {
 }
 
 export async function POST(request: NextRequest) {
-  const forwardedFor = request.headers.get("x-forwarded-for");
-  const ip =
-    request.headers.get("x-real-ip") ?? forwardedFor?.split(",")[0]?.trim();
-
-  if (!ip) {
-    return Response.json(
-      { error: "Unable to process request." },
-      { status: 400 },
-    );
-  }
-
   // Parse and validate untrusted input
   const body = await request.json().catch(() => null);
 

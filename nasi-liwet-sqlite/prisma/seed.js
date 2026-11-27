@@ -1,4 +1,5 @@
 // Script untuk seed data resep awal ke database Prisma
+require("dotenv/config");
 const { PrismaClient } = require("../lib/generated/prisma");
 
 const prisma = new PrismaClient();

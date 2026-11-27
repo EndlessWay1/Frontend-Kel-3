@@ -135,7 +135,7 @@ function LoginSignUpCotent() {
         return;
       }
 
-      if (!signup) {
+      if (!signup || result.verified) {
         window.location.replace("/");
         return;
       }

@@ -2,6 +2,14 @@ import "server-only";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import type { NextRequest } from "next/server";
 
+export function getCsrfCookieConfig() {
+  const isHttps = process.env.APP_URL?.startsWith("https://") ?? false;
+  return {
+    name: isHttps ? "__Host-csrf" : "csrf",
+    secure: isHttps,
+  };
+}
+
 export function validateCsrf(request: NextRequest): boolean {
   const origin = request.headers.get("origin");
   const appUrl = process.env.APP_URL;
@@ -16,7 +24,8 @@ export function validateCsrf(request: NextRequest): boolean {
     return false;
   }
 
-  const cookieToken = request.cookies.get("__Host-csrf")?.value;
+  const { name: cookieName } = getCsrfCookieConfig();
+  const cookieToken = request.cookies.get(cookieName)?.value;
   const headerToken = request.headers.get("x-csrf-token");
 
   if (!cookieToken || !headerToken) {

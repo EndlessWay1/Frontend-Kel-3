@@ -3,17 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const forwardedFor = request.headers.get("x-forwarded-for");
-  const ip =
-    request.headers.get("x-real-ip") ?? forwardedFor?.split(",")[0]?.trim();
-
-  if (!ip) {
-    return Response.json(
-      { error: "Unable to process request." },
-      { status: 400 },
-    );
-  }
-
   const session = await getSession();
 
   if (!session) {
@@ -63,18 +52,7 @@ export async function POST(request: NextRequest) {
   );
 }
 
-export async function GET(request: NextRequest) {
-  const forwardedFor = request.headers.get("x-forwarded-for");
-  const ip =
-    request.headers.get("x-real-ip") ?? forwardedFor?.split(",")[0]?.trim();
-
-  if (!ip) {
-    return Response.json(
-      { error: "Unable to process request." },
-      { status: 400 },
-    );
-  }
-
+export async function GET() {
   const session = await getSession();
 
   if (!session) {
